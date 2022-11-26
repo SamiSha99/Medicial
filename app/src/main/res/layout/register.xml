@@ -133,7 +133,9 @@
         android:layout_marginBottom="20dp"
         android:padding="10dp"
         android:text="Register"
-
+        android:textSize="17dp"
+        android:textColor="@color/white"
+        android:background="@drawable/btn"
         />
 
 </RelativeLayout>

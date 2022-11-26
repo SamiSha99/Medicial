@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/txtv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add new reminder"
+        android:background="@color/primary"
+        android:textSize="35dp"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        />
+
+    <EditText
+        android:id="@+id/edt_numofmedicine"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Number of medicine"
+        android:paddingTop="20dp"
+        android:paddingStart="20dp"
+        android:layout_below="@id/edt_medicineName"
+        />
+
+    <EditText
+        android:id="@+id/edt_medicineName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtv_title"
+        android:layout_marginTop="-2dp"
+        android:hint="Medicine name"
+        android:paddingStart="20dp"
+        android:paddingTop="50dp" />
+
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/edt_numofmedicine"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        android:background="@drawable/btn"/>
+
+
+</RelativeLayout>
