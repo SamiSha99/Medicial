@@ -1,51 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/ic_login_wave"
+    >
 
     <TextView
-        android:id="@+id/TX1"
+        android:id="@+id/txtv_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@id/TX1"
+
+        android:layout_alignTop="@id/txtv_login"
         android:gravity="center"
+
         android:text="Login"
         android:textSize="50dp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:textColor="@color/black"
 
-    <EditText
-        android:id="@+id/Ed1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="User name"
-        android:layout_below="@id/TX1"
-        android:layout_margin="10dp"
-        android:padding="20dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
         />
 
     <EditText
-        android:id="@+id/Ed2"
+        android:id="@+id/edt_username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Password"
-        android:layout_below="@id/Ed1"
-        android:layout_margin="10dp"
+
+        android:layout_below="@id/txtv_login"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+
+        android:hint="User name"
+        android:inputType="text"
+
+        android:drawableStart="@drawable/ic_user"
+        android:drawablePadding="5dp"
         android:padding="20dp"
+        android:paddingStart="5dp"
+        />
 
+    <EditText
+        android:id="@+id/edt_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
 
+        android:layout_below="@id/edt_username"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
 
+        android:hint="Password"
+        android:inputType="textPassword"
+
+        android:drawableStart="@drawable/ic_password"
+        android:drawablePadding="5dp"
+        android:padding="20dp"
+        android:paddingStart="5dp"
         />
 
     <Button
-        android:id="@+id/login"
+        android:id="@+id/btn_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Login"
-        android:layout_below="@id/Ed2"
+
+        android:layout_below="@id/edt_password"
         android:layout_margin="20dp"
         android:padding="10dp"
+
+        android:text="Login"
         />
 
-
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btn_login"
+        android:layout_marginTop="-14dp"
+        android:gravity="center"
+        android:text="Forget your password ?"
+        android:textSize="20dp" />
 
 </RelativeLayout>
