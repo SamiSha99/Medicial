@@ -5,7 +5,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class Add_Activity extends AppCompatActivity {
+public class AddMedicineActivity extends AppCompatActivity {
     TextView textViewDate ;
 
     @Override

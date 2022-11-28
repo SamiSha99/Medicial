@@ -1,141 +1,140 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/ic_bg_log_reg">
 
     <TextView
         android:id="@+id/txtv_register"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         android:layout_alignTop="@id/txtv_register"
         android:gravity="center"
-
         android:text="Register"
         android:textSize="50dp"
         android:textStyle="bold"
-        android:textColor="@color/black"
-
+        android:textColor="@color/white"
         android:paddingTop="20dp"
         android:paddingBottom="20dp"
         />
+
+    <View
+        android:layout_above="@id/username"
+        android:layout_width="420dp"
+        android:layout_height="2dp"
+        android:background="@color/white"
+        android:layout_marginTop="270dp"
+        android:layout_marginLeft="20dp"
+        android:layout_centerInParent="true"/>
 
     <EditText
         android:id="@+id/username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         android:layout_below="@id/txtv_register"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
-
         android:hint="User name"
+        android:textColorHint="@color/white"
         android:inputType="text"
         android:padding="20dp"
-
         android:drawableStart="@drawable/ic_user"
         android:drawablePadding="5dp"
         android:paddingStart="5dp"
+        android:backgroundTint="@color/white"
         />
 
     <EditText
         android:id="@+id/email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         android:layout_below="@id/username"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
         android:padding="20dp"
-
         android:hint="E-mail"
+        android:textColorHint="@color/white"
         android:inputType="textEmailAddress"
-
         android:drawableStart="@drawable/ic_email"
         android:drawablePadding="5dp"
         android:paddingStart="5dp"
+        android:backgroundTint="@color/white"
         />
 
     <EditText
         android:id="@+id/password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         android:layout_below="@id/email"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
         android:padding="20dp"
-
         android:hint="Password"
+        android:textColorHint="@color/white"
         android:inputType="textPassword"
-
         android:drawableStart="@drawable/ic_password"
         android:drawablePadding="5dp"
         android:paddingStart="5dp"
+        android:backgroundTint="@color/white"
         />
 
     <EditText
         android:id="@+id/c_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         android:layout_below="@id/password"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
-
         android:hint="Confirm password"
+        android:textColorHint="@color/white"
         android:inputType="textPassword"
         android:padding="20dp"
-
         android:drawableStart="@drawable/ic_password"
         android:drawablePadding="5dp"
         android:paddingStart="5dp"
+        android:backgroundTint="@color/white"
         />
 
     <EditText
         android:id="@+id/age"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         android:layout_below="@id/c_password"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
-
         android:hint="Age"
+        android:textColorHint="@color/white"
         android:inputType="number"
         android:padding="20dp"
-
         android:drawableStart="@drawable/ic_age"
         android:drawablePadding="5dp"
         android:paddingStart="5dp"
+        android:backgroundTint="@color/white"
         />
 
     <Button
         android:id="@+id/btn_register"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
-        android:layout_below="@id/age"
-
         android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
         android:padding="10dp"
         android:text="Register"
-        android:textSize="17dp"
-        android:textColor="@color/white"
+        android:textSize="20dp"
+        android:textColor="@color/primary"
         android:background="@drawable/btn"
+        android:layout_alignParentBottom="true"
         />
 
 </RelativeLayout>
