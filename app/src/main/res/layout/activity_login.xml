@@ -7,17 +7,15 @@
 
     <TextView
         android:id="@+id/txtv_login"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@id/txtv_login"
-        android:gravity="center"
+        android:layout_centerHorizontal="true"
         android:text="Login"
         android:textSize="50dp"
         android:textStyle="bold"
         android:textColor="@color/white"
-        android:paddingTop="20dp"
-        android:paddingBottom="20dp"
-        />
+        android:paddingTop="20dp"/>
 
     <View
         android:layout_above="@id/edt_username"
@@ -37,16 +35,15 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
-        android:hint="User name"
-        android:inputType="text"
-        android:textColorHint="@color/white"
         android:drawableStart="@drawable/ic_user"
         android:drawablePadding="5dp"
         android:padding="20dp"
         android:paddingStart="5dp"
-        android:backgroundTint="@color/white"
-        android:textColor="@color/white"
-        />
+        android:background="@drawable/custom_edt_shape"
+        android:inputType="text"
+        android:hint="User name"
+        android:textColorHint="@color/white"
+        android:textColor="@color/white"/>
 
     <EditText
         android:id="@+id/edt_password"
@@ -59,14 +56,13 @@
         android:layout_marginBottom="10dp"
         android:drawableStart="@drawable/ic_password"
         android:drawablePadding="5dp"
-        android:hint="Password"
-        android:textColorHint="@color/white"
-        android:inputType="textPassword"
         android:padding="20dp"
         android:paddingStart="5dp"
-        android:backgroundTint="@color/white"
-        android:textColor="@color/white"
-        />
+        android:inputType="textPassword"
+        android:hint="Password"
+        android:textColorHint="@color/white"
+        android:background="@drawable/custom_edt_shape"
+        android:textColor="@color/white"/>
 
     <Button
         android:id="@+id/btn_login"
@@ -81,32 +77,42 @@
         android:text="Login"
         android:textSize="20dp"
         android:textColor="@color/primary"
-        android:background="@drawable/btn"
-        />
+        android:background="@drawable/custom_btn_shape1"/>
 
-    <TextView
-        android:layout_width="match_parent"
+    <Button
+        android:id="@+id/btn_forgetPass"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/btn_login"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="-14dp"
-        android:gravity="center"
         android:text="Forget your password ?"
         android:textSize="20dp"
         android:textColor="@color/white"
-        />
+        android:background="@null"
+        android:textAllCaps="false"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/btn_createAccount"
+        android:layout_centerHorizontal="true"
+        android:text="You don't have an account ?"
+        android:textSize="20dp"
+        android:textColor="@color/black"
+
+        />
     <Button
         android:id="@+id/btn_createAccount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Create new account ?"
+        android:text="Create new account"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:textSize="20dp"
-        android:paddingVertical="25dp"
+        android:textSize="15dp"
+        android:paddingBottom="20dp"
         android:textColor="@color/primary"
         android:background="@null"
-        android:textAllCaps="false"
-        />
+        android:textAllCaps="false"/>
 
 </RelativeLayout>

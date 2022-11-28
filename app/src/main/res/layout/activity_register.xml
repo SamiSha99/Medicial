@@ -6,17 +6,14 @@
 
     <TextView
         android:id="@+id/txtv_register"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@id/txtv_register"
-        android:gravity="center"
+        android:layout_centerHorizontal="true"
         android:text="Register"
         android:textSize="50dp"
         android:textStyle="bold"
         android:textColor="@color/white"
-        android:paddingTop="20dp"
-        android:paddingBottom="20dp"
-        />
+        android:paddingTop="20dp"/>
 
     <View
         android:layout_above="@id/username"
@@ -38,12 +35,13 @@
         android:layout_marginBottom="10dp"
         android:hint="User name"
         android:textColorHint="@color/white"
+        android:textColor="@color/white"
         android:inputType="text"
         android:padding="20dp"
         android:drawableStart="@drawable/ic_user"
         android:drawablePadding="5dp"
         android:paddingStart="5dp"
-        android:backgroundTint="@color/white"
+        android:background="@drawable/custom_edt_shape"
         />
 
     <EditText
@@ -58,11 +56,12 @@
         android:padding="20dp"
         android:hint="E-mail"
         android:textColorHint="@color/white"
+        android:textColor="@color/white"
         android:inputType="textEmailAddress"
         android:drawableStart="@drawable/ic_email"
         android:drawablePadding="5dp"
         android:paddingStart="5dp"
-        android:backgroundTint="@color/white"
+        android:background="@drawable/custom_edt_shape"
         />
 
     <EditText
@@ -77,11 +76,12 @@
         android:padding="20dp"
         android:hint="Password"
         android:textColorHint="@color/white"
+        android:textColor="@color/white"
         android:inputType="textPassword"
         android:drawableStart="@drawable/ic_password"
         android:drawablePadding="5dp"
         android:paddingStart="5dp"
-        android:backgroundTint="@color/white"
+        android:background="@drawable/custom_edt_shape"
         />
 
     <EditText
@@ -95,12 +95,13 @@
         android:layout_marginBottom="10dp"
         android:hint="Confirm password"
         android:textColorHint="@color/white"
+        android:textColor="@color/white"
         android:inputType="textPassword"
         android:padding="20dp"
         android:drawableStart="@drawable/ic_password"
         android:drawablePadding="5dp"
         android:paddingStart="5dp"
-        android:backgroundTint="@color/white"
+        android:background="@drawable/custom_edt_shape"
         />
 
     <EditText
@@ -114,12 +115,13 @@
         android:layout_marginBottom="10dp"
         android:hint="Age"
         android:textColorHint="@color/white"
+        android:textColor="@color/white"
         android:inputType="number"
         android:padding="20dp"
         android:drawableStart="@drawable/ic_age"
         android:drawablePadding="5dp"
         android:paddingStart="5dp"
-        android:backgroundTint="@color/white"
+        android:background="@drawable/custom_edt_shape"
         />
 
     <Button
@@ -133,7 +135,7 @@
         android:text="Register"
         android:textSize="20dp"
         android:textColor="@color/primary"
-        android:background="@drawable/btn"
+        android:background="@drawable/custom_btn_shape1"
         android:layout_alignParentBottom="true"
         />
 
