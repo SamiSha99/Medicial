@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
                 Call_Login_Activity(view);
             }
 
-            public  void Call_Login_Activity(View view){
+            public void Call_Login_Activity(View view){
                 Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(intent);
             }
