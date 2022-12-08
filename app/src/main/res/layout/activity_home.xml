@@ -34,8 +34,165 @@
         android:paddingStart="30dp"
 
         />
+
+    <TextView
+        android:id="@+id/txtv_medName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Medicine name"
+        android:layout_below="@+id/txtv_container"
+        android:paddingTop="10dp"
+        android:paddingStart="20dp"
+        />
+
+    <TextView
+        android:id="@+id/txtv_medAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Medicine amount"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/txtv_container"
+        android:paddingTop="10dp"
+        android:paddingEnd="20dp"
+        />
+    <TextView
+        android:id="@+id/txtv_remTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Reminder time"
+        android:paddingTop="10dp"
+        android:paddingStart="20dp"
+        android:layout_below="@id/txtv_medName"
+        android:paddingEnd="20dp"
+        android:paddingBottom="10dp"
+        />
+
+    <TextView
+        android:id="@+id/txtv_dayOfWeek"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Day of the week"
+        android:layout_below="@+id/txtv_medAmount"
+        android:layout_alignParentRight="true"
+        android:paddingEnd="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        />
+    //*******
+
+    <View
+        android:layout_width="420dp"
+        android:layout_height="2dp"
+        android:layout_above="@id/txtv1_medName"
+        android:layout_centerInParent="true"
+
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="270dp"
+        android:background="@color/primary" />
+    //***********
+
+    <TextView
+        android:id="@+id/txtv1_medName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Medicine name"
+        android:layout_below="@+id/txtv_remTime"
+        android:paddingTop="10dp"
+        android:paddingStart="20dp"
+        />
+
+    <TextView
+        android:id="@+id/txtv1_medAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Medicine amount"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/txtv_dayOfWeek"
+        android:paddingTop="10dp"
+        android:paddingEnd="20dp"
+        />
+    <TextView
+        android:id="@+id/txtv1_remTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Reminder time"
+        android:paddingTop="10dp"
+        android:paddingStart="20dp"
+        android:layout_below="@id/txtv1_medName"
+        android:paddingEnd="20dp"
+        android:paddingBottom="10dp"
+        />
+
+    <TextView
+        android:id="@+id/txtv1_dayOfWeek"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Day of the week"
+        android:layout_below="@+id/txtv1_medAmount"
+        android:layout_alignParentRight="true"
+        android:paddingEnd="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        />
+
+    //*******
+
+    <View
+        android:layout_width="420dp"
+        android:layout_height="2dp"
+        android:layout_above="@id/txtv2_medName"
+
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="270dp"
+        android:background="@color/primary" />
+    //***********
+
+    <TextView
+        android:id="@+id/txtv2_medName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Panadol"
+        android:layout_below="@+id/txtv1_remTime"
+        android:paddingTop="10dp"
+        android:paddingStart="20dp"
+        />
+
+    <TextView
+        android:id="@+id/txtv2_medAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="10"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/txtv1_dayOfWeek"
+        android:paddingTop="10dp"
+        android:paddingEnd="20dp"
+        />
+    <TextView
+        android:id="@+id/txtv2_remTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="10 : 30 AM"
+        android:paddingTop="10dp"
+        android:paddingStart="20dp"
+        android:layout_below="@id/txtv2_medName"
+        android:paddingEnd="20dp"
+        />
+
+    <TextView
+        android:id="@+id/txtv2_dayOfWeek"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="M W F"
+        android:layout_below="@+id/txtv2_medAmount"
+        android:layout_alignParentRight="true"
+        android:paddingEnd="20dp"
+        android:paddingTop="10dp"
+        />
+
+
     <Button
-        android:id="@+id/btn_addMedicine"
+        android:id="@+id/btn_addReminder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"

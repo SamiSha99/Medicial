@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary">
+
+    <TextView
+        android:id="@+id/txtv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:text="NEW REMINDER"
+        android:background="@color/primary"
+        android:textSize="35dp"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        />
+
+    <View
+        android:layout_width="420dp"
+        android:layout_height="2dp"
+        android:layout_above="@id/btn_addmed"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="270dp"
+        android:background="@color/white" />
+
+    <Button
+        android:id="@+id/btn_addmed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="6dp"
+        android:layout_below="@id/txtv_title"
+        android:layout_alignParentLeft="true"
+        android:width="175dp"
+        android:text="Add medicine"
+        android:textColor="@color/primary"
+        android:backgroundTint="@color/white"
+        />
+
+    <Button
+        android:id="@+id/btn_settime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtv_title"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginRight="9dp"
+        android:layout_marginBottom="6dp"
+        android:width="175dp"
+        android:backgroundTint="@color/white"
+        android:text="Set alert time"
+        android:textColor="@color/primary" />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainerView"
+        android:name="com.example.medicial.AddMedicineFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/btn_addmed"
+        tools:layout="@layout/fragment_add_medicine" />
+
+</RelativeLayout>
