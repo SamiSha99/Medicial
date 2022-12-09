@@ -16,7 +16,7 @@
         android:paddingTop="20dp"/>
 
     <View
-        android:layout_above="@id/username"
+        android:layout_above="@id/firstName"
         android:layout_width="420dp"
         android:layout_height="2dp"
         android:background="@color/white"
@@ -25,7 +25,7 @@
         android:layout_centerInParent="true"/>
 
     <EditText
-        android:id="@+id/username"
+        android:id="@+id/firstName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/txtv_register"
@@ -33,7 +33,27 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
-        android:hint="User name"
+        android:hint="First name"
+        android:textColorHint="@color/white"
+        android:textColor="@color/white"
+        android:inputType="text"
+        android:padding="20dp"
+        android:drawableStart="@drawable/ic_user"
+        android:drawablePadding="5dp"
+        android:paddingStart="5dp"
+        android:background="@drawable/custom_edt_shape"
+        />
+
+    <EditText
+        android:id="@+id/lasttName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/firstName"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:hint="Last name"
         android:textColorHint="@color/white"
         android:textColor="@color/white"
         android:inputType="text"
@@ -48,7 +68,7 @@
         android:id="@+id/email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/username"
+        android:layout_below="@id/lasttName"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
@@ -104,26 +124,6 @@
         android:background="@drawable/custom_edt_shape"
         />
 
-    <EditText
-        android:id="@+id/age"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/c_password"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        android:hint="Age"
-        android:textColorHint="@color/white"
-        android:textColor="@color/white"
-        android:inputType="number"
-        android:padding="20dp"
-        android:drawableStart="@drawable/ic_age"
-        android:drawablePadding="5dp"
-        android:paddingStart="5dp"
-        android:background="@drawable/custom_edt_shape"
-        />
-
     <Button
         android:id="@+id/btn_register"
         android:layout_width="match_parent"
@@ -137,6 +137,7 @@
         android:textColor="@color/primary"
         android:background="@drawable/custom_btn_shape1"
         android:layout_alignParentBottom="true"
+        android:onClick="Register"
         />
 
 </RelativeLayout>

@@ -17,22 +17,11 @@
         android:id="@+id/txtv_wlc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Welcome back"
+        android:text="Home"
         android:textSize="20dp"
         android:textColor="@color/white"
         android:paddingTop="10dp"
         android:paddingStart="10dp"
-        />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Username"
-        android:textColor="@color/white"
-        android:textSize="20dp"
-        android:layout_below="@id/txtv_wlc"
-        android:paddingStart="30dp"
-
         />
 
     <TextView
