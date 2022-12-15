@@ -1,36 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/ic_bg_wave"
+    android:background="@color/primary"
     android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/imgv_logo"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:layout_marginTop="150dp"
+        android:layout_centerHorizontal="true"
+        app:srcCompat="@drawable/logo"/>
 
     <TextView
         android:id="@+id/txtv_medicial"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:paddingTop="100dp"
+        android:layout_below="@id/imgv_logo"
         android:text="MEDICIAL"
-        android:textSize="70dp"
-        android:textStyle="bold"
-        android:textColor="@color/white" />
+        android:textSize="70sp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/black_ops_one"/>
 
-    <Button
-        android:id="@+id/btn_start"
+    <TextView
+        android:id="@+id/version"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="105dp"
-        android:layout_marginEnd="105dp"
-        android:layout_marginBottom="100dp"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/custom_btn_shape"
-        android:text="Get Started"
-        android:textColor="@color/white"
-        android:textSize="20dp"
-        android:onClick="Call_Login_Activity"/>
+        android:layout_marginBottom="10dp"
+        android:text=""
+        android:textSize="10sp"
+        android:textColor="@color/white"/>
 
 </RelativeLayout>

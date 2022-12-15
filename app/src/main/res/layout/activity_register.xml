@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/ic_bg_reg">
+    android:background="@drawable/ic_bg_log_reg">
 
     <TextView
         android:id="@+id/txtv_register"
@@ -16,16 +16,16 @@
         android:paddingTop="20dp"/>
 
     <View
-        android:layout_above="@id/firstName"
         android:layout_width="420dp"
         android:layout_height="2dp"
+        android:layout_above="@id/edt_reg_firstName"
         android:background="@color/white"
         android:layout_marginTop="270dp"
         android:layout_marginLeft="20dp"
         android:layout_centerInParent="true"/>
 
     <EditText
-        android:id="@+id/firstName"
+        android:id="@+id/edt_reg_firstName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/txtv_register"
@@ -41,34 +41,32 @@
         android:drawableStart="@drawable/ic_user"
         android:drawablePadding="5dp"
         android:paddingStart="5dp"
-        android:background="@drawable/custom_edt_shape"
-        />
+        android:background="@drawable/custom_edt_shape"/>
 
     <EditText
-        android:id="@+id/lasttName"
+        android:id="@+id/edt_reg_lastName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/firstName"
+        android:layout_below="@id/edt_reg_firstName"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="17dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
-        android:hint="Last name"
-        android:textColorHint="@color/white"
-        android:textColor="@color/white"
-        android:inputType="text"
-        android:padding="20dp"
+        android:background="@drawable/custom_edt_shape"
         android:drawableStart="@drawable/ic_user"
         android:drawablePadding="5dp"
+        android:hint="Last name"
+        android:inputType="text"
+        android:padding="20dp"
         android:paddingStart="5dp"
-        android:background="@drawable/custom_edt_shape"
-        />
+        android:textColor="@color/white"
+        android:textColorHint="@color/white" />
 
     <EditText
-        android:id="@+id/email"
+        android:id="@+id/edt_reg_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/lasttName"
+        android:layout_below="@id/edt_reg_lastName"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
@@ -81,14 +79,13 @@
         android:drawableStart="@drawable/ic_email"
         android:drawablePadding="5dp"
         android:paddingStart="5dp"
-        android:background="@drawable/custom_edt_shape"
-        />
+        android:background="@drawable/custom_edt_shape"/>
 
     <EditText
-        android:id="@+id/password"
+        android:id="@+id/edt_reg_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/email"
+        android:layout_below="@id/edt_reg_email"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
@@ -101,14 +98,13 @@
         android:drawableStart="@drawable/ic_password"
         android:drawablePadding="5dp"
         android:paddingStart="5dp"
-        android:background="@drawable/custom_edt_shape"
-        />
+        android:background="@drawable/custom_edt_shape"/>
 
     <EditText
-        android:id="@+id/c_password"
+        android:id="@+id/edt_reg_repassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/password"
+        android:layout_below="@id/edt_reg_password"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
@@ -121,8 +117,7 @@
         android:drawableStart="@drawable/ic_password"
         android:drawablePadding="5dp"
         android:paddingStart="5dp"
-        android:background="@drawable/custom_edt_shape"
-        />
+        android:background="@drawable/custom_edt_shape"/>
 
     <Button
         android:id="@+id/btn_register"
@@ -137,7 +132,6 @@
         android:textColor="@color/primary"
         android:background="@drawable/custom_btn_shape1"
         android:layout_alignParentBottom="true"
-        android:onClick="Register"
-        />
+        android:onClick="Register"/>
 
 </RelativeLayout>

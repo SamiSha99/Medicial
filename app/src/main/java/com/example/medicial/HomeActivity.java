@@ -1,16 +1,30 @@
 package com.example.medicial;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
+import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.Button;
 
-public class HomeActivity extends AppCompatActivity{
 
-    Button btn_Call_AddMedicine_Activity;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.appcompat.widget.Toolbar;
+
+import com.google.android.material.navigation.NavigationView;
+
+public class HomeActivity extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener{
+
+    DrawerLayout drawerLayout;
+    NavigationView navigationView;
+    Toolbar toolbar;
+
+    Button btn_Call_Home_Activity;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,17 +34,45 @@ public class HomeActivity extends AppCompatActivity{
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        btn_Call_AddMedicine_Activity = findViewById(R.id.btn_addReminder);
-        btn_Call_AddMedicine_Activity.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Call_AddMedicine_Activity(view);
-            }
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-            public void Call_AddMedicine_Activity(View view){
-                Intent intent = new Intent(getApplicationContext(), AddReminderActivity.class);
-                startActivity(intent);
-            }
-        });
+        drawerLayout = findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,
+                drawerLayout,
+                toolbar,
+                R.string.navigation_drawer_open,
+                R.string.navigation_drawer_close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+
+        navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
     }
+
+    @Override
+    public void onBackPressed(){
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)){
+            drawerLayout.closeDrawer(GravityCompat.START);
+        }else{
+            super.onBackPressed();
+        }
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        return false;
+    }
+
+    public void setSupportActionBar(Toolbar toolbar) {
+    }
+
+
+    public void Call_AddMedicine_Activity(){
+        Intent intent = new Intent(getApplicationContext(), AddReminderActivity.class);
+        startActivity(intent);
+    }
+
+
+
 }

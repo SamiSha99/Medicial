@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/ic_bg_log">
+    android:background="@drawable/ic_bg_log_reg">
 
     <TextView
         android:id="@+id/txtv_login"

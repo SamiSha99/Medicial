@@ -1,200 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    >
+    android:fitsSystemWindows="true"
+    tools:openDrawer="start">
 
-    <TextView
-        android:id="@+id/txtv_container"
+    <include
+        android:id="@+id/app_bar_home"
+        layout="@layout/app_bar_home"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/primary"
-        android:paddingBottom="50dp"
-        />
+        android:layout_height="match_parent"/>
 
-    <TextView
-        android:id="@+id/txtv_wlc"
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_view"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Home"
-        android:textSize="20dp"
-        android:textColor="@color/white"
-        android:paddingTop="10dp"
-        android:paddingStart="10dp"
-        />
+        android:layout_height="match_parent"
+        app:headerLayout="@layout/nav_header_home"
+        app:menu="@menu/main_menu_home"
+        android:layout_gravity="start"/>
 
-    <TextView
-        android:id="@+id/txtv_medName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Medicine name"
-        android:layout_below="@+id/txtv_container"
-        android:paddingTop="10dp"
-        android:paddingStart="20dp"
-        />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/txtv_medAmount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Medicine amount"
-        android:layout_alignParentRight="true"
-        android:layout_below="@id/txtv_container"
-        android:paddingTop="10dp"
-        android:paddingEnd="20dp"
-        />
-    <TextView
-        android:id="@+id/txtv_remTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Reminder time"
-        android:paddingTop="10dp"
-        android:paddingStart="20dp"
-        android:layout_below="@id/txtv_medName"
-        android:paddingEnd="20dp"
-        android:paddingBottom="10dp"
-        />
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="65dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:nestedScrollingEnabled="true"/>
 
-    <TextView
-        android:id="@+id/txtv_dayOfWeek"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Day of the week"
-        android:layout_below="@+id/txtv_medAmount"
-        android:layout_alignParentRight="true"
-        android:paddingEnd="20dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        />
-    //*******
-
-    <View
-        android:layout_width="420dp"
-        android:layout_height="2dp"
-        android:layout_above="@id/txtv1_medName"
-        android:layout_centerInParent="true"
-
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="270dp"
-        android:background="@color/primary" />
-    //***********
-
-    <TextView
-        android:id="@+id/txtv1_medName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Medicine name"
-        android:layout_below="@+id/txtv_remTime"
-        android:paddingTop="10dp"
-        android:paddingStart="20dp"
-        />
-
-    <TextView
-        android:id="@+id/txtv1_medAmount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Medicine amount"
-        android:layout_alignParentRight="true"
-        android:layout_below="@id/txtv_dayOfWeek"
-        android:paddingTop="10dp"
-        android:paddingEnd="20dp"
-        />
-    <TextView
-        android:id="@+id/txtv1_remTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Reminder time"
-        android:paddingTop="10dp"
-        android:paddingStart="20dp"
-        android:layout_below="@id/txtv1_medName"
-        android:paddingEnd="20dp"
-        android:paddingBottom="10dp"
-        />
-
-    <TextView
-        android:id="@+id/txtv1_dayOfWeek"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Day of the week"
-        android:layout_below="@+id/txtv1_medAmount"
-        android:layout_alignParentRight="true"
-        android:paddingEnd="20dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        />
-
-    //*******
-
-    <View
-        android:layout_width="420dp"
-        android:layout_height="2dp"
-        android:layout_above="@id/txtv2_medName"
-
-        android:layout_centerInParent="true"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="270dp"
-        android:background="@color/primary" />
-    //***********
-
-    <TextView
-        android:id="@+id/txtv2_medName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Panadol"
-        android:layout_below="@+id/txtv1_remTime"
-        android:paddingTop="10dp"
-        android:paddingStart="20dp"
-        />
-
-    <TextView
-        android:id="@+id/txtv2_medAmount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="10"
-        android:layout_alignParentRight="true"
-        android:layout_below="@id/txtv1_dayOfWeek"
-        android:paddingTop="10dp"
-        android:paddingEnd="20dp"
-        />
-    <TextView
-        android:id="@+id/txtv2_remTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="10 : 30 AM"
-        android:paddingTop="10dp"
-        android:paddingStart="20dp"
-        android:layout_below="@id/txtv2_medName"
-        android:paddingEnd="20dp"
-        />
-
-    <TextView
-        android:id="@+id/txtv2_dayOfWeek"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="M W F"
-        android:layout_below="@+id/txtv2_medAmount"
-        android:layout_alignParentRight="true"
-        android:paddingEnd="20dp"
-        android:paddingTop="10dp"
-        />
-
-
-    <Button
-        android:id="@+id/btn_addReminder"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="50dp"
-        android:layout_marginEnd="50dp"
-        android:layout_marginBottom="25dp"
-        android:background="@drawable/custom_btn_shape"
-        android:gravity="center"
-        android:text="+"
-        android:textColor="@color/white"
-        android:textSize="30dp"
-        />
-
-</RelativeLayout>
+    </RelativeLayout>
+</androidx.drawerlayout.widget.DrawerLayout>
