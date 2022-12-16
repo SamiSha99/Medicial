@@ -2,7 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/ic_bg_log_reg">
+    android:background="@drawable/ic_bg_log_reg"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".RegisterActivity">
 
     <TextView
         android:id="@+id/txtv_register"
@@ -16,13 +18,13 @@
         android:paddingTop="20dp"/>
 
     <View
-        android:layout_width="420dp"
+        android:layout_width="match_parent"
         android:layout_height="2dp"
         android:layout_above="@id/edt_reg_firstName"
         android:background="@color/white"
         android:layout_marginTop="270dp"
-        android:layout_marginLeft="20dp"
-        android:layout_centerInParent="true"/>
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"/>
 
     <EditText
         android:id="@+id/edt_reg_firstName"
@@ -60,7 +62,7 @@
         android:padding="20dp"
         android:paddingStart="5dp"
         android:textColor="@color/white"
-        android:textColorHint="@color/white" />
+        android:textColorHint="@color/white"/>
 
     <EditText
         android:id="@+id/edt_reg_email"

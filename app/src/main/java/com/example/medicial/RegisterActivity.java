@@ -14,7 +14,7 @@ import android.widget.Toast;
 public class RegisterActivity extends AppCompatActivity {
 
     DBHelper dbHelper = new DBHelper(this);
-    EditText f_name, l_name, email, password, re_password;
+    EditText name, email, password, re_password;
     Button register;
 
     @Override
@@ -26,8 +26,7 @@ public class RegisterActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        f_name = findViewById(R.id.edt_reg_firstName);
-        l_name = findViewById(R.id.edt_reg_lastName);
+        name = findViewById(R.id.edt_reg_firstName);
         email = findViewById(R.id.edt_reg_email);
         password = findViewById(R.id.edt_reg_password);
         re_password = findViewById(R.id.edt_reg_repassword);
@@ -42,25 +41,25 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public void Register(){
-        String F_Name = f_name.getText().toString();
-        String L_Name = l_name.getText().toString();
+        String Name = name.getText().toString();
         String Email = email.getText().toString();
         String Password = password.getText().toString();
         String Re_password = re_password.getText().toString();
 
         // To check if fields are empty or not
-        if (TextUtils.isEmpty(F_Name) || TextUtils.isEmpty(L_Name) || TextUtils.isEmpty(Email) || TextUtils.isEmpty(Password) || TextUtils.isEmpty(Re_password)) {
+        if (TextUtils.isEmpty(Name) || TextUtils.isEmpty(Email) || TextUtils.isEmpty(Password) || TextUtils.isEmpty(Re_password)) {
             Toast.makeText(RegisterActivity.this, "All filed required", Toast.LENGTH_SHORT).show();
         }else {
             if (Password.equals(Re_password)){
-                boolean check_user_name = dbHelper.CheckUserName(F_Name, L_Name);
+                boolean check_user_name = dbHelper.CheckUserName(Name);
                 if (check_user_name == false){
-                    boolean result = dbHelper.insertUserData(F_Name, L_Name, Email, Password);
-                    if (result == true) {
+                    boolean insert_User_Data = dbHelper.insertUserData(Name, Password, Email);
+                    if (insert_User_Data == true) {
                         Toast.makeText(RegisterActivity.this, "REGISTERED SUCCESSFULLY", Toast.LENGTH_SHORT).show();
 
                         Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                         startActivity(intent);
+                        finish();
                     }else {
                         Toast.makeText(RegisterActivity.this, "REGISTRATION FAILED", Toast.LENGTH_SHORT).show();
                     }
@@ -73,6 +72,4 @@ public class RegisterActivity extends AppCompatActivity {
             }
         }
     }
-
-
 }

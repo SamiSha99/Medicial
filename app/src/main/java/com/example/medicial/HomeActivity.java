@@ -4,8 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.WindowManager;
-import android.widget.Button;
-
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -16,14 +14,14 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.navigation.NavigationView;
 
+import java.util.ArrayList;
+
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener{
 
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     Toolbar toolbar;
-
-    Button btn_Call_Home_Activity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +42,7 @@ public class HomeActivity extends AppCompatActivity
                 R.string.navigation_drawer_open,
                 R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
+        toggle.getDrawerArrowDrawable().setColor(getResources().getColor(R.color.white));
         toggle.syncState();
 
         navigationView = findViewById(R.id.nav_view);
@@ -61,18 +60,27 @@ public class HomeActivity extends AppCompatActivity
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        return false;
+        switch (item.getItemId()){
+            case R.id.nav_home:
+                break;
+            case R.id.nav_calender:
+                break;
+            case R.id.nav_settings:
+                break;
+            case R.id.nav_profile:
+                break;
+            case R.id.nav_login:
+                break;
+            case R.id.nav_logout:
+                Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
+                startActivity(intent);
+                break;
+
+        }
+        return true;
     }
 
     public void setSupportActionBar(Toolbar toolbar) {
     }
-
-
-    public void Call_AddMedicine_Activity(){
-        Intent intent = new Intent(getApplicationContext(), AddReminderActivity.class);
-        startActivity(intent);
-    }
-
-
 
 }

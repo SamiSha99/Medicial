@@ -21,6 +21,7 @@
         android:layout_height="match_parent"
         app:headerLayout="@layout/nav_header_home"
         app:menu="@menu/main_menu_home"
+        app:itemIconTint="@color/primary"
         android:layout_gravity="start"/>
 
     <RelativeLayout

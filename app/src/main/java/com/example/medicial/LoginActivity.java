@@ -2,6 +2,7 @@ package com.example.medicial;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -9,14 +10,17 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class LoginActivity extends AppCompatActivity {
 
     DBHelper dbHelper = new DBHelper(this);
     Button login, CreateAccount;
-    EditText email, password;
+    EditText name, password;
+    TextView txtv_inv;
 
+    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,34 +40,43 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        email = findViewById(R.id.edt_login_email);
+        name = findViewById(R.id.edt_login_name);
         password = findViewById(R.id.edt_login_password);
         login = findViewById(R.id.btn_login);
+        txtv_inv = findViewById(R.id.invalid);
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-                startActivity(intent);
+                Login();
             }
         });
     }
 
     public void Login(){
-        String Email = email.getText().toString();
+        String Name = name.getText().toString();
         String Password = password.getText().toString();
 
-        if (TextUtils.isEmpty(Email) || TextUtils.isEmpty(Password)){
-            Toast.makeText(LoginActivity.this, "All filed required", Toast.LENGTH_SHORT).show();
-        }else{
-            boolean check_email_pass = dbHelper.CheckEmailPassword(Email, Password);
-            if (check_email_pass == true){
+        if (TextUtils.isEmpty(Name)){
+            name.setHint("Username field is empty");
+            name.setHintTextColor(getResources().getColor(R.color.red));
+        }
+
+        if (TextUtils.isEmpty(Password)){
+            password.setHint("Password field is empty");
+            password.setHintTextColor(getResources().getColor(R.color.red));
+        }
+
+        else{
+            boolean check_name_pass = dbHelper.CheckUserPassword(Name, Password);
+            if (check_name_pass == true){
                 Toast.makeText(LoginActivity.this, "LOGIN SUCCESSFULLY", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                 startActivity(intent);
+                finish();
             }else{
-                Toast.makeText(LoginActivity.this, "Invalid Credentials", Toast.LENGTH_SHORT).show();
+                txtv_inv.setText("Invalid Credential");
+                txtv_inv.setTextColor(getResources().getColor(R.color.red));
             }
         }
     }

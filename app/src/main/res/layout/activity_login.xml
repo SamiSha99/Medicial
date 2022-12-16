@@ -3,7 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/ic_bg_log_reg">
+    android:background="@drawable/ic_bg_log_reg"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".LoginActivity">
 
     <TextView
         android:id="@+id/txtv_login"
@@ -12,36 +14,38 @@
         android:layout_alignTop="@id/txtv_login"
         android:layout_centerHorizontal="true"
         android:text="Login"
-        android:textSize="50dp"
+        android:textSize="50sp"
         android:textStyle="bold"
         android:textColor="@color/white"
         android:paddingTop="20dp"/>
 
     <View
-        android:layout_width="420dp"
+        android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:layout_above="@id/edt_login_email"
+        android:layout_above="@id/edt_login_name"
         android:layout_centerInParent="true"
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_marginTop="270dp"
-        android:background="@color/white" />
+        android:background="@color/white"/>
 
     <EditText
-        android:id="@+id/edt_login_email"
+        android:id="@+id/edt_login_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/txtv_login"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
+        android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:drawableStart="@drawable/ic_user"
         android:drawablePadding="5dp"
         android:padding="20dp"
         android:paddingStart="5dp"
+        android:paddingEnd="5dp"
         android:background="@drawable/custom_edt_shape"
         android:inputType="textEmailAddress"
-        android:hint="E-mail"
+        android:hint="User name"
         android:textColorHint="@color/white"
         android:textColor="@color/white"/>
 
@@ -49,7 +53,7 @@
         android:id="@+id/edt_login_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/edt_login_email"
+        android:layout_below="@id/edt_login_name"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
@@ -58,11 +62,20 @@
         android:drawablePadding="5dp"
         android:padding="20dp"
         android:paddingStart="5dp"
+        android:paddingEnd="5dp"
         android:inputType="textPassword"
         android:hint="Password"
         android:textColorHint="@color/white"
         android:background="@drawable/custom_edt_shape"
         android:textColor="@color/white"/>
+
+    <TextView
+        android:id="@+id/invalid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textAlignment="center"
+        android:layout_below="@id/edt_login_password"/>
 
     <Button
         android:id="@+id/btn_login"
@@ -70,12 +83,12 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/edt_login_password"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
         android:padding="10dp"
         android:text="Login"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:textColor="@color/primary"
         android:background="@drawable/custom_btn_shape1"/>
 
@@ -87,7 +100,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="-14dp"
         android:text="Forget your password ?"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:textColor="@color/white"
         android:background="@null"
         android:textAllCaps="false"/>
@@ -98,10 +111,9 @@
         android:layout_above="@id/btn_createAccount"
         android:layout_centerHorizontal="true"
         android:text="You don't have an account ?"
-        android:textSize="20dp"
-        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textColor="@color/black"/>
 
-        />
     <Button
         android:id="@+id/btn_createAccount"
         android:layout_width="wrap_content"
@@ -109,7 +121,7 @@
         android:text="Create new account"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:textSize="15dp"
+        android:textSize="15sp"
         android:paddingBottom="20dp"
         android:textColor="@color/primary"
         android:background="@null"
