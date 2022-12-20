@@ -22,7 +22,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:layout_above="@id/edt_login_name"
+        android:layout_above="@id/edt_login_username"
         android:layout_centerInParent="true"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
@@ -30,14 +30,11 @@
         android:background="@color/white"/>
 
     <EditText
-        android:id="@+id/edt_login_name"
+        android:id="@+id/edt_login_username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/txtv_login"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
+        android:layout_margin="10dp"
         android:drawableStart="@drawable/ic_user"
         android:drawablePadding="5dp"
         android:padding="20dp"
@@ -53,11 +50,8 @@
         android:id="@+id/edt_login_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/edt_login_name"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
+        android:layout_below="@id/edt_login_username"
+        android:layout_margin="10dp"
         android:drawableStart="@drawable/ic_password"
         android:drawablePadding="5dp"
         android:padding="20dp"
@@ -82,14 +76,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/edt_login_password"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"
+        android:layout_margin="25dp"
         android:padding="10dp"
         android:text="Login"
         android:textSize="20sp"
-        android:textColor="@color/primary"
+        android:textColor="@color/colorAccent"
         android:background="@drawable/custom_btn_shape1"/>
 
     <Button
@@ -123,7 +114,7 @@
         android:layout_centerHorizontal="true"
         android:textSize="15sp"
         android:paddingBottom="20dp"
-        android:textColor="@color/primary"
+        android:textColor="@color/colorAccent"
         android:background="@null"
         android:textAllCaps="false"/>
 

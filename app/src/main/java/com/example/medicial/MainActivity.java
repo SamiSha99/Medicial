@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.WindowManager;
 import android.widget.TextView;
-import com.example.medicial.BuildConfig;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,12 +20,7 @@ public class MainActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                Call_Login_Activity();
-            }
-        };
+        Runnable runnable = this::Call_Login_Activity;
 
         handler.postDelayed(runnable,2*1000);
 
@@ -39,7 +33,4 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
-
-
-
 }

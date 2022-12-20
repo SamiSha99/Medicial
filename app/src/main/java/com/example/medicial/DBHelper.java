@@ -29,7 +29,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL("create table User (id INTEGER PRIMARY KEY AUTOINCREMENT, name Text, password TEXT, email TEXT)");
+        sqLiteDatabase.execSQL("create table User (id INTEGER PRIMARY KEY AUTOINCREMENT,userName Text, firstName Text, lastName TEXT, password TEXT, email TEXT)");
       /*
         sqLiteDatabase.execSQL("create table Medicine (id INEGER PRIMARY KEY AUTOINCREMENT, name TEXT, amount INTEGER)");
         sqLiteDatabase.execSQL("create table List ( supplayAmount INTEGER, creationDate DATE,  FOREIGN KEY(userID) REFERENCES User(id), FOREIGN KEY(alertID) REFERENCES Alert(id),FOREIGN KEY(medicineID) REFERENCES Medicine(id))");
@@ -53,13 +53,15 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     // Adding new User Details
-    boolean insertUserData(String name, String password, String email){
+    boolean insertUserData(String userName, String firstName, String lastName, String password, String email){
         //Get the Data Repository in write mode
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
         //Create a new map of values, where column names are the keys
         ContentValues values = new ContentValues();
                  // Key in table user
-        values.put("name", name);
+        values.put("userName", userName);
+        values.put("firstName", firstName);
+        values.put("lastName", lastName);
         values.put("password", password);
         values.put("email", email);
 
@@ -73,18 +75,18 @@ public class DBHelper extends SQLiteOpenHelper {
         }
     }
 
-    public boolean CheckUserName(String name){
+    public boolean CheckUserName(String userName){
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
-        Cursor cursor = sqLiteDatabase.rawQuery("select * from User where name = ?", new String[] {name});
+        Cursor cursor = sqLiteDatabase.rawQuery("select * from User where userName = ?", new String[] {userName});
         if (cursor.getCount() > 0)
             return true;
         else
             return false;
     }
 
-    public boolean CheckUserPassword(String name, String password){
+    public boolean CheckUserPassword(String userName, String password){
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
-        Cursor cursor = sqLiteDatabase.rawQuery("select * from User where name = ? and password = ?", new String[] {name, password});
+        Cursor cursor = sqLiteDatabase.rawQuery("select * from User where userName = ? and password = ?", new String[] {userName, password});
         if (cursor.getCount() > 0)
             return true;
         else
@@ -92,17 +94,17 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
 
-    public ArrayList getUserName(){
-        ArrayList arrayList = new ArrayList();
-        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-        Cursor cursor = sqLiteDatabase.rawQuery("select * from User",null);
-        cursor.moveToFirst();
-
-        while (cursor.isAfterLast() == false){
-            String getName = cursor.getString(1);
-            arrayList.add(getName);
-            cursor.moveToNext();
-        }
-        return arrayList;
-    }
+//    public ArrayList getUserName(){
+//        ArrayList arrayList = new ArrayList();
+//        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+//        Cursor cursor = sqLiteDatabase.rawQuery("select * from User",null);
+//        cursor.moveToFirst();
+//
+//        while (cursor.isAfterLast() == false){
+//            String getName = cursor.getString(1);
+//            arrayList.add(getName);
+//            cursor.moveToNext();
+//        }
+//        return arrayList;
+//    }
 }

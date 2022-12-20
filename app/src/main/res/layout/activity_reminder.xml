@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primary"
+    android:background="@color/colorAccent"
     android:orientation="vertical"
     tools:context=".AddReminderActivity">
 
@@ -12,7 +12,7 @@
         android:id="@+id/txtv_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/primary"
+        android:background="@color/colorAccent"
         android:paddingTop="10dp"
         android:text="NEW REMINDER"
         android:textAlignment="center"

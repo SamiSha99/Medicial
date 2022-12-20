@@ -2,25 +2,21 @@ package com.example.medicial;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class LoginActivity extends AppCompatActivity {
 
     DBHelper dbHelper = new DBHelper(this);
     Button login, CreateAccount;
-    EditText name, password;
-    TextView txtv_inv;
+    EditText username, password;
+    TextView txtv_incorrect;
 
-    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,51 +28,43 @@ public class LoginActivity extends AppCompatActivity {
 
         // Call register activity after on click create account button
         CreateAccount = findViewById(R.id.btn_createAccount);
-        CreateAccount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
-                startActivity(intent);
-            }
+        CreateAccount.setOnClickListener(view -> {
+            Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
+            startActivity(intent);
         });
 
-        name = findViewById(R.id.edt_login_name);
+        username = findViewById(R.id.edt_login_username);
         password = findViewById(R.id.edt_login_password);
         login = findViewById(R.id.btn_login);
-        txtv_inv = findViewById(R.id.invalid);
+        txtv_incorrect = findViewById(R.id.invalid);
 
-        login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Login();
-            }
-        });
+        login.setOnClickListener(view -> Login());
     }
 
     public void Login(){
-        String Name = name.getText().toString();
+        String Username = username.getText().toString();
         String Password = password.getText().toString();
 
-        if (TextUtils.isEmpty(Name)){
-            name.setHint("Username field is empty");
-            name.setHintTextColor(getResources().getColor(R.color.red));
+        if (TextUtils.isEmpty(Username)){
+            username.setHint("Username is required");
+            username.setHintTextColor(getResources().getColor(R.color.red));
         }
 
         if (TextUtils.isEmpty(Password)){
-            password.setHint("Password field is empty");
+            password.setHint("Password is required");
             password.setHintTextColor(getResources().getColor(R.color.red));
         }
 
         else{
-            boolean check_name_pass = dbHelper.CheckUserPassword(Name, Password);
-            if (check_name_pass == true){
-                Toast.makeText(LoginActivity.this, "LOGIN SUCCESSFULLY", Toast.LENGTH_SHORT).show();
+            boolean check_name_pass = dbHelper.CheckUserPassword(Username, Password);
+            if (check_name_pass){
+                //Toast.makeText(LoginActivity.this, "LOGIN SUCCESSFULLY", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                 startActivity(intent);
                 finish();
             }else{
-                txtv_inv.setText("Invalid Credential");
-                txtv_inv.setTextColor(getResources().getColor(R.color.red));
+                txtv_incorrect.setText("Incorrect information");
+                txtv_incorrect.setTextColor(getResources().getColor(R.color.red));
             }
         }
     }

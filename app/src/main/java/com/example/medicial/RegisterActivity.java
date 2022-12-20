@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,7 +13,7 @@ import android.widget.Toast;
 public class RegisterActivity extends AppCompatActivity {
 
     DBHelper dbHelper = new DBHelper(this);
-    EditText name, email, password, re_password;
+    EditText username, firstName, lastName, email, password, re_password;
     Button register;
 
     @Override
@@ -26,35 +25,34 @@ public class RegisterActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        name = findViewById(R.id.edt_reg_firstName);
+        username = findViewById(R.id.edt_reg_userName);
+        firstName = findViewById(R.id.edt_reg_firstName);
+        lastName = findViewById(R.id.edt_reg_lastName);
         email = findViewById(R.id.edt_reg_email);
         password = findViewById(R.id.edt_reg_password);
         re_password = findViewById(R.id.edt_reg_repassword);
         register = findViewById(R.id.btn_register);
 
-        register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Register();
-            }
-        });
+        register.setOnClickListener(view -> Register());
     }
 
     public void Register(){
-        String Name = name.getText().toString();
+        String Username = username.getText().toString();
+        String Firstname = firstName.getText().toString();
+        String Lastname = lastName.getText().toString();
         String Email = email.getText().toString();
         String Password = password.getText().toString();
         String Re_password = re_password.getText().toString();
 
         // To check if fields are empty or not
-        if (TextUtils.isEmpty(Name) || TextUtils.isEmpty(Email) || TextUtils.isEmpty(Password) || TextUtils.isEmpty(Re_password)) {
+        if (TextUtils.isEmpty(Username) || TextUtils.isEmpty(Firstname) || TextUtils.isEmpty(Lastname) || TextUtils.isEmpty(Email) || TextUtils.isEmpty(Password) || TextUtils.isEmpty(Re_password)) {
             Toast.makeText(RegisterActivity.this, "All filed required", Toast.LENGTH_SHORT).show();
         }else {
             if (Password.equals(Re_password)){
-                boolean check_user_name = dbHelper.CheckUserName(Name);
-                if (check_user_name == false){
-                    boolean insert_User_Data = dbHelper.insertUserData(Name, Password, Email);
-                    if (insert_User_Data == true) {
+                boolean check_user_name = dbHelper.CheckUserName(Username);
+                if (!check_user_name){ //check_user_name == false
+                    boolean insert_User_Data = dbHelper.insertUserData(Username, Firstname, Lastname, Password, Email);
+                    if (insert_User_Data) { //insert_User_Data == true
                         Toast.makeText(RegisterActivity.this, "REGISTERED SUCCESSFULLY", Toast.LENGTH_SHORT).show();
 
                         Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
