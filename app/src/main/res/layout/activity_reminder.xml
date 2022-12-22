@@ -55,27 +55,21 @@
                 android:id="@+id/edt_medicineID"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
                 android:layout_below="@id/btn_addmed"
-                android:padding="20dp"
+                android:layout_margin="10dp"
                 android:background="@drawable/custom_edt_shape"
-                android:inputType="number"
                 android:hint="Medicine ID"
-                android:textColorHint="@color/white"
-                android:textColor="@color/white"/>
+                android:inputType="number"
+                android:padding="20dp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white" />
 
             <EditText
                 android:id="@+id/edt_medicineName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/edt_medicineID"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
+                android:layout_margin="10dp"
                 android:padding="20dp"
                 android:background="@drawable/custom_edt_shape"
                 android:inputType="text"
@@ -88,16 +82,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/edt_medicineName"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="10dp"
+                android:layout_margin="10dp"
                 android:background="@drawable/custom_edt_shape"
                 android:hint="Number of medicine"
                 android:inputType="number"
                 android:padding="20dp"
                 android:textColor="@color/white"
-                android:textColorHint="@color/white"/>
+                android:textColorHint="@color/white" />
 
             <TextView
                 android:id="@+id/txtv_medphoto"
@@ -155,28 +146,45 @@
                 android:textSize="20dp"
                 android:textColor="@color/primary"/>
 
-            <CalendarView
-                android:id="@+id/calendarView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/txtv_settime"
-                android:layout_centerHorizontal="true"/>
-
-            <EditText
-                android:id="@+id/edt_eventName"
+            <TextView
+                android:id="@+id/txtv_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/calendarView"
-                android:layout_marginStart="10dp"
+                android:layout_below="@id/txtv_settime"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:layout_marginTop="2dp"
+                android:text="Select date"
+                android:textSize="20dp"
+                android:textColor="@color/white"/>
+
+            <EditText
+                android:id="@+id/edt_selectDate"
+                style="?android:spinnerStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txtv_date"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/custom_edt_shape"
-                android:hint="Event name"
-                android:inputType="number"
                 android:padding="20dp"
-                android:textColor="@color/white"
-                android:textColorHint="@color/white"/>
+                android:text="MM DD YY"
+                android:textAlignment="center"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/txtv_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/edt_selectDate"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="2dp"
+                android:text="Select date"
+                android:textSize="20dp"
+                android:textColor="@color/white"/>
 
         </RelativeLayout>
     </ScrollView>

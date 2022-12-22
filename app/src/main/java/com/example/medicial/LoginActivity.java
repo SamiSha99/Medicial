@@ -46,12 +46,12 @@ public class LoginActivity extends AppCompatActivity {
         String Password = password.getText().toString();
 
         if (TextUtils.isEmpty(Username)){
-            username.setHint("Username is required");
+            username.setHint("required field");
             username.setHintTextColor(getResources().getColor(R.color.red));
         }
 
         if (TextUtils.isEmpty(Password)){
-            password.setHint("Password is required");
+            password.setHint("required field");
             password.setHintTextColor(getResources().getColor(R.color.red));
         }
 

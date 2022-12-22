@@ -1,8 +1,10 @@
 package com.example.medicial;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.WindowManager;
@@ -45,19 +47,26 @@ public class RegisterActivity extends AppCompatActivity {
         String Re_password = re_password.getText().toString();
 
         // To check if fields are empty or not
-        if (TextUtils.isEmpty(Username) || TextUtils.isEmpty(Firstname) || TextUtils.isEmpty(Lastname) || TextUtils.isEmpty(Email) || TextUtils.isEmpty(Password) || TextUtils.isEmpty(Re_password)) {
-            Toast.makeText(RegisterActivity.this, "All filed required", Toast.LENGTH_SHORT).show();
+        if (TextUtils.isEmpty(Username) || (TextUtils.isEmpty(Firstname)) ||(TextUtils.isEmpty(Lastname)) || (TextUtils.isEmpty(Email)) || (TextUtils.isEmpty(Password)) || (TextUtils.isEmpty(Re_password))){
+            username.setHint("required field");
+            username.setHintTextColor(getResources().getColor(R.color.red));
+            firstName.setHint("required field");
+            firstName.setHintTextColor(getResources().getColor(R.color.red));
+            lastName.setHint("required field");
+            lastName.setHintTextColor(getResources().getColor(R.color.red));
+            email.setHint("required field");
+            email.setHintTextColor(getResources().getColor(R.color.red));
+            password.setHint("required field");
+            password.setHintTextColor(getResources().getColor(R.color.red));
+            re_password.setHint("required field");
+            re_password.setHintTextColor(getResources().getColor(R.color.red));
         }else {
             if (Password.equals(Re_password)){
                 boolean check_user_name = dbHelper.CheckUserName(Username);
                 if (!check_user_name){ //check_user_name == false
                     boolean insert_User_Data = dbHelper.insertUserData(Username, Firstname, Lastname, Password, Email);
                     if (insert_User_Data) { //insert_User_Data == true
-                        Toast.makeText(RegisterActivity.this, "REGISTERED SUCCESSFULLY", Toast.LENGTH_SHORT).show();
-
-                        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                        startActivity(intent);
-                        finish();
+                        replaceFragment(new SuccessFragment());
                     }else {
                         Toast.makeText(RegisterActivity.this, "REGISTRATION FAILED", Toast.LENGTH_SHORT).show();
                     }
@@ -69,5 +78,14 @@ public class RegisterActivity extends AppCompatActivity {
                 Toast.makeText(RegisterActivity.this, "Password not matching", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    private void replaceFragment(Fragment fragment){
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frame_layout,fragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+
     }
 }

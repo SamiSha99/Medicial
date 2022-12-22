@@ -53,7 +53,7 @@ public class HomeActivity extends AppCompatActivity
         navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.bringToFront();
-        navigationView.setCheckedItem(R.id.nav_home);
+       // navigationView.setCheckedItem(R.id.nav_home);
 
 //        {FloatingActionButton}
 //        floatingActionButton.setOnClickListener(new View.OnClickListener() {
@@ -91,8 +91,7 @@ public class HomeActivity extends AppCompatActivity
                 break;
             case R.id.nav_profile:
                 break;
-            case R.id.nav_login:
-                break;
+
             case R.id.nav_logout:
                 Intent intent_logout = new Intent(getApplicationContext(),LoginActivity.class);
                 startActivity(intent_logout);
