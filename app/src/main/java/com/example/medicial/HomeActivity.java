@@ -75,8 +75,8 @@ public class HomeActivity extends AppCompatActivity
     }
 
     @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        switch (menuItem.getItemId()){
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
             case R.id.nav_home:
                 Intent intent_home = new Intent(getApplicationContext(),HomeActivity.class);
                 startActivity(intent_home);
