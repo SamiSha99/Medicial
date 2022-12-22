@@ -168,7 +168,7 @@
             android:textAlignment="center"
             android:layout_above="@id/btn_register"/>
 
-        <Button
+        <android.widget.Button
             android:id="@+id/btn_register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
