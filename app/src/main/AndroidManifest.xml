@@ -23,10 +23,11 @@
         </activity>
         <activity
             android:name=".CalendarNavigation"
-            android:exported="false">
+            android:exported="false"
+            android:parentActivityName=".HomeActivity">
             <meta-data
                 android:name="android.app.lib_name"
-                android:value="" />
+                android:value="android.support.PARENT_ACTIVITY" />
         </activity>
         <activity
             android:name=".AlertReceiverActivity"

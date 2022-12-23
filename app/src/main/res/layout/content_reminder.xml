@@ -18,8 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="400dp"
             android:orientation="vertical"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
+            android:layout_margin="24dp"
             android:background="@drawable/custom_bg_white">
 
             <TextView
@@ -50,7 +49,7 @@
                 android:textColorHint="@color/colorAccent" />
 
             <EditText
-                android:id="@+id/edt_numofmedicine"
+                android:id="@+id/edt_amount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/edt_medicineName"
@@ -58,7 +57,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="5dp"
-                android:hint="Number of medicine"
+                android:hint="Amount"
                 android:inputType="number"
                 android:padding="20dp"
                 android:backgroundTint="@color/colorAccent"
@@ -69,7 +68,7 @@
                 android:id="@+id/txtv_medphoto"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/edt_numofmedicine"
+                android:layout_below="@id/edt_amount"
                 android:text="Medicine photo"
                 android:layout_centerHorizontal="true"
                 android:textSize="20dp"
@@ -89,7 +88,7 @@
                 android:id="@+id/btn_upload"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Upload image"
+                android:text="Save"
                 android:background="@drawable/custom_btn_shape"
                 android:layout_below="@id/imageView1"
                 android:layout_centerHorizontal="true"
