@@ -30,8 +30,8 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL("create table User (id INTEGER PRIMARY KEY AUTOINCREMENT,userName Text, firstName Text, lastName TEXT, password TEXT, email TEXT)");
+        sqLiteDatabase.execSQL("create table Medicine (id INEGER PRIMARY KEY AUTOINCREMENT, medName TEXT, amount INTEGER)");
       /*
-        sqLiteDatabase.execSQL("create table Medicine (id INEGER PRIMARY KEY AUTOINCREMENT, name TEXT, amount INTEGER)");
         sqLiteDatabase.execSQL("create table List ( supplayAmount INTEGER, creationDate DATE,  FOREIGN KEY(userID) REFERENCES User(id), FOREIGN KEY(alertID) REFERENCES Alert(id),FOREIGN KEY(medicineID) REFERENCES Medicine(id))");
         sqLiteDatabase.execSQL("create table Alert (id INTEGER PRIMARY KEY AUTOINCREMENT, time DATE, dates DATE )");
         sqLiteDatabase.execSQL("create table Admin (id INTEGER PRIMARY KEY AUTOINCREMENT, FOREIGN KEY(userID) REFERENCES User(id))");
@@ -42,8 +42,8 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         // Drop older table if exist
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS User");
-        /*
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS Medicine");
+         /*
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS List");
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS Alert");
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS Admin");
@@ -93,6 +93,25 @@ public class DBHelper extends SQLiteOpenHelper {
             return false;
     }
 
+    // Adding new User Details
+    boolean insertMedicineData(String medName, String amount){
+        //Get the Data Repository in write mode
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        //Create a new map of values, where column names are the keys
+        ContentValues values = new ContentValues();
+        // Key in table user
+        values.put("medName", medName);
+        values.put("amount", amount);
+
+        // Insert the new row, returning the primary key value of the new row
+        long newRow = sqLiteDatabase.insert("Medicine", null, values);
+        if (newRow == -1){
+            return false;
+        }else {
+            sqLiteDatabase.close();
+            return true;
+        }
+    }
 
 //    public ArrayList getUserName(){
 //        ArrayList arrayList = new ArrayList();

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:showIn="@layout/app_bar_reminder"
+    tools:context=".AddReminderActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:orientation="vertical"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:background="@drawable/custom_bg_white">
+
+            <TextView
+                android:id="@+id/btn_addmed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:background="@color/white"
+                android:text="Add medicine"
+                android:textSize="20dp"
+                android:textColor="@color/primary"/>
+
+            <EditText
+                android:id="@+id/edt_medicineName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/btn_addmed"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="5dp"
+                android:backgroundTint="@color/colorAccent"
+                android:hint="Medicine name"
+                android:inputType="text"
+                android:padding="20dp"
+                android:textColor="@color/colorAccent"
+                android:textColorHint="@color/colorAccent" />
+
+            <EditText
+                android:id="@+id/edt_numofmedicine"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/edt_medicineName"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="5dp"
+                android:hint="Number of medicine"
+                android:inputType="number"
+                android:padding="20dp"
+                android:backgroundTint="@color/colorAccent"
+                android:textColor="@color/colorAccent"
+                android:textColorHint="@color/colorAccent" />
+
+            <TextView
+                android:id="@+id/txtv_medphoto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/edt_numofmedicine"
+                android:text="Medicine photo"
+                android:layout_centerHorizontal="true"
+                android:textSize="20dp"
+                android:textColor="@color/colorAccent"
+                android:paddingBottom="5dp"/>
+
+            <ImageView
+                android:id="@+id/imageView1"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginBottom="10dp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/txtv_medphoto"
+                app:srcCompat="@drawable/pill"/>
+
+            <android.widget.Button
+                android:id="@+id/btn_upload"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Upload image"
+                android:background="@drawable/custom_btn_shape"
+                android:layout_below="@id/imageView1"
+                android:layout_centerHorizontal="true"
+                android:width="200dp"
+                android:textColor="@color/white"/>
+        </RelativeLayout>
+
+    </ScrollView>
+
+</LinearLayout>
+

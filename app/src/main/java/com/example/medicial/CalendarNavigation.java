@@ -24,7 +24,7 @@ public class CalendarNavigation extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_calendar_navigation);
+        setContentView(R.layout.activity_calendar);
 
         //        This code to show activity in full screen
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,

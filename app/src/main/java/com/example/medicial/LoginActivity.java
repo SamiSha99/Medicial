@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -38,7 +39,12 @@ public class LoginActivity extends AppCompatActivity {
         login = findViewById(R.id.btn_login);
         txtv_incorrect = findViewById(R.id.invalid);
 
-        login.setOnClickListener(view -> Login());
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Login();
+            }
+        });
     }
 
     public void Login(){
@@ -58,7 +64,6 @@ public class LoginActivity extends AppCompatActivity {
         else{
             boolean check_name_pass = dbHelper.CheckUserPassword(Username, Password);
             if (check_name_pass){
-                //Toast.makeText(LoginActivity.this, "LOGIN SUCCESSFULLY", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                 startActivity(intent);
                 finish();

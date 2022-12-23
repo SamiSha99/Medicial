@@ -26,16 +26,14 @@
 
     <include layout="@layout/content_home"/>
 
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/extended_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:layout_gravity="bottom|right"
         android:backgroundTint="@color/colorAccent"
-        app:icon="@drawable/ic_baseline_add"
-        app:iconTint="@color/white"
-        android:text="ADD"
-        android:textColor="@color/white"/>
+        app:srcCompat="@drawable/ic_baseline_add"
+        app:tint="@color/white"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

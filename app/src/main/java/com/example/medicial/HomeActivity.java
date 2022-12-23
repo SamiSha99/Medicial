@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -57,13 +56,14 @@ public class HomeActivity extends AppCompatActivity
        // navigationView.setCheckedItem(R.id.nav_home);
 
 //        {FloatingActionButton}
-//        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(getApplicationContext(),AddReminderActivity.class);
-//                startActivity(intent);
-//            }
-//        });
+        floatingActionButton = findViewById(R.id.extended_fab);
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),AddReminderActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -97,7 +97,6 @@ public class HomeActivity extends AppCompatActivity
                 Intent intent_logout = new Intent(getApplicationContext(),LoginActivity.class);
                 startActivity(intent_logout);
                 finish();
-
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
