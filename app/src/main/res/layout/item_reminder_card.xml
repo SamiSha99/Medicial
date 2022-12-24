@@ -75,7 +75,7 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/medName"
+                    android:id="@+id/txtv_medName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -93,7 +93,7 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/amount"
+                android:id="@+id/txtv_amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -108,7 +108,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="20dp"
                 android:singleLine="true"
                 tools:text="10:00 AM"
                 android:textSize="20sp"

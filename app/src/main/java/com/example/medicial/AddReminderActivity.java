@@ -1,7 +1,6 @@
 package com.example.medicial;
 
 import android.os.Bundle;
-import android.text.Editable;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.WindowManager;
@@ -17,8 +16,7 @@ public class AddReminderActivity extends AppCompatActivity{
 
     Toolbar toolbar;
     ActionBar actionBar;
-    DBHelper dbHelper = new DBHelper(this);
-    EditText medName, amount;
+    EditText med_name, med_amount;
     Button save;
 
     @Override
@@ -26,21 +24,22 @@ public class AddReminderActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reminder);
 
-        // This code to show activity in full screen
+//        {Full screen activity}
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        // finding UI widget
+//        {Toolbar}
         toolbar = findViewById(R.id.rem_toolbar);
         setSupportActionBar(toolbar);
 
-        // setting up action bar
+//        {Setting up action bar}
         actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeAsUpIndicator(getResources().getDrawable(R.drawable.ic_baseline_arrow_back));
 
-        medName = findViewById(R.id.edt_medicineName);
-        amount = findViewById(R.id.edt_amount);
+//        {Add medicine}
+        med_name = findViewById(R.id.edt_medicineName);
+        med_amount = findViewById(R.id.edt_amount);
         save = findViewById(R.id.btn_upload);
 
         save.setOnClickListener(new View.OnClickListener() {
@@ -52,23 +51,19 @@ public class AddReminderActivity extends AppCompatActivity{
     }
 
     public void addMedicine(){
-        String med_name = medName.getText().toString();
-        String med_amount = amount.getText().toString();
+        DBHelper dbHelper = new DBHelper(AddReminderActivity.this);
 
-        if (TextUtils.isEmpty(med_name) || (TextUtils.isEmpty(med_amount))){
-            medName.setHint("required field");
-            medName.setHintTextColor(getResources().getColor(R.color.red));
-            amount.setHint("required field");
-            amount.setHintTextColor(getResources().getColor(R.color.red));
+        String medicine = med_name.getText().toString().trim();
+        Integer amount =  Integer.valueOf(med_amount.getText().toString().trim());
+
+        if (TextUtils.isEmpty(medicine) || (amount == null)){
+            med_name.setHint("required field");
+            med_name.setHintTextColor(getResources().getColor(R.color.red));
+            med_amount.setHint("required field");
+            med_amount.setHintTextColor(getResources().getColor(R.color.red));
         }
         else{
-            boolean insert = dbHelper.insertMedicineData(med_name, med_amount);
-            if (insert){
-                Toast.makeText(AddReminderActivity.this, "ADDED", Toast.LENGTH_SHORT).show();
-
-            }else {
-                Toast.makeText(AddReminderActivity.this, "FAILED", Toast.LENGTH_SHORT).show();
-            }
+            dbHelper.insertMedicineData(medicine, amount);
         }
     }
 }

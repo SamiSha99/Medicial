@@ -6,6 +6,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,27 +16,22 @@ public class DBHelper extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "Medicial.db";
     private static final int DB_VERSION = 1;
-/*
-    private static final String TABLE_USER = "User";
-    private static final String USER_ID = "id";
-    private static final String USER_FNAME = "firstName";
-    private static final String USER_LNAME = "lastName";
-    private static final String USER_PASSWORD = "password";
-    private static final String USER_EMAIL ="email";
-    */
+    private final Context context;
+
     public DBHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
+        this.context = context;
     }
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL("create table User (id INTEGER PRIMARY KEY AUTOINCREMENT,userName Text, firstName Text, lastName TEXT, password TEXT, email TEXT)");
-        sqLiteDatabase.execSQL("create table Medicine (id INEGER PRIMARY KEY AUTOINCREMENT, medName TEXT, amount TEXT)");
-      /*
-        sqLiteDatabase.execSQL("create table List ( supplayAmount INTEGER, creationDate DATE,  FOREIGN KEY(userID) REFERENCES User(id), FOREIGN KEY(alertID) REFERENCES Alert(id),FOREIGN KEY(medicineID) REFERENCES Medicine(id))");
-        sqLiteDatabase.execSQL("create table Alert (id INTEGER PRIMARY KEY AUTOINCREMENT, time DATE, dates DATE )");
-        sqLiteDatabase.execSQL("create table Admin (id INTEGER PRIMARY KEY AUTOINCREMENT, FOREIGN KEY(userID) REFERENCES User(id))");
-    */
+        sqLiteDatabase.execSQL("create table Medicine (id INTEGER PRIMARY KEY AUTOINCREMENT, medName TEXT, amount INTEGER)");
+
+//        sqLiteDatabase.execSQL("create table List ( supplayAmount INTEGER, creationDate DATE,  FOREIGN KEY(userID) REFERENCES User(id), FOREIGN KEY(alertID) REFERENCES Alert(id),FOREIGN KEY(medicineID) REFERENCES Medicine(id))");
+//        sqLiteDatabase.execSQL("create table Alert (id INTEGER PRIMARY KEY AUTOINCREMENT, time DATE, dates DATE )");
+//        sqLiteDatabase.execSQL("create table Admin (id INTEGER PRIMARY KEY AUTOINCREMENT, FOREIGN KEY(userID) REFERENCES User(id))");
+
     }
 
     @Override
@@ -43,20 +39,21 @@ public class DBHelper extends SQLiteOpenHelper {
         // Drop older table if exist
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS User");
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS Medicine");
-         /*
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS List");
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS Alert");
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS Admin");
-        */
+
+//        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS List");
+//        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS Alert");
+//        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS Admin");
+
         // Create tables again
         onCreate(sqLiteDatabase);
     }
 
-    // Adding new User Details
+//   {Adding new User Details}
     boolean insertUserData(String userName, String firstName, String lastName, String password, String email){
-        //Get the Data Repository in write mode
+        // Get the Data Repository in write mode
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
-        //Create a new map of values, where column names are the keys
+
+        // Create a new map of values, where column names are the keys
         ContentValues values = new ContentValues();
                  // Key in table user
         values.put("userName", userName);
@@ -75,6 +72,7 @@ public class DBHelper extends SQLiteOpenHelper {
         }
     }
 
+//   {Check Username}
     public boolean CheckUserName(String userName){
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
         Cursor cursor = sqLiteDatabase.rawQuery("select * from User where userName = ?", new String[] {userName});
@@ -84,6 +82,7 @@ public class DBHelper extends SQLiteOpenHelper {
             return false;
     }
 
+//   {Check Username and Password}
     public boolean CheckUserPassword(String userName, String password){
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
         Cursor cursor = sqLiteDatabase.rawQuery("select * from User where userName = ? and password = ?", new String[] {userName, password});
@@ -93,26 +92,27 @@ public class DBHelper extends SQLiteOpenHelper {
             return false;
     }
 
-    // Adding new User Details
-    boolean insertMedicineData(String medName, String amount){
-        //Get the Data Repository in write mode
+//   {Adding new Medicine Details}
+    void insertMedicineData(String medName, int amount){
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
-        //Create a new map of values, where column names are the keys
         ContentValues values = new ContentValues();
-        // Key in table user
         values.put("medName", medName);
         values.put("amount", amount);
 
-        // Insert the new row, returning the primary key value of the new row
         long newRow = sqLiteDatabase.insert("Medicine", null, values);
         if (newRow == -1){
-            return false;
+            Toast.makeText(context,"Failed",Toast.LENGTH_SHORT).show();
         }else {
-            sqLiteDatabase.close();
-            return true;
+            Toast.makeText(context,"Added",Toast.LENGTH_SHORT).show();
+//            sqLiteDatabase.close();
         }
     }
 
+    public Cursor getMedicineData(){
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery("select * from Medicine", null);
+        return cursor;
+    }
 //    public ArrayList getUserName(){
 //        ArrayList arrayList = new ArrayList();
 //        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();

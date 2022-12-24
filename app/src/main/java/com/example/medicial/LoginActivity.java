@@ -23,7 +23,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        //This code to show activity in full screen
+//       {Full screen activity}
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
@@ -47,6 +47,11 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+/* Login function
+* check if all edittext empty or not
+* check if username and password is valid or not
+* if it does not exist then it is incorrect information
+*/
     public void Login(){
         String Username = username.getText().toString();
         String Password = password.getText().toString();
@@ -64,7 +69,9 @@ public class LoginActivity extends AppCompatActivity {
         else{
             boolean check_name_pass = dbHelper.CheckUserPassword(Username, Password);
             if (check_name_pass){
+                String getUsername = username.getText().toString();
                 Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                intent.putExtra("key",getUsername);
                 startActivity(intent);
                 finish();
             }else{
@@ -73,4 +80,5 @@ public class LoginActivity extends AppCompatActivity {
             }
         }
     }
+
 }

@@ -1,10 +1,13 @@
 package com.example.medicial;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -12,9 +15,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+
+import java.util.ArrayList;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener{
@@ -23,16 +30,18 @@ public class HomeActivity extends AppCompatActivity
     NavigationView navigationView;
     Toolbar toolbar;
     FloatingActionButton floatingActionButton;
-
+    RecyclerView recyclerView;
+    ArrayList<String> medicine_name, amount;
+    DBHelper dbHelper;
+    MyAdapter myAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-//        This code to show activity in full screen
+//       {Full screen activity}
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
 
 //        {ToolBar}
         toolbar = findViewById(R.id.toolbar);
@@ -55,6 +64,16 @@ public class HomeActivity extends AppCompatActivity
         navigationView.bringToFront();
        // navigationView.setCheckedItem(R.id.nav_home);
 
+//        {To set username in navigation header}    // Not optimal some cases will disappear
+        Bundle bundle = getIntent().getExtras();
+
+        if (bundle !=null){
+            String setUsername = bundle.getString("key");
+            View headerView = navigationView.getHeaderView(0);
+            TextView navUsername = headerView.findViewById(R.id.txtv_setUserName);
+            navUsername.setText(setUsername);
+        }
+
 //        {FloatingActionButton}
         floatingActionButton = findViewById(R.id.extended_fab);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
@@ -64,7 +83,32 @@ public class HomeActivity extends AppCompatActivity
                 startActivity(intent);
             }
         });
+
+//        {RecyclerView}
+        dbHelper = new DBHelper(this);
+        medicine_name = new ArrayList<>();
+        amount = new ArrayList<>();
+        recyclerView = findViewById(R.id.recyclerView);
+        myAdapter = new MyAdapter(this, medicine_name, amount);
+        recyclerView.setAdapter(myAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        displayData();
     }
+
+    private void displayData() {
+        Cursor cursor = dbHelper.getMedicineData();
+        if (cursor.getCount() == 0){
+            Toast.makeText(this,"No data entiry",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        else{
+            while (cursor.moveToNext()){
+                medicine_name.add(cursor.getString(1));
+                amount.add(cursor.getString(2));
+            }
+        }
+    }
+
 
     @Override
     public void onBackPressed(){
@@ -90,7 +134,10 @@ public class HomeActivity extends AppCompatActivity
 
             case R.id.nav_settings:
                 break;
+
             case R.id.nav_profile:
+                Intent intent_profile = new Intent(getApplicationContext(),ProfileActivity.class);
+                startActivity(intent_profile);
                 break;
 
             case R.id.nav_logout:
