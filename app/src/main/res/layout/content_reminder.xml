@@ -5,98 +5,244 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/app_bar_reminder"
     tools:context=".AddReminderActivity">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="vertical">
-
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="400dp"
-            android:orientation="vertical"
-            android:layout_margin="24dp"
-            android:background="@drawable/custom_bg_white">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/btn_addmed"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp"
-                android:background="@color/white"
-                android:text="Add medicine"
-                android:textSize="20dp"
-                android:textColor="@color/primary"/>
-
-            <EditText
-                android:id="@+id/edt_medicineName"
+            <LinearLayout
+                android:id="@+id/layout_addmed"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/btn_addmed"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="5dp"
-                android:backgroundTint="@color/colorAccent"
-                android:hint="Medicine name"
-                android:inputType="textCapSentences"
-                android:padding="20dp"
-                android:textColor="@color/colorAccent"
-                android:textColorHint="@color/colorAccent" />
+                android:orientation="vertical"
+                android:background="@drawable/custom_gradiant_white"
+                android:layout_margin="10dp">
 
-            <EditText
-                android:id="@+id/edt_amount"
+                <TextView
+                    android:id="@+id/txtv_addmed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="5dp"
+                    android:text="Add medicine"
+                    android:textSize="15sp"
+                    android:textColor="@color/colorAccent"/>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_medicineName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_below="@id/txtv_addmed"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    app:endIconMode="clear_text"
+                    app:boxStrokeColor="@color/colorAccent"
+                    app:boxStrokeErrorColor="@color/red"
+                    app:startIconDrawable="@drawable/bottle"
+                    app:startIconTint="@color/colorAccent"
+                    app:hintTextColor="@color/colorAccent"
+                    android:textColorHint="@color/colorAccent"
+                    android:hint="name">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edt_medicineName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textCapSentences"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_amount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_below="@id/til_medicineName"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    app:endIconMode="clear_text"
+                    app:boxStrokeColor="@color/colorAccent"
+                    app:boxStrokeErrorColor="@color/red"
+                    app:startIconDrawable="@drawable/tablets"
+                    app:startIconTint="@color/colorAccent"
+                    app:hintTextColor="@color/colorAccent"
+                    android:textColorHint="@color/colorAccent"
+                    android:hint="amount">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edt_amount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_duedate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/edt_medicineName"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="5dp"
-                android:inputType="number"
-                android:hint="Amount"
-                android:padding="20dp"
-                android:backgroundTint="@color/colorAccent"
-                android:textColor="@color/colorAccent"
-                android:textColorHint="@color/colorAccent" />
+                android:layout_below="@id/layout_addmed"
+                android:layout_margin="10dp"
+                android:background="@drawable/custom_gradiant_white"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/txtv_medphoto"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/txtv_duedate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="5dp"
+                    android:text="Due date"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="15sp"/>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_date"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/txtv_duedate"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:hint="MM/DD/YY"
+                    android:textColorHint="@color/colorAccent"
+                    app:boxStrokeColor="@color/colorAccent"
+                    app:boxStrokeErrorColor="@color/red"
+                    app:endIconMode="clear_text"
+                    app:hintTextColor="@color/colorAccent"
+                    app:startIconDrawable="@drawable/ic_baseline_calendar"
+                    app:startIconTint="@color/colorAccent">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edt_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_time"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/til_date"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:hint="time"
+                    android:textColorHint="@color/colorAccent"
+                    app:boxStrokeColor="@color/colorAccent"
+                    app:boxStrokeErrorColor="@color/red"
+                    app:endIconMode="clear_text"
+                    app:hintTextColor="@color/colorAccent"
+                    app:startIconDrawable="@drawable/ic_baseline_access_time"
+                    app:startIconTint="@color/colorAccent">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edt_time"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/txtv_repeat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/til_time"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="20dp"
+                    android:text="Repeat"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="15sp"/>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_repeat"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/txtv_repeat"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:hint="repeat at"
+                    android:textColorHint="@color/colorAccent"
+                    app:boxStrokeColor="@color/colorAccent"
+                    app:boxStrokeErrorColor="@color/red"
+                    app:endIconMode="clear_text"
+                    app:hintTextColor="@color/colorAccent"
+                    app:startIconDrawable="@drawable/ic_baseline_event_repeat"
+                    app:startIconTint="@color/colorAccent">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edt_repeat"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_img"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/edt_amount"
-                android:text="Medicine photo"
-                android:layout_centerHorizontal="true"
-                android:textSize="20dp"
-                android:textColor="@color/colorAccent"
-                android:paddingBottom="5dp"/>
+                android:orientation="vertical"
+                android:layout_margin="10dp"
+                android:layout_below="@id/layout_duedate"
+                android:background="@drawable/custom_gradiant_white">
 
-            <ImageView
-                android:id="@+id/imageView1"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_marginBottom="10dp"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@id/txtv_medphoto"
-                app:srcCompat="@drawable/pill"/>
+                <TextView
+                    android:id="@+id/txtv_medimg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/layout_duedate"
+                    android:text="Medicine image"
+                    android:layout_marginStart="10dp"
+                    android:textSize="15sp"
+                    android:textColor="@color/colorAccent"/>
 
-            <android.widget.Button
-                android:id="@+id/btn_upload"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Save"
-                android:background="@drawable/custom_btn_shape"
-                android:layout_below="@id/imageView1"
-                android:layout_centerHorizontal="true"
-                android:width="200dp"
-                android:textColor="@color/white"/>
-        </RelativeLayout>
+                <ImageView
+                    android:id="@+id/imageView1"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_below="@id/layout_duedate"
+                    app:srcCompat="@drawable/ic_baseline_image"/>
 
-    </ScrollView>
+                <LinearLayout
+                    android:id="@+id/layout_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="10dp">
 
+                    <android.widget.Button
+                        android:id="@+id/btn_upload"
+                        android:layout_width="100dp"
+                        android:layout_height="30dp"
+                        android:text="Upload"
+                        android:textAllCaps="false"
+                        android:background="@drawable/custom_btn_shape_1"
+                        android:textColor="@color/white"
+                        android:layout_marginEnd="5dp"/>
+
+                    <android.widget.Button
+                        android:id="@+id/btn_takepic"
+                        android:layout_width="100dp"
+                        android:layout_height="30dp"
+                        android:text="Take picture"
+                        android:textAllCaps="false"
+                        android:background="@drawable/custom_btn_shape_1"
+                        android:textColor="@color/white"
+                        android:layout_marginStart="5dp"/>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
 </LinearLayout>
 
