@@ -1,248 +1,214 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:showIn="@layout/app_bar_reminder"
-    tools:context=".AddReminderActivity">
+    tools:context=".AddReminderActivity"
+    tools:showIn="@layout/app_bar_reminder">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/layout_addmed"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/bg_card_white"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:id="@+id/layout_addmed"
+            <TextView
+                android:id="@+id/txtv_addmed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:text="Add medicine"
+                android:textColor="@color/colorAccent"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/edt_medName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@drawable/custom_gradiant_white"
-                android:layout_margin="10dp">
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:backgroundTint="@color/colorAccent"
+                android:drawableStart="@drawable/ic_outline_medicine_bottle"
+                android:drawablePadding="5dp"
+                android:hint="name"
+                android:inputType="textCapSentences"
+                android:padding="15dp"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:textColor="@color/colorAccent"
+                android:textColorHint="@color/colorAccent" />
 
-                <TextView
-                    android:id="@+id/txtv_addmed"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="5dp"
-                    android:text="Add medicine"
-                    android:textSize="15sp"
-                    android:textColor="@color/colorAccent"/>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_medicineName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_below="@id/txtv_addmed"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                    app:endIconMode="clear_text"
-                    app:boxStrokeColor="@color/colorAccent"
-                    app:boxStrokeErrorColor="@color/red"
-                    app:startIconDrawable="@drawable/bottle"
-                    app:startIconTint="@color/colorAccent"
-                    app:hintTextColor="@color/colorAccent"
-                    android:textColorHint="@color/colorAccent"
-                    android:hint="name">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edt_medicineName"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="textCapSentences"/>
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_amount"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:layout_below="@id/til_medicineName"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                    app:endIconMode="clear_text"
-                    app:boxStrokeColor="@color/colorAccent"
-                    app:boxStrokeErrorColor="@color/red"
-                    app:startIconDrawable="@drawable/tablets"
-                    app:startIconTint="@color/colorAccent"
-                    app:hintTextColor="@color/colorAccent"
-                    android:textColorHint="@color/colorAccent"
-                    android:hint="amount">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edt_amount"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="number" />
-                </com.google.android.material.textfield.TextInputLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/layout_duedate"
+            <EditText
+                android:id="@+id/edt_amount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/layout_addmed"
-                android:layout_margin="10dp"
-                android:background="@drawable/custom_gradiant_white"
-                android:orientation="vertical">
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:backgroundTint="@color/colorAccent"
+                android:drawableStart="@drawable/ic_outline_tablets"
+                android:drawablePadding="5dp"
+                android:hint="amount"
+                android:inputType="textCapSentences"
+                android:padding="15dp"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:textColor="@color/colorAccent"
+                android:textColorHint="@color/colorAccent" />
 
-                <TextView
-                    android:id="@+id/txtv_duedate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="5dp"
-                    android:text="Due date"
-                    android:textColor="@color/colorAccent"
-                    android:textSize="15sp"/>
+        </LinearLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_date"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/txtv_duedate"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:hint="MM/DD/YY"
-                    android:textColorHint="@color/colorAccent"
-                    app:boxStrokeColor="@color/colorAccent"
-                    app:boxStrokeErrorColor="@color/red"
-                    app:endIconMode="clear_text"
-                    app:hintTextColor="@color/colorAccent"
-                    app:startIconDrawable="@drawable/ic_baseline_calendar"
-                    app:startIconTint="@color/colorAccent">
+        <LinearLayout
+            android:id="@+id/layout_duedate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layout_addmed"
+            android:layout_margin="10dp"
+            android:background="@drawable/bg_card_white"
+            android:orientation="vertical">
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edt_date"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="number" />
-                </com.google.android.material.textfield.TextInputLayout>
+            <TextView
+                android:id="@+id/txtv_duedate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:text="Due date"
+                android:textColor="@color/colorAccent"
+                android:textSize="15sp" />
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_time"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/til_date"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:hint="time"
-                    android:textColorHint="@color/colorAccent"
-                    app:boxStrokeColor="@color/colorAccent"
-                    app:boxStrokeErrorColor="@color/red"
-                    app:endIconMode="clear_text"
-                    app:hintTextColor="@color/colorAccent"
-                    app:startIconDrawable="@drawable/ic_baseline_access_time"
-                    app:startIconTint="@color/colorAccent">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edt_time"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="number" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <TextView
-                    android:id="@+id/txtv_repeat"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/til_time"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="20dp"
-                    android:text="Repeat"
-                    android:textColor="@color/colorAccent"
-                    android:textSize="15sp"/>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_repeat"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/txtv_repeat"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:hint="repeat at"
-                    android:textColorHint="@color/colorAccent"
-                    app:boxStrokeColor="@color/colorAccent"
-                    app:boxStrokeErrorColor="@color/red"
-                    app:endIconMode="clear_text"
-                    app:hintTextColor="@color/colorAccent"
-                    app:startIconDrawable="@drawable/ic_baseline_event_repeat"
-                    app:startIconTint="@color/colorAccent">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edt_repeat"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="number" />
-                </com.google.android.material.textfield.TextInputLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/layout_img"
+            <EditText
+                android:id="@+id/edt_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_margin="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:backgroundTint="@color/colorAccent"
+                android:drawableStart="@drawable/ic_baseline_calendar"
+                android:drawablePadding="5dp"
+                android:hint="select date"
+                android:inputType="textCapSentences"
+                android:padding="15dp"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:textColor="@color/colorAccent"
+                android:textColorHint="@color/colorAccent" />
+
+            <EditText
+                android:id="@+id/edt_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:backgroundTint="@color/colorAccent"
+                android:drawableStart="@drawable/ic_baseline_access_time"
+                android:drawablePadding="5dp"
+                android:hint="select time"
+                android:inputType="textCapSentences"
+                android:padding="15dp"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:textColor="@color/colorAccent"
+                android:textColorHint="@color/colorAccent" />
+
+            <TextView
+                android:id="@+id/txtv_repeat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/edt_time"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:text="Repeat"
+                android:textColor="@color/colorAccent"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/edt_repeat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:backgroundTint="@color/colorAccent"
+                android:drawableStart="@drawable/ic_baseline_event_repeat"
+                android:drawablePadding="5dp"
+                android:hint="repeat at"
+                android:inputType="textCapSentences"
+                android:padding="15dp"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:textColor="@color/colorAccent"
+                android:textColorHint="@color/colorAccent" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_img"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layout_duedate"
+            android:layout_margin="10dp"
+            android:background="@drawable/bg_card_white"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txtv_medimg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_below="@id/layout_duedate"
-                android:background="@drawable/custom_gradiant_white">
+                android:layout_marginStart="10dp"
+                android:text="Medicine image"
+                android:textColor="@color/colorAccent"
+                android:textSize="15sp" />
 
-                <TextView
-                    android:id="@+id/txtv_medimg"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/layout_duedate"
-                    android:text="Medicine image"
-                    android:layout_marginStart="10dp"
-                    android:textSize="15sp"
-                    android:textColor="@color/colorAccent"/>
+            <ImageView
+                android:id="@+id/imageView1"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_below="@id/layout_duedate"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="10dp"
+                app:srcCompat="@drawable/ic_baseline_image" />
 
-                <ImageView
-                    android:id="@+id/imageView1"
+            <LinearLayout
+                android:id="@+id/layout_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal">
+
+                <android.widget.Button
+                    android:id="@+id/btn_upload"
                     android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_below="@id/layout_duedate"
-                    app:srcCompat="@drawable/ic_baseline_image"/>
+                    android:layout_height="30dp"
+                    android:layout_marginEnd="5dp"
+                    android:background="@drawable/custom_btn_shape_1"
+                    android:text="Upload"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white" />
 
-                <LinearLayout
-                    android:id="@+id/layout_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginBottom="10dp">
+                <android.widget.Button
+                    android:id="@+id/btn_takepic"
+                    android:layout_width="100dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="5dp"
+                    android:background="@drawable/custom_btn_shape_1"
+                    android:text="Take picture"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white" />
 
-                    <android.widget.Button
-                        android:id="@+id/btn_upload"
-                        android:layout_width="100dp"
-                        android:layout_height="30dp"
-                        android:text="Upload"
-                        android:textAllCaps="false"
-                        android:background="@drawable/custom_btn_shape_1"
-                        android:textColor="@color/white"
-                        android:layout_marginEnd="5dp"/>
-
-                    <android.widget.Button
-                        android:id="@+id/btn_takepic"
-                        android:layout_width="100dp"
-                        android:layout_height="30dp"
-                        android:text="Take picture"
-                        android:textAllCaps="false"
-                        android:background="@drawable/custom_btn_shape_1"
-                        android:textColor="@color/white"
-                        android:layout_marginStart="5dp"/>
-                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
+    </LinearLayout>
 </LinearLayout>
 

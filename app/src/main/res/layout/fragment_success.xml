@@ -1,64 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SuccessFragment"
+    android:elevation="1dp"
     android:orientation="vertical"
-    android:elevation="1dp">
+    tools:context=".SuccessFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:background="@drawable/custom_bg_green_gradiant">
+        android:background="@drawable/bg_bottom_corners_gradiant_green">
 
         <ImageView
             android:id="@+id/imageView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:scaleType="centerCrop"
-            android:src="@drawable/circles"/>
+            android:src="@drawable/img_circles" />
 
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="130dp"
         android:layout_marginStart="24dp"
+        android:layout_marginTop="130dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="15dp"
-        android:background="@drawable/custom_bg_white">
+        android:background="@drawable/bg_all_corners_white">
 
         <ImageView
             android:id="@+id/imgv_success_reg"
             android:layout_width="250dp"
             android:layout_height="250dp"
-            android:src="@drawable/success"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="150dp"/>
+            android:layout_marginTop="150dp"
+            android:src="@drawable/success" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/imgv_success_reg"
+            android:layout_marginTop="20dp"
             android:text="REGISTERED SUCCESSFULLY"
             android:textAlignment="center"
-            android:layout_marginTop="20dp"
-            android:textSize="30sp"
             android:textColor="@color/green"
-            android:textStyle="bold"/>
+            android:textSize="30sp"
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="MEDICIAL"
             android:layout_alignParentBottom="true"
             android:layout_centerInParent="true"
-            android:textColor="@color/green"
-            android:fontFamily="@font/black_ops_one"/>
+            android:fontFamily="@font/black_ops_one"
+            android:text="MEDICIAL"
+            android:textColor="@color/green" />
 
     </RelativeLayout>
 

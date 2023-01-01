@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,7 +9,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:background="@drawable/custom_bg_gradiant">
+        android:background="@drawable/bg_bottom_corners_gradiant_accent">
 
         <TextView
             android:id="@+id/txtv_register"
@@ -21,25 +20,25 @@
             android:text="Register"
             android:textColor="@color/white"
             android:textSize="50sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <ImageView
             android:id="@+id/imageView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:scaleType="centerCrop"
-            app:srcCompat="@drawable/circles"/>
+            app:srcCompat="@drawable/img_circles" />
 
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="130dp"
         android:layout_marginStart="24dp"
+        android:layout_marginTop="130dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="15dp"
-        android:background="@drawable/custom_bg_white">
+        android:background="@drawable/bg_all_corners_white">
 
         <EditText
             android:id="@+id/edt_reg_userName"
@@ -49,14 +48,14 @@
             android:layout_marginTop="15dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="5dp"
-            android:drawableStart="@drawable/ic_outline_user"
             android:backgroundTint="@color/colorAccent"
+            android:drawableStart="@drawable/ic_outline_user"
             android:drawablePadding="5dp"
+            android:hint="Username"
+            android:inputType="text"
             android:padding="20dp"
             android:paddingStart="5dp"
             android:paddingEnd="5dp"
-            android:hint="Username"
-            android:inputType="text"
             android:textColor="@color/colorAccent"
             android:textColorHint="@color/colorAccent" />
 
@@ -69,14 +68,14 @@
             android:layout_marginTop="5dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="5dp"
-            android:drawableStart="@drawable/ic_outline_label"
             android:backgroundTint="@color/colorAccent"
+            android:drawableStart="@drawable/ic_outline_label"
             android:drawablePadding="5dp"
+            android:hint="First name"
+            android:inputType="text"
             android:padding="20dp"
             android:paddingStart="5dp"
             android:paddingEnd="5dp"
-            android:hint="First name"
-            android:inputType="text"
             android:textColor="@color/colorAccent"
             android:textColorHint="@color/colorAccent" />
 
@@ -89,14 +88,14 @@
             android:layout_marginTop="5dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="5dp"
-            android:drawableStart="@drawable/ic_outline_label"
             android:backgroundTint="@color/colorAccent"
+            android:drawableStart="@drawable/ic_outline_label"
             android:drawablePadding="5dp"
+            android:hint="Last name"
+            android:inputType="text"
             android:padding="20dp"
             android:paddingStart="5dp"
             android:paddingEnd="5dp"
-            android:hint="Last name"
-            android:inputType="text"
             android:textColor="@color/colorAccent"
             android:textColorHint="@color/colorAccent" />
 
@@ -109,14 +108,14 @@
             android:layout_marginTop="5dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="5dp"
-            android:drawableStart="@drawable/ic_outline_email"
             android:backgroundTint="@color/colorAccent"
+            android:drawableStart="@drawable/ic_outline_email"
             android:drawablePadding="5dp"
+            android:hint="E-mail"
+            android:inputType="textEmailAddress"
             android:padding="20dp"
             android:paddingStart="5dp"
             android:paddingEnd="5dp"
-            android:hint="E-mail"
-            android:inputType="textEmailAddress"
             android:textColor="@color/colorAccent"
             android:textColorHint="@color/colorAccent" />
 
@@ -129,16 +128,16 @@
             android:layout_marginTop="5dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="5dp"
-            android:drawableStart="@drawable/ic_baseline_password"
             android:backgroundTint="@color/colorAccent"
-            android:padding="20dp"
+            android:drawableStart="@drawable/ic_outline_lock"
             android:drawablePadding="5dp"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:padding="20dp"
             android:paddingStart="5dp"
             android:paddingEnd="5dp"
-            android:hint="Password"
-            android:textColorHint="@color/colorAccent"
             android:textColor="@color/colorAccent"
-            android:inputType="textPassword"/>
+            android:textColorHint="@color/colorAccent" />
 
         <EditText
             android:id="@+id/edt_reg_repassword"
@@ -149,24 +148,24 @@
             android:layout_marginTop="5dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="5dp"
-            android:hint="Confirm password"
-            android:textColorHint="@color/colorAccent"
-            android:textColor="@color/colorAccent"
-            android:drawableStart="@drawable/ic_baseline_password"
             android:backgroundTint="@color/colorAccent"
+            android:drawableStart="@drawable/ic_outline_lock"
+            android:drawablePadding="5dp"
+            android:hint="Confirm password"
             android:inputType="textPassword"
             android:padding="20dp"
-            android:drawablePadding="5dp"
             android:paddingStart="5dp"
-            android:paddingEnd="5dp"/>
+            android:paddingEnd="5dp"
+            android:textColor="@color/colorAccent"
+            android:textColorHint="@color/colorAccent" />
 
         <TextView
             android:id="@+id/All_field_Required"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_above="@id/btn_register"
             android:text=""
-            android:textAlignment="center"
-            android:layout_above="@id/btn_register"/>
+            android:textAlignment="center" />
 
         <android.widget.Button
             android:id="@+id/btn_register"
@@ -174,22 +173,22 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_margin="20dp"
-            android:background="@drawable/custom_btn_shape"
+            android:background="@drawable/design_button_shape"
+            android:elevation="5dp"
             android:onClick="Register"
             android:padding="10dp"
             android:text="Register"
             android:textColor="@color/white"
-            android:textSize="20sp"
-            android:elevation="5dp"/>
+            android:textSize="20sp" />
 
     </RelativeLayout>
 
     <FrameLayout
         android:id="@+id/frame_layout"
+        android:name="com.example.medicial.SuccessFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:name="com.example.medicial.SuccessFragment"
-        tools:layout="@layout/fragment_success"
-        android:elevation="10dp"/>
+        android:elevation="10dp"
+        tools:layout="@layout/fragment_success" />
 
 </RelativeLayout>

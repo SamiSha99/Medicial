@@ -7,8 +7,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.os.Bundle;
 import android.view.WindowManager;
 
-public class CalendarNavigation extends AppCompatActivity{
-
+public class CalendarNavigation extends AppCompatActivity {
     ActionBar actionBar;
     Toolbar toolbar;
 
@@ -17,18 +16,17 @@ public class CalendarNavigation extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
 
-        //        This code to show activity in full screen
+//        {Full screen activity}
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        // finding UI widget
+//        {Toolbar}
         toolbar = findViewById(R.id.cal_toolbar);
         setSupportActionBar(toolbar);
 
-        // setting up action bar
+//        {Setting up action bar}
         actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeAsUpIndicator(getResources().getDrawable(R.drawable.ic_baseline_arrow_back));
-
     }
 }

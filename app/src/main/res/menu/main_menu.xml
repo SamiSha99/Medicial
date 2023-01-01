@@ -2,31 +2,37 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group android:checkableBehavior="single">
-        <item android:id="@+id/nav_home"
-            android:title="Home"
-            android:icon="@drawable/ic_baseline_home"/>
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_baseline_home"
+            android:title="Home" />
 
-        <item android:id="@+id/nav_calendar"
-            android:title="Calender"
-            android:icon="@drawable/ic_baseline_calendar"/>
+        <item
+            android:id="@+id/nav_calendar"
+            android:icon="@drawable/ic_baseline_calendar"
+            android:title="Calender" />
 
-        <item android:id="@+id/nav_settings"
-            android:title="Settings"
-            android:icon="@drawable/ic_baseline_settings"/>
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/ic_baseline_settings"
+            android:title="Settings" />
     </group>
 
-    <item android:id="@+id/profile"
-        android:title="Profile"
-        android:icon="@drawable/ic_baseline_switch_account">
+    <item
+        android:id="@+id/profile"
+        android:icon="@drawable/ic_baseline_switch_account"
+        android:title="Profile">
         <menu>
             <group android:checkableBehavior="single">
-                <item android:id="@+id/nav_profile"
-                    android:title="My profile"
-                    android:icon="@drawable/ic_baseline_manage_accounts"/>
+                <item
+                    android:id="@+id/nav_profile"
+                    android:icon="@drawable/ic_baseline_manage_accounts"
+                    android:title="My profile" />
 
-                <item android:id="@+id/nav_logout"
-                    android:title="Logout"
-                    android:icon="@drawable/ic_baseline_logout"/>
+                <item
+                    android:id="@+id/nav_logout"
+                    android:icon="@drawable/ic_baseline_logout"
+                    android:title="Logout" />
             </group>
         </menu>
     </item>
