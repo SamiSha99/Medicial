@@ -29,7 +29,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
                 android:text="Add medicine"
-                android:textColor="@color/colorAccent"
+                android:textColor="@color/accent"
                 android:textSize="15sp" />
 
             <EditText
@@ -38,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
-                android:backgroundTint="@color/colorAccent"
+                android:backgroundTint="@color/accent"
                 android:drawableStart="@drawable/ic_outline_medicine_bottle"
                 android:drawablePadding="5dp"
                 android:hint="name"
@@ -46,8 +46,8 @@
                 android:padding="15dp"
                 android:paddingStart="5dp"
                 android:paddingEnd="5dp"
-                android:textColor="@color/colorAccent"
-                android:textColorHint="@color/colorAccent" />
+                android:textColor="@color/accent"
+                android:textColorHint="@color/accent" />
 
             <EditText
                 android:id="@+id/edt_amount"
@@ -55,7 +55,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
-                android:backgroundTint="@color/colorAccent"
+                android:backgroundTint="@color/accent"
                 android:drawableStart="@drawable/ic_outline_tablets"
                 android:drawablePadding="5dp"
                 android:hint="amount"
@@ -63,8 +63,8 @@
                 android:padding="15dp"
                 android:paddingStart="5dp"
                 android:paddingEnd="5dp"
-                android:textColor="@color/colorAccent"
-                android:textColorHint="@color/colorAccent" />
+                android:textColor="@color/accent"
+                android:textColorHint="@color/accent" />
 
         </LinearLayout>
 
@@ -84,7 +84,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
                 android:text="Due date"
-                android:textColor="@color/colorAccent"
+                android:textColor="@color/accent"
                 android:textSize="15sp" />
 
             <EditText
@@ -93,7 +93,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
-                android:backgroundTint="@color/colorAccent"
+                android:backgroundTint="@color/accent"
                 android:drawableStart="@drawable/ic_baseline_calendar"
                 android:drawablePadding="5dp"
                 android:hint="select date"
@@ -101,8 +101,8 @@
                 android:padding="15dp"
                 android:paddingStart="5dp"
                 android:paddingEnd="5dp"
-                android:textColor="@color/colorAccent"
-                android:textColorHint="@color/colorAccent" />
+                android:textColor="@color/accent"
+                android:textColorHint="@color/accent" />
 
             <EditText
                 android:id="@+id/edt_time"
@@ -110,7 +110,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
-                android:backgroundTint="@color/colorAccent"
+                android:backgroundTint="@color/accent"
                 android:drawableStart="@drawable/ic_baseline_access_time"
                 android:drawablePadding="5dp"
                 android:hint="select time"
@@ -118,8 +118,8 @@
                 android:padding="15dp"
                 android:paddingStart="5dp"
                 android:paddingEnd="5dp"
-                android:textColor="@color/colorAccent"
-                android:textColorHint="@color/colorAccent" />
+                android:textColor="@color/accent"
+                android:textColorHint="@color/accent" />
 
             <TextView
                 android:id="@+id/txtv_repeat"
@@ -129,7 +129,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:text="Repeat"
-                android:textColor="@color/colorAccent"
+                android:textColor="@color/accent"
                 android:textSize="15sp" />
 
             <EditText
@@ -138,7 +138,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
-                android:backgroundTint="@color/colorAccent"
+                android:backgroundTint="@color/accent"
                 android:drawableStart="@drawable/ic_baseline_event_repeat"
                 android:drawablePadding="5dp"
                 android:hint="repeat at"
@@ -146,8 +146,8 @@
                 android:padding="15dp"
                 android:paddingStart="5dp"
                 android:paddingEnd="5dp"
-                android:textColor="@color/colorAccent"
-                android:textColorHint="@color/colorAccent" />
+                android:textColor="@color/accent"
+                android:textColorHint="@color/accent" />
 
         </LinearLayout>
 
@@ -167,7 +167,7 @@
                 android:layout_below="@id/layout_duedate"
                 android:layout_marginStart="10dp"
                 android:text="Medicine image"
-                android:textColor="@color/colorAccent"
+                android:textColor="@color/accent"
                 android:textSize="15sp" />
 
             <ImageView

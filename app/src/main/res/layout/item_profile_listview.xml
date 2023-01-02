@@ -7,35 +7,118 @@
     android:orientation="vertical">
 
     <TextView
+        android:id="@+id/txtv_prof_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:text="User name"
+        android:textColor="@color/accent" />
+
+    <EditText
+        android:id="@+id/edt_prof_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/custom_edt_shape"
+        android:drawableStart="@drawable/ic_outline_user"
+        android:drawablePadding="5dp"
+        android:enabled="false"
+        android:paddingStart="5dp"
+        android:textColor="@color/accent" />
+
+    <TextView
         android:id="@+id/txtv_prof_firstname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:text="first name"
-        android:textColor="@color/colorAccent" />
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:text="First name"
+        android:textColor="@color/accent" />
+
+    <EditText
+        android:id="@+id/edt_prof_firstname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/custom_edt_shape"
+        android:drawableStart="@drawable/ic_outline_label"
+        android:drawablePadding="5dp"
+        android:enabled="false"
+        android:paddingStart="5dp"
+        android:textColor="@color/accent" />
 
     <TextView
         android:id="@+id/txtv_prof_lastname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:text="first name"
-        android:textColor="@color/colorAccent" />
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:text="Last name"
+        android:textColor="@color/accent" />
+
+    <EditText
+        android:id="@+id/edt_prof_lastname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/custom_edt_shape"
+        android:drawableStart="@drawable/ic_outline_label"
+        android:drawablePadding="5dp"
+        android:enabled="false"
+        android:paddingStart="5dp"
+        android:textColor="@color/accent" />
 
     <TextView
         android:id="@+id/txtv_prof_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:text="first name"
-        android:textColor="@color/colorAccent" />
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:text="E-mail"
+        android:textColor="@color/accent" />
+
+    <EditText
+        android:id="@+id/edt_prof_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/custom_edt_shape"
+        android:drawableStart="@drawable/ic_outline_email"
+        android:drawablePadding="5dp"
+        android:enabled="false"
+        android:paddingStart="5dp"
+        android:textColor="@color/accent" />
 
     <TextView
         android:id="@+id/txtv_prof_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:text="first name"
-        android:textColor="@color/colorAccent" />
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:text="Password"
+        android:textColor="@color/accent" />
+
+    <EditText
+        android:id="@+id/edt_prof_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/custom_edt_shape"
+        android:drawableStart="@drawable/ic_outline_lock"
+        android:drawablePadding="5dp"
+        android:enabled="false"
+        android:paddingStart="5dp"
+        android:textColor="@color/accent" />
 
 </LinearLayout>

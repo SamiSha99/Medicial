@@ -74,8 +74,6 @@ public class HomeActivity extends AppCompatActivity
 //                TextView navUsername = headerView.findViewById(R.id.txtv_setUserName);
 //                navUsername.setText(setUsername);
 //            }
-//
-//
 //        }
 
 //        {FloatingActionButton}
@@ -85,6 +83,29 @@ public class HomeActivity extends AppCompatActivity
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), AddReminderActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        drawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
+            @Override
+            public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
+                // Translate the FAB horizontally by the slide offset multiplied by the width of the FAB
+                floatingActionButton.setTranslationX(slideOffset * 250);
+            }
+
+            @Override
+            public void onDrawerOpened(@NonNull View drawerView) {
+                // Hide/Disable the FAB
+            }
+
+            @Override
+            public void onDrawerClosed(@NonNull View drawerView) {
+                // Show/Enable the FAB
+            }
+
+            @Override
+            public void onDrawerStateChanged(int newState) {
+                // Nothing to do
             }
         });
 
@@ -100,6 +121,7 @@ public class HomeActivity extends AppCompatActivity
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         displayData();
     }
+
 
     private void displayData() {
         Cursor cursor1 = dbHelper.getMedicineData();

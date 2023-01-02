@@ -90,17 +90,17 @@ public class DBHelper extends SQLiteOpenHelper {
         ArrayList<User> arrayList = new ArrayList<>();
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
         Cursor cursor = sqLiteDatabase.rawQuery("select * from User", null);
-        cursor.moveToFirst();
-        while (cursor.isAfterLast() == false) {
-            String userName = cursor.getString(1);
-            String firstName = cursor.getString(2);
-            String lastName = cursor.getString(3);
-            String email = cursor.getString(4);
-            String password = cursor.getString(5);
-            User user = new User(userName, firstName, lastName, password, email);
-            arrayList.add(user);
-//            cursor.moveToNext();
+//        cursor.moveToFirst();
+        String userName = "", firstName = "", lastName = "", email = "", password = "";
+        while (cursor.moveToNext()) {
+            userName = cursor.getString(1);
+            firstName = cursor.getString(2);
+            lastName = cursor.getString(3);
+            email = cursor.getString(4);
+            password = cursor.getString(5);
         }
+        User user = new User(userName, firstName, lastName, password, email);
+        arrayList.add(user);
         return arrayList;
     }
 

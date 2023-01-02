@@ -15,12 +15,20 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorAccent"
-            app:navigationIcon="@drawable/ic_baseline_menu"
-            app:title="Home"
-            app:titleTextColor="@color/white">
+            android:background="@color/accent"
+            app:navigationIcon="@drawable/ic_baseline_menu">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="Home"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
         </androidx.appcompat.widget.Toolbar>
+
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -32,7 +40,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
-        android:backgroundTint="@color/colorAccent"
+        android:background="@color/accent"
+        android:backgroundTint="@color/accent"
         app:srcCompat="@drawable/ic_baseline_alarm_add"
         app:tint="@color/white" />
 

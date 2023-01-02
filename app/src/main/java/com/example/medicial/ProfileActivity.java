@@ -1,16 +1,18 @@
 package com.example.medicial;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.os.Bundle;
 import android.view.WindowManager;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 
 public class ProfileActivity extends AppCompatActivity {
+    Toolbar toolbar;
+    ActionBar actionBar;
     ListView listView;
     DBHelper dbHelper = new DBHelper(this);
     ListAdapter listAdapter;
@@ -24,6 +26,16 @@ public class ProfileActivity extends AppCompatActivity {
 //       {Full screen activity}
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+//        {Toolbar}
+        toolbar = findViewById(R.id.prof_toolbar);
+        setSupportActionBar(toolbar);
+
+//        {Setting up action bar}
+        actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setHomeAsUpIndicator(getResources().getDrawable(R.drawable.ic_baseline_arrow_back));
+        actionBar.setDisplayShowTitleEnabled(false);
 
         listView = findViewById(R.id.profile_list);
         ArrayList<User> arrayList = new ArrayList<>();

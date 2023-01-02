@@ -38,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="18"
-                android:textColor="@color/colorAccent"
+                android:textColor="@color/accent"
                 android:textSize="24sp" />
 
             <TextView
@@ -131,7 +131,7 @@
                     android:layout_height="wrap_content"
                     android:singleLine="true"
                     android:text="10:00 AM"
-                    android:textColor="@color/colorAccent"
+                    android:textColor="@color/accent"
                     android:textSize="20sp"
                     app:drawableStartCompat="@drawable/ic_baseline_access_time" />
 
