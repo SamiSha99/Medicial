@@ -1,214 +1,179 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".AddReminderActivity"
-    tools:showIn="@layout/app_bar_reminder">
+    tools:context=".Activity.ReminderActivity">
+
+    <ImageView
+        android:id="@+id/imgv_bg_medicine"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.3"
+        android:scaleType="centerCrop"
+        android:src="@drawable/img_pills" />
+
+    <TextView
+        android:id="@+id/txtv_medicine_det"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:text="Medicine details"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/txtv_medicine_note"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtv_medicine_det"
+        android:layout_marginStart="10dp"
+        android:alpha="0.5"
+        android:text="Set medicine details"
+        android:textColor="@color/black"
+        android:textSize="10sp" />
+
+    <TextView
+        android:id="@+id/txtv_add_medicine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtv_medicine_note"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="15dp"
+        android:text="Add medicine"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/edt_medName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtv_add_medicine"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/custom_edt_shape"
+        android:drawableStart="@drawable/ic_outline_medicine_bottle"
+        android:drawablePadding="5dp"
+        android:hint="medicine name"
+        android:inputType="textCapSentences"
+        android:padding="15dp"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
+        android:textColor="@color/accent"
+        android:textColorHint="@color/accent" />
+
+    <TextView
+        android:id="@+id/txtv_amount_long"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edt_medName"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:text="Amount and how long?"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/edt_amount"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtv_amount_long"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+
+        android:background="@drawable/custom_edt_shape"
+        android:drawableStart="@drawable/ic_outline_tablets"
+        android:drawablePadding="5dp"
+        android:hint="amount"
+        android:inputType="textCapSentences"
+        android:padding="15dp"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
+        android:textColor="@color/accent"
+        android:textColorHint="@color/accent" />
+
+    <EditText
+        android:id="@+id/edt_long"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtv_amount_long"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_toRightOf="@id/edt_amount"
+        android:background="@drawable/custom_edt_shape"
+        android:drawableStart="@drawable/ic_baseline_calendar"
+        android:drawablePadding="5dp"
+        android:hint="days"
+        android:inputType="textCapSentences"
+        android:padding="15dp"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
+        android:textColor="@color/accent"
+        android:textColorHint="@color/accent" />
+
+    <TextView
+        android:id="@+id/txtv_medicine_pic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edt_amount"
+        android:layout_margin="10dp"
+        android:text="Medicine picture"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/imgv_medicine_pic"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_below="@id/txtv_medicine_pic"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/ic_baseline_image" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:layout_below="@id/imgv_medicine_pic"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
 
-        <LinearLayout
-            android:id="@+id/layout_addmed"
-            android:layout_width="match_parent"
+        <android.widget.Button
+            android:id="@+id/btn_upload"
+            android:layout_width="180dp"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:background="@drawable/bg_card_white"
-            android:orientation="vertical">
+            android:layout_marginEnd="5dp"
+            android:text="Upload picture" />
 
-            <TextView
-                android:id="@+id/txtv_addmed"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="5dp"
-                android:text="Add medicine"
-                android:textColor="@color/accent"
-                android:textSize="15sp" />
-
-            <EditText
-                android:id="@+id/edt_medName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:backgroundTint="@color/accent"
-                android:drawableStart="@drawable/ic_outline_medicine_bottle"
-                android:drawablePadding="5dp"
-                android:hint="name"
-                android:inputType="textCapSentences"
-                android:padding="15dp"
-                android:paddingStart="5dp"
-                android:paddingEnd="5dp"
-                android:textColor="@color/accent"
-                android:textColorHint="@color/accent" />
-
-            <EditText
-                android:id="@+id/edt_amount"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:backgroundTint="@color/accent"
-                android:drawableStart="@drawable/ic_outline_tablets"
-                android:drawablePadding="5dp"
-                android:hint="amount"
-                android:inputType="textCapSentences"
-                android:padding="15dp"
-                android:paddingStart="5dp"
-                android:paddingEnd="5dp"
-                android:textColor="@color/accent"
-                android:textColorHint="@color/accent" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/layout_duedate"
-            android:layout_width="match_parent"
+        <android.widget.Button
+            android:id="@+id/btn_takePic"
+            android:layout_width="180dp"
             android:layout_height="wrap_content"
-            android:layout_below="@id/layout_addmed"
-            android:layout_margin="10dp"
-            android:background="@drawable/bg_card_white"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/txtv_duedate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="5dp"
-                android:text="Due date"
-                android:textColor="@color/accent"
-                android:textSize="15sp" />
-
-            <EditText
-                android:id="@+id/edt_date"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:backgroundTint="@color/accent"
-                android:drawableStart="@drawable/ic_baseline_calendar"
-                android:drawablePadding="5dp"
-                android:hint="select date"
-                android:inputType="textCapSentences"
-                android:padding="15dp"
-                android:paddingStart="5dp"
-                android:paddingEnd="5dp"
-                android:textColor="@color/accent"
-                android:textColorHint="@color/accent" />
-
-            <EditText
-                android:id="@+id/edt_time"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:backgroundTint="@color/accent"
-                android:drawableStart="@drawable/ic_baseline_access_time"
-                android:drawablePadding="5dp"
-                android:hint="select time"
-                android:inputType="textCapSentences"
-                android:padding="15dp"
-                android:paddingStart="5dp"
-                android:paddingEnd="5dp"
-                android:textColor="@color/accent"
-                android:textColorHint="@color/accent" />
-
-            <TextView
-                android:id="@+id/txtv_repeat"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/edt_time"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:text="Repeat"
-                android:textColor="@color/accent"
-                android:textSize="15sp" />
-
-            <EditText
-                android:id="@+id/edt_repeat"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:backgroundTint="@color/accent"
-                android:drawableStart="@drawable/ic_baseline_event_repeat"
-                android:drawablePadding="5dp"
-                android:hint="repeat at"
-                android:inputType="textCapSentences"
-                android:padding="15dp"
-                android:paddingStart="5dp"
-                android:paddingEnd="5dp"
-                android:textColor="@color/accent"
-                android:textColorHint="@color/accent" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/layout_img"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/layout_duedate"
-            android:layout_margin="10dp"
-            android:background="@drawable/bg_card_white"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/txtv_medimg"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/layout_duedate"
-                android:layout_marginStart="10dp"
-                android:text="Medicine image"
-                android:textColor="@color/accent"
-                android:textSize="15sp" />
-
-            <ImageView
-                android:id="@+id/imageView1"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_below="@id/layout_duedate"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="10dp"
-                app:srcCompat="@drawable/ic_baseline_image" />
-
-            <LinearLayout
-                android:id="@+id/layout_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="10dp"
-                android:orientation="horizontal">
-
-                <android.widget.Button
-                    android:id="@+id/btn_upload"
-                    android:layout_width="100dp"
-                    android:layout_height="30dp"
-                    android:layout_marginEnd="5dp"
-                    android:background="@drawable/custom_btn_shape_1"
-                    android:text="Upload"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white" />
-
-                <android.widget.Button
-                    android:id="@+id/btn_takepic"
-                    android:layout_width="100dp"
-                    android:layout_height="30dp"
-                    android:layout_marginStart="5dp"
-                    android:background="@drawable/custom_btn_shape_1"
-                    android:text="Take picture"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white" />
-
-            </LinearLayout>
-        </LinearLayout>
+            android:layout_marginStart="5dp"
+            android:text="Take picture" />
     </LinearLayout>
-</LinearLayout>
+
+    <android.widget.Button
+        android:id="@+id/btn_next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="20dp"
+        android:drawableEnd="@drawable/ic_baseline_arrow_forward"
+        android:text="Next"
+        android:textSize="20sp" />
+
+</RelativeLayout>
 
