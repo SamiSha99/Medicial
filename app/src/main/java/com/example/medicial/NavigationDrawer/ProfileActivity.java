@@ -45,7 +45,6 @@ public class ProfileActivity extends AppCompatActivity {
         listView = findViewById(R.id.profile_list);
         ArrayList<User> arrayList = new ArrayList<>();
         ShowUserData();
-
     }
 
     public void ShowUserData() {
@@ -54,4 +53,16 @@ public class ProfileActivity extends AppCompatActivity {
         listView.setAdapter(listAdapter);
         listAdapter.notifyDataSetChanged();
     }
+
+//    @Override
+//    public void onBackPressed() {
+//        super.onBackPressed();
+//        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+//    }
+//
+//    @Override
+//    public boolean onSupportNavigateUp() {
+//        onBackPressed();
+//        return super.onSupportNavigateUp();
+//    }
 }

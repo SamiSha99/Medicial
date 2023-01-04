@@ -9,12 +9,12 @@
     tools:context=".Activity.ReminderActivity">
 
     <ImageView
-        android:id="@+id/imgv_bg_medicine"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:alpha="0.3"
+        android:id="@+id/imgv_bg_pills"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:alpha="0.5"
         android:scaleType="centerCrop"
-        android:src="@drawable/img_pills" />
+        app:srcCompat="@drawable/img_pills" />
 
     <TextView
         android:id="@+id/txtv_medicine_det"
@@ -27,153 +27,163 @@
         android:textSize="20sp"
         android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/txtv_medicine_note"
-        android:layout_width="wrap_content"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView_add_med"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/txtv_medicine_det"
+        android:layout_centerInParent="true"
         android:layout_marginStart="10dp"
-        android:alpha="0.5"
-        android:text="Set medicine details"
-        android:textColor="@color/black"
-        android:textSize="10sp" />
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="5dp"
+        app:cardCornerRadius="30dp"
+        app:cardElevation="5dp">
 
-    <TextView
-        android:id="@+id/txtv_add_medicine"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/txtv_medicine_note"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="15dp"
-        android:text="Add medicine"
-        android:textColor="@color/black"
-        android:textSize="15sp"
-        android:textStyle="bold" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="24dp">
 
-    <EditText
-        android:id="@+id/edt_medName"
+            <TextView
+                android:id="@+id/txtv_add_medicine"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txtv_medicine_note"
+                android:text="Add medicine"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/edt_medName"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/custom_edt_shape"
+                android:drawableStart="@drawable/ic_outline_medicine_bottle"
+                android:drawablePadding="8dp"
+                android:hint="medicine name"
+                android:inputType="textCapSentences"
+                android:padding="8dp"
+                android:textColor="@color/accent"
+                android:textColorHint="@color/gray" />
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView_add_amount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/txtv_add_medicine"
+        android:layout_below="@id/cardView_add_med"
+        android:layout_centerInParent="true"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/custom_edt_shape"
-        android:drawableStart="@drawable/ic_outline_medicine_bottle"
-        android:drawablePadding="5dp"
-        android:hint="medicine name"
-        android:inputType="textCapSentences"
-        android:padding="15dp"
-        android:paddingStart="5dp"
-        android:paddingEnd="5dp"
-        android:textColor="@color/accent"
-        android:textColorHint="@color/accent" />
+        android:layout_marginBottom="5dp"
+        app:cardCornerRadius="30dp"
+        app:cardElevation="5dp">
 
-    <TextView
-        android:id="@+id/txtv_amount_long"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/edt_medName"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:text="Amount and how long?"
-        android:textColor="@color/black"
-        android:textSize="15sp"
-        android:textStyle="bold" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="24dp">
 
-    <EditText
-        android:id="@+id/edt_amount"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/txtv_amount_long"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
+            <TextView
+                android:id="@+id/txtv_amount_long"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txtv_medicine_note"
+                android:text="Amount"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="bold" />
 
-        android:background="@drawable/custom_edt_shape"
-        android:drawableStart="@drawable/ic_outline_tablets"
-        android:drawablePadding="5dp"
-        android:hint="amount"
-        android:inputType="textCapSentences"
-        android:padding="15dp"
-        android:paddingStart="5dp"
-        android:paddingEnd="5dp"
-        android:textColor="@color/accent"
-        android:textColorHint="@color/accent" />
+            <EditText
+                android:id="@+id/edt_amount"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/custom_edt_shape"
+                android:drawableStart="@drawable/ic_outline_tablets"
+                android:drawablePadding="8dp"
+                android:hint="amount"
+                android:inputType="number"
+                android:padding="8dp"
+                android:textColor="@color/accent"
+                android:textColorHint="@color/gray" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
-    <EditText
-        android:id="@+id/edt_long"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/txtv_amount_long"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        android:layout_toRightOf="@id/edt_amount"
-        android:background="@drawable/custom_edt_shape"
-        android:drawableStart="@drawable/ic_baseline_calendar"
-        android:drawablePadding="5dp"
-        android:hint="days"
-        android:inputType="textCapSentences"
-        android:padding="15dp"
-        android:paddingStart="5dp"
-        android:paddingEnd="5dp"
-        android:textColor="@color/accent"
-        android:textColorHint="@color/accent" />
-
-    <TextView
-        android:id="@+id/txtv_medicine_pic"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/edt_amount"
-        android:layout_margin="10dp"
-        android:text="Medicine picture"
-        android:textColor="@color/black"
-        android:textSize="15sp"
-        android:textStyle="bold" />
-
-    <ImageView
-        android:id="@+id/imgv_medicine_pic"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_below="@id/txtv_medicine_pic"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/ic_baseline_image" />
-
-    <LinearLayout
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView_picture"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/imgv_medicine_pic"
+        android:layout_below="@id/cardView_add_amount"
+        android:layout_centerInParent="true"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        android:gravity="center_horizontal"
-        android:orientation="horizontal">
+        app:cardCornerRadius="30dp"
+        app:cardElevation="5dp">
 
-        <android.widget.Button
-            android:id="@+id/btn_upload"
-            android:layout_width="180dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="5dp"
-            android:text="Upload picture" />
+            android:layout_gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="24dp">
 
-        <android.widget.Button
-            android:id="@+id/btn_takePic"
-            android:layout_width="180dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:text="Take picture" />
-    </LinearLayout>
+            <TextView
+                android:id="@+id/txtv_medicine_pic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txtv_medicine_note"
+                android:text="Medicine picture"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="bold" />
 
-    <android.widget.Button
-        android:id="@+id/btn_next"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="20dp"
-        android:drawableEnd="@drawable/ic_baseline_arrow_forward"
-        android:text="Next"
-        android:textSize="20sp" />
+            <ImageView
+                android:id="@+id/imgv_medicine_pic"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_below="@id/txtv_medicine_pic"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/ic_baseline_image" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/imgv_medicine_pic"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/btn_upload"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/accent"
+                    android:text="Upload picture"
+                    android:textColor="@color/white"
+                    app:cornerRadius="10dp" />
+
+                <Button
+                    android:id="@+id/btn_takePic"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/accent"
+                    android:text="Take picture"
+                    android:textColor="@color/white"
+                    app:cornerRadius="10dp" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
 </RelativeLayout>
 

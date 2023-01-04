@@ -1,17 +1,20 @@
 package com.example.medicial.Activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
@@ -29,7 +32,6 @@ public class ScheduleActivity extends AppCompatActivity {
     ActionBar actionBar;
     EditText get_date, get_time;
     DBHelper dbHelper = new DBHelper(this);
-    Button button_save;
     DatePickerDialog.OnDateSetListener dateSetListener;
     int get_hour, get_minute;
 
@@ -110,19 +112,59 @@ public class ScheduleActivity extends AppCompatActivity {
                 get_date.setText(date);
             }
         };
-
     }
 
     public void AddNewReminder() {
-//        String medicine_name = med_name.getText().toString();
-//        String amount = med_amount.getText().toString();
-//        Integer medicine_amount = Integer.valueOf(med_amount.getText().toString());
-//
-////        String date = edt_date.getText().toString();
-////        String time = edt_time.getText().toString();
-//
-//        dbHelper.insertMedicineData(medicine_name, medicine_amount);
-////        dbHelper.insertDateTime(time, date);
+        // get medicine data from reminder activity
+        Bundle bundle = getIntent().getExtras();
+        String receive_med_name = bundle.getString("key_medName");
+        String receive_med_amount = bundle.getString("key_medAmount");
+        Integer amountInt = Integer.valueOf(receive_med_amount);
 
+        String time = get_time.getText().toString();
+        String date = get_date.getText().toString();
+
+        if (time.isEmpty() || date.isEmpty()) {
+            get_time.setHint("required");
+            get_time.setHintTextColor(getResources().getColor(R.color.red));
+
+            get_date.setHint("required");
+            get_date.setHintTextColor(getResources().getColor(R.color.red));
+        } else {
+            dbHelper.insertMedicineData(receive_med_name, amountInt);
+            dbHelper.insertDateTime(time, date);
+
+            Intent intent = new Intent(ScheduleActivity.this, HomeActivity.class);
+            startActivity(intent);
+            finish();
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return super.onSupportNavigateUp();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.date_schedule_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_save:
+                AddNewReminder();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
