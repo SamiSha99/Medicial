@@ -1,24 +1,40 @@
 package com.example.medicial.Activity;
 
+import android.Manifest;
+import android.content.ContentValues;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.medicial.R;
+import com.github.dhaval2404.imagepicker.ImagePicker;
 
 public class ReminderActivity extends AppCompatActivity {
     Toolbar toolbar;
     ActionBar actionBar;
     EditText med_name, med_amount;
-
+    ImageView imgViewUpload;
+    TextView choose_pic;
+    private static final int IMAG_PICK_CODE = 1000;
+    Uri image_uri;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +56,22 @@ public class ReminderActivity extends AppCompatActivity {
 //        {Hook Edittext filed}
         med_name = findViewById(R.id.edt_medName);
         med_amount = findViewById(R.id.edt_amount);
+
+//        {Upload image }
+        imgViewUpload = findViewById(R.id.imgv_medicine_pic);
+//        choose_pic = findViewById(R.id.txtv_choose_pic);
+
+
+        imgViewUpload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ImagePicker.with(ReminderActivity.this)
+                        .crop()	    			//Crop image(Optional), Check Customization for more option
+                        .compress(1024)			//Final image size will be less than 1 MB(Optional)
+                        .maxResultSize(1080, 1080)	//Final image resolution will be less than 1080 x 1080(Optional)
+                        .start();
+            }
+        });
     }
 
     private void ValidateAndSendData() {
@@ -60,6 +92,14 @@ public class ReminderActivity extends AppCompatActivity {
             startActivity(intent);
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+            // Set image to ImageView
+            imgViewUpload.setImageURI(data.getData());
+
     }
 
     @Override

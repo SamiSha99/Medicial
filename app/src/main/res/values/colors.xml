@@ -14,5 +14,7 @@
     <color name="green">#27B24A</color>
     <color name="gray">#848484</color>
     <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">#4885ed</color>
+    <color name="dialog_choose_icon_color">#4885ed</color>
+    <color name="dialog_choose_text_color">#4885ed</color>
 
 </resources>

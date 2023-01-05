@@ -141,49 +141,29 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/txtv_medicine_note"
+                android:layout_marginBottom="5dp"
                 android:text="Medicine picture"
                 android:textColor="@color/black"
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
-            <ImageView
-                android:id="@+id/imgv_medicine_pic"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:layout_below="@id/txtv_medicine_pic"
-                android:layout_gravity="center_horizontal"
-                android:src="@drawable/ic_baseline_image" />
-
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/imgv_medicine_pic"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:gravity="center_horizontal"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/dashed_border"
                 android:orientation="vertical">
 
-                <Button
-                    android:id="@+id/btn_upload"
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@color/accent"
-                    android:text="Upload picture"
-                    android:textColor="@color/white"
-                    app:cornerRadius="10dp" />
-
-                <Button
-                    android:id="@+id/btn_takePic"
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@color/accent"
-                    android:text="Take picture"
-                    android:textColor="@color/white"
-                    app:cornerRadius="10dp" />
-
+                <ImageView
+                    android:id="@+id/imgv_medicine_pic"
+                    android:layout_width="280dp"
+                    android:layout_height="280dp"
+                    android:layout_below="@id/txtv_medicine_pic"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="5dp"
+                    android:src="@drawable/ic_baseline_image" />
             </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
-
 </RelativeLayout>
 
