@@ -137,4 +137,18 @@ public class DBHelper extends SQLiteOpenHelper {
     public Cursor getAlertData() {
         return getWritableDatabase().rawQuery("SELECT * FROM Alert", null);
     }
+
+    // Return if deleted successfully
+    // To-do: pass ID of med -> we need to clean foreign from alert table too
+    // remove alerts/ replace manually
+    public boolean removeMedicineData(int medicineID) {
+        String[] args = new String[]{String.valueOf(medicineID)};
+        boolean pass;
+        Cursor c = getWritableDatabase().rawQuery("DELETE FROM Medicine WHERE id = ?", args);
+        if(c.moveToNext()) pass = true;
+        else pass = false;
+        c.close();
+        return pass;
+    }
+
 }

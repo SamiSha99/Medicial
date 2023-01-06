@@ -116,27 +116,25 @@ public class HomeActivity extends AppCompatActivity
 
 
     private void displayData() {
-        Cursor cursor1 = dbHelper.getMedicineData();
-        Cursor cursor2 = dbHelper.getAlertData();
-        if (cursor1.getCount() == 0) {
-            // Toast.makeText(this,"No data entiry",Toast.LENGTH_SHORT).show();
-            return;
-        } else {
-            while (cursor1.moveToNext()) {
-                medicine_name.add(cursor1.getString(1));
-                amount.add(cursor1.getString(2));
+        Cursor mCursor = dbHelper.getMedicineData();
+        Cursor aCursor = dbHelper.getAlertData();
+
+        if (mCursor.getCount() != 0) {
+            while (mCursor.moveToNext()) {
+                medicine_name.add(mCursor.getString(1));
+                amount.add(mCursor.getString(2));
             }
         }
 
-        if (cursor2.getCount() == 0) {
-            // Toast.makeText(this,"No data entiry",Toast.LENGTH_SHORT).show();
-            return;
-        } else {
-            while (cursor2.moveToNext()) {
-                time.add(cursor2.getString(1));
-                date.add(cursor2.getString(2));
+        if (aCursor.getCount() != 0) {
+            while (aCursor.moveToNext()) {
+                time.add(aCursor.getString(1));
+                date.add(aCursor.getString(2));
             }
         }
+
+        mCursor.close();
+        aCursor.close();
     }
 
     @Override

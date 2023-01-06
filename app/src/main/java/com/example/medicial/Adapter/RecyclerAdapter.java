@@ -1,6 +1,7 @@
 package com.example.medicial.Adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.medicial.Database.DBHelper;
 import com.example.medicial.R;
 
 import java.text.SimpleDateFormat;
@@ -20,6 +22,7 @@ import java.util.ArrayList;
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyViewHolder> {
     private Context context;
     private ArrayList medicine_name, amount, time, date;
+    DBHelper dbHelper;
     int monthInt;
 
     public RecyclerAdapter(Context context, ArrayList medicine_name, ArrayList amount, ArrayList time, ArrayList date) {
@@ -28,6 +31,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
         this.amount = amount;
         this.time = time;
         this.date = date;
+        dbHelper = new DBHelper(context);
     }
 
     @NonNull
@@ -69,11 +73,13 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, PopupMenu.OnMenuItemClickListener {
-        TextView med_name, med_amount, med_time, date_day, date_month, date_year;
+        TextView med_name, med_amount, med_time, date_day, date_month, date_year, med_id;
         ImageButton popup_option;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
+            // med_id hidden in the activity and set to "gone"
+            med_id = itemView.findViewById(R.id.txtv_medId);
             med_name = itemView.findViewById(R.id.txtv_medName);
             med_amount = itemView.findViewById(R.id.txtv_amount);
             med_time = itemView.findViewById(R.id.txtv_time);
@@ -103,10 +109,13 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
 
                     break;
                 case R.id.action_delete:
-                    int position = getAdapterPosition();
-//                    Remove the item
+                    Log.d("NAME OF MEDICINE", "med name? " + med_name.getText());
+                    int position = getLayoutPosition();
+                    // Remove the item
+                    int i = Integer.parseInt(med_id.getText().toString());
+                    dbHelper.removeMedicineData(i);
                     medicine_name.remove(position);
-//                    Notify the adapter that an item has been removed
+                    // Notify the adapter that an item has been removed
                     notifyItemRemoved(position);
                     return true;
 
