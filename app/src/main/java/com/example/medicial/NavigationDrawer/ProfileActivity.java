@@ -3,7 +3,11 @@ package com.example.medicial.NavigationDrawer;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.WindowManager;
 import android.widget.ListView;
@@ -28,22 +32,24 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-//       {Full screen activity}
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        // {Full screen activity}
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-//        {Toolbar}
+        // {Toolbar}
         toolbar = findViewById(R.id.prof_toolbar);
-        setSupportActionBar(toolbar);
+        if(toolbar != null) setSupportActionBar(toolbar);
 
-//        {Setting up action bar}
+        // {Setting up action bar}
         actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setHomeAsUpIndicator(getResources().getDrawable(R.drawable.ic_baseline_arrow_back));
-        actionBar.setDisplayShowTitleEnabled(false);
+        if(actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            // DEPRECATED!
+            //actionBar.setHomeAsUpIndicator(getResources().getDrawable(R.drawable.ic_baseline_arrow_back));
+            actionBar.setHomeAsUpIndicator(ContextCompat.getDrawable(this, R.drawable.ic_baseline_arrow_back));
+            actionBar.setDisplayShowTitleEnabled(false);
+        }
 
         listView = findViewById(R.id.profile_list);
-        ArrayList<User> arrayList = new ArrayList<>();
         ShowUserData();
     }
 
