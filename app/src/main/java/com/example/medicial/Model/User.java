@@ -2,8 +2,9 @@ package com.example.medicial.Model;
 
 public class User {
     String username, firstname, lastname, email, password;
-
-    public User(String username, String firstname, String lastname, String email, String password) {
+    int id;
+    public User(int id, String username, String firstname, String lastname, String email, String password) {
+        this.id = id;
         this.username = username;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -11,6 +12,12 @@ public class User {
         this.password = password;
     }
 
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
     public String getUsername() {
         return username;
     }

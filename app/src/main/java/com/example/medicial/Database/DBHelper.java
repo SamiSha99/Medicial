@@ -88,6 +88,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public ArrayList<User> GetUserData() {
+        int id = 0;
         String userName = "", firstName = "", lastName = "", email = "", password = "";
         ArrayList<User> arrayList = new ArrayList<>();
         SQLiteDatabase sqLiteDatabase = getReadableDatabase();
@@ -95,7 +96,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM User WHERE id = ?", args);
 
         while (cursor.moveToNext()) {
-
+            id = cursor.getInt(0);
             userName = cursor.getString(1);
             firstName = cursor.getString(2);
             lastName = cursor.getString(3);
@@ -103,7 +104,7 @@ public class DBHelper extends SQLiteOpenHelper {
             password = cursor.getString(5);
         }
         cursor.close();
-        User user = new User(userName, firstName, lastName, password, email);
+        User user = new User(id, userName, firstName, lastName, password, email);
         arrayList.add(user);
         return arrayList;
     }
@@ -145,7 +146,7 @@ public class DBHelper extends SQLiteOpenHelper {
         String[] args = new String[]{String.valueOf(medicineID)};
         boolean pass;
         Cursor c = getWritableDatabase().rawQuery("DELETE FROM Medicine WHERE id = ?", args);
-        if(c.moveToNext()) pass = true;
+        if (c.moveToNext()) pass = true;
         else pass = false;
         c.close();
         return pass;

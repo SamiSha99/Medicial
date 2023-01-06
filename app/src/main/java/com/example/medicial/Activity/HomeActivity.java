@@ -34,7 +34,7 @@ public class HomeActivity extends AppCompatActivity
     NavigationView navigationView;
     FloatingActionButton floatingActionButton;
     RecyclerView recyclerView;
-    ArrayList<String> medicine_name, amount, time, date;
+    ArrayList<String> id, medicine_name, amount, time, date;
     DBHelper dbHelper = new DBHelper(this);
     RecyclerAdapter recyclerAdapter;
 
@@ -102,25 +102,27 @@ public class HomeActivity extends AppCompatActivity
         });
 
         // {RecyclerView}
+        id = new ArrayList<>();
         medicine_name = new ArrayList<>();
         amount = new ArrayList<>();
         time = new ArrayList<>();
         date = new ArrayList<>();
 
         recyclerView = findViewById(R.id.recyclerView);
-        recyclerAdapter = new RecyclerAdapter(this, medicine_name, amount, time, date);
+        recyclerAdapter = new RecyclerAdapter(this, id, medicine_name, amount, time, date);
         recyclerView.setAdapter(recyclerAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        displayData();
+        DisplayData();
     }
 
 
-    private void displayData() {
+    private void DisplayData() {
         Cursor mCursor = dbHelper.getMedicineData();
         Cursor aCursor = dbHelper.getAlertData();
 
         if (mCursor.getCount() != 0) {
             while (mCursor.moveToNext()) {
+                id.add(String.valueOf(mCursor.getInt(0)));
                 medicine_name.add(mCursor.getString(1));
                 amount.add(mCursor.getString(2));
             }

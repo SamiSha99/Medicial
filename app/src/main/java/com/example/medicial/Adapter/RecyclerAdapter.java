@@ -21,12 +21,13 @@ import java.util.ArrayList;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyViewHolder> {
     private Context context;
-    private ArrayList medicine_name, amount, time, date;
+    private ArrayList id, medicine_name, amount, time, date;
     DBHelper dbHelper;
     int monthInt;
 
-    public RecyclerAdapter(Context context, ArrayList medicine_name, ArrayList amount, ArrayList time, ArrayList date) {
+    public RecyclerAdapter(Context context, ArrayList id, ArrayList medicine_name, ArrayList amount, ArrayList time, ArrayList date) {
         this.context = context;
+        this.id = id;
         this.medicine_name = medicine_name;
         this.amount = amount;
         this.time = time;
@@ -43,6 +44,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+        holder.med_id.setText(String.valueOf(id.get(position)));
         holder.med_name.setText(String.valueOf(medicine_name.get(position)));
         holder.med_amount.setText(String.valueOf(amount.get(position)));
         holder.med_time.setText(String.valueOf(time.get(position)));
@@ -73,7 +75,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, PopupMenu.OnMenuItemClickListener {
-        TextView med_name, med_amount, med_time, date_day, date_month, date_year, med_id;
+        TextView med_id, med_name, med_amount, med_time, date_day, date_month, date_year;
         ImageButton popup_option;
 
         public MyViewHolder(@NonNull View itemView) {
@@ -109,7 +111,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
 
                     break;
                 case R.id.action_delete:
-                    Log.d("NAME OF MEDICINE", "med name? " + med_name.getText());
+                    // Log.d("NAME OF MEDICINE", "med name? " + med_name.getText());
                     int position = getLayoutPosition();
                     // Remove the item
                     int i = Integer.parseInt(med_id.getText().toString());
