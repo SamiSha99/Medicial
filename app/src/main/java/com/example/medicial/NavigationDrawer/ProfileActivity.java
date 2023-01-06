@@ -43,8 +43,6 @@ public class ProfileActivity extends AppCompatActivity {
         actionBar = getSupportActionBar();
         if(actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
-            // DEPRECATED!
-            //actionBar.setHomeAsUpIndicator(getResources().getDrawable(R.drawable.ic_baseline_arrow_back));
             actionBar.setHomeAsUpIndicator(ContextCompat.getDrawable(this, R.drawable.ic_baseline_arrow_back));
             actionBar.setDisplayShowTitleEnabled(false);
         }
