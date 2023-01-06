@@ -43,15 +43,15 @@ public class HomeActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-//       {Full screen activity}
+        // {Full screen activity}
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-//        {ToolBar}
+        // {ToolBar}
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-//        {DrawerLayout}
+        // {DrawerLayout}
         drawerLayout = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,
                 drawerLayout,
@@ -62,13 +62,13 @@ public class HomeActivity extends AppCompatActivity
         toggle.getDrawerArrowDrawable().setColor(getResources().getColor(R.color.white));
         toggle.syncState();
 
-//        {NavigationView}
+        // {NavigationView}
         navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.bringToFront();
         // navigationView.setCheckedItem(R.id.nav_home);
 
-//        {FloatingActionButton}
+        // {FloatingActionButton}
         floatingActionButton = findViewById(R.id.fab);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,7 +101,7 @@ public class HomeActivity extends AppCompatActivity
             }
         });
 
-//        {RecyclerView}
+        // {RecyclerView}
         medicine_name = new ArrayList<>();
         amount = new ArrayList<>();
         time = new ArrayList<>();
