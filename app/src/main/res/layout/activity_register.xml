@@ -21,13 +21,12 @@
 
     </RelativeLayout>
 
-
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView_signUp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:layout_margin="30dp"
+        android:layout_margin="20dp"
         app:cardCornerRadius="30dp"
         app:cardElevation="20dp">
 
@@ -77,11 +76,17 @@
                 android:textColor="@color/accent"
                 android:textColorHint="@color/gray" />
 
+            <TextView
+                android:id="@+id/txtv_error_firstName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp" />
+
             <EditText
                 android:id="@+id/edt_reg_lastName"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="5dp"
                 android:background="@drawable/custom_button_shape"
                 android:drawableStart="@drawable/ic_outline_label"
                 android:drawablePadding="8dp"
@@ -91,40 +96,58 @@
                 android:textColor="@color/accent"
                 android:textColorHint="@color/gray" />
 
+            <TextView
+                android:id="@+id/txtv_error_lastName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp" />
+
             <EditText
                 android:id="@+id/edt_reg_email"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="5dp"
                 android:background="@drawable/custom_button_shape"
                 android:drawableStart="@drawable/ic_outline_email"
                 android:drawablePadding="8dp"
                 android:hint="E-mail"
-                android:inputType="text"
+                android:inputType="textEmailAddress"
                 android:padding="8dp"
                 android:textColor="@color/accent"
                 android:textColorHint="@color/gray" />
+
+            <TextView
+                android:id="@+id/txtv_error_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp" />
 
             <EditText
                 android:id="@+id/edt_reg_password"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="5dp"
                 android:background="@drawable/custom_button_shape"
                 android:drawableStart="@drawable/ic_outline_lock"
                 android:drawablePadding="8dp"
                 android:hint="Password"
-                android:inputType="text"
+                android:inputType="textPassword"
                 android:padding="8dp"
                 android:textColor="@color/accent"
                 android:textColorHint="@color/gray" />
+
+            <TextView
+                android:id="@+id/txtv_error_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp" />
 
             <EditText
                 android:id="@+id/edt_reg_repassword"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_below="@id/edt_login_username"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="5dp"
                 android:background="@drawable/custom_button_shape"
                 android:drawableStart="@drawable/ic_outline_lock"
                 android:drawablePadding="8dp"
@@ -134,12 +157,18 @@
                 android:textColor="@color/accent"
                 android:textColorHint="@color/gray" />
 
+            <TextView
+                android:id="@+id/txtv_error_notMatches"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp" />
+
             <Button
                 android:id="@+id/btn_signUp"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_below="@id/edt_login_password"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="15dp"
                 android:backgroundTint="@color/accent"
                 android:text="Sign Up"
                 android:textColor="@color/white"

@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:elevation="1dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:elevation="25dp"
     android:orientation="vertical"
     tools:context=".Fragment.SuccessFragment">
 

@@ -1,21 +1,16 @@
 package com.example.medicial.Activity;
 
-import android.Manifest;
-import android.content.ContentValues;
+import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -32,9 +27,9 @@ public class ReminderActivity extends AppCompatActivity {
     ActionBar actionBar;
     EditText med_name, med_amount;
     ImageView imgViewUpload;
-    TextView choose_pic;
     private static final int IMAG_PICK_CODE = 1000;
     Uri image_uri;
+    Bitmap img_map;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,16 +54,14 @@ public class ReminderActivity extends AppCompatActivity {
 
 //        {Upload image }
         imgViewUpload = findViewById(R.id.imgv_medicine_pic);
-//        choose_pic = findViewById(R.id.txtv_choose_pic);
-
 
         imgViewUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ImagePicker.with(ReminderActivity.this)
-                        .crop()	    			//Crop image(Optional), Check Customization for more option
-                        .compress(1024)			//Final image size will be less than 1 MB(Optional)
-                        .maxResultSize(1080, 1080)	//Final image resolution will be less than 1080 x 1080(Optional)
+                        .crop()	    			//Crop image
+                        .compress(1024)			//Final image size will be less than 1 MB
+                        .maxResultSize(1080, 1080)	//Final image resolution will be less than 1080 x 1080
                         .start();
             }
         });
@@ -85,10 +78,12 @@ public class ReminderActivity extends AppCompatActivity {
         } else {
             String get_med_name = med_name.getText().toString();
             String get_med_amount = med_amount.getText().toString();
+//            String get_image = image_uri.toString();
 
             Intent intent = new Intent(this, ScheduleActivity.class);
             intent.putExtra("key_medName", get_med_name);
             intent.putExtra("key_medAmount", get_med_amount);
+//            intent.putExtra("key_image", get_image);
             startActivity(intent);
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         }
@@ -98,7 +93,14 @@ public class ReminderActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
             // Set image to ImageView
-            imgViewUpload.setImageURI(data.getData());
+        if (resultCode == Activity.RESULT_OK){
+            image_uri = data.getData();
+            imgViewUpload.setImageURI(image_uri);
+        } else if (resultCode == ImagePicker.RESULT_ERROR) {
+            Toast.makeText(this, ImagePicker.getError(data), Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Task Cancelled", Toast.LENGTH_SHORT).show();
+        }
 
     }
 
