@@ -73,39 +73,26 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
             med_name = itemView.findViewById(R.id.txtv_medName);
             med_amount = itemView.findViewById(R.id.txtv_amount);
             med_time = itemView.findViewById(R.id.txtv_time);
-//            date_day = itemView.findViewById(R.id.txtv_day_name);
             date_day = itemView.findViewById(R.id.txtv_day);
             date_month = itemView.findViewById(R.id.txtv_month);
         }
     }
 
     private String getMonthFormat(int month) {
-        if (month == 1)
-            return "Jan";
-        if (month == 2)
-            return "Feb";
-        if (month == 3)
-            return "Mar";
-        if (month == 4)
-            return "Apr";
-        if (month == 5)
-            return "May";
-        if (month == 6)
-            return "Jun";
-        if (month == 7)
-            return "Jul";
-        if (month == 8)
-            return "Aug";
-        if (month == 9)
-            return "Sep";
-        if (month == 10)
-            return "Oct";
-        if (month == 11)
-            return "Nov";
-        if (month == 12)
-            return "Dec";
-
-        //default should never happen
-        return "Jan";
+        switch (month)
+        {
+            default: return "Jan";
+            case 2: return "Feb";
+            case 3: return "Mar";
+            case 4: return "Apr";
+            case 5: return "May";
+            case 6: return "Jun";
+            case 7: return "Jul";
+            case 8: return "Aug";
+            case 9: return "Sep";
+            case 10: return "Oct";
+            case 11: return "Nov";
+            case 12: return "Dec";
+        }
     }
 }
