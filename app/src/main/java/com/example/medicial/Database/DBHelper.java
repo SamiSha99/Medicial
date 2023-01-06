@@ -70,16 +70,22 @@ public class DBHelper extends SQLiteOpenHelper {
     public boolean CheckUserName(String userName) {
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
         Cursor cursor = sqLiteDatabase.rawQuery("select * from User where userName = ?", new String[]{userName});
-        boolean pass = cursor != null && cursor.getCount() > 0;
-        return cursor != null && cursor.getCount() > 0;
+        if (cursor != null && cursor.getCount() > 0) {
+            cursor.close();
+            return true;
+        }
+        return false;
     }
 
     //   {Check Username and Password}
     public boolean CheckUserPassword(String userName, String password) {
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
         Cursor cursor = sqLiteDatabase.rawQuery("select * from User where userName = ? and password = ?", new String[]{userName, password});
-        if(cursor != null && cursor.moveToNext()) activeUserID =  cursor.getInt(0);
-        return activeUserID != -1;
+        if (cursor != null && cursor.moveToNext()) {
+            activeUserID = cursor.getInt(0);
+            cursor.close();
+        }
+        return activeUserID != -1; // activeUserID == -1 -> Failed Login
     }
 
     public ArrayList<User> GetUserData() {
@@ -98,7 +104,7 @@ public class DBHelper extends SQLiteOpenHelper {
             password = cursor.getString(5);
             Log.d("DBHelper", "ID: " + cursor.getInt(0) + " | userName: " + userName + " | firstName: " + firstName + " | lastName: " + lastName);
         }
-
+        cursor.close();
         User user = new User(userName, firstName, lastName, password, email);
         arrayList.add(user);
         return arrayList;
@@ -116,9 +122,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public Cursor getMedicineData() {
-        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
-        Cursor cursor = sqLiteDatabase.rawQuery("select * from Medicine", null);
-        return cursor;
+        return getWritableDatabase().rawQuery("select * from Medicine", null);
     }
 
     //   {Adding new Alert Details}
@@ -133,8 +137,6 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public Cursor getAlertData() {
-        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
-        Cursor cursor = sqLiteDatabase.rawQuery("select * from Alert", null);
-        return cursor;
+        return getWritableDatabase().rawQuery("select * from Alert", null);
     }
 }
