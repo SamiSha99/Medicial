@@ -47,6 +47,7 @@ public class LoginActivity extends AppCompatActivity {
     public void Login() {
         String Username = username.getText().toString();
         String Password = password.getText().toString();
+        boolean check_name_pass = dbHelper.CheckUserPassword(Username, Password);
 
         if (TextUtils.isEmpty(Username)) {
             username.setHint("required field");
@@ -56,18 +57,18 @@ public class LoginActivity extends AppCompatActivity {
         if (TextUtils.isEmpty(Password)) {
             password.setHint("required field");
             password.setHintTextColor(getResources().getColor(R.color.red));
-        } else {
-            boolean check_name_pass = dbHelper.CheckUserPassword(Username, Password);
-            if (check_name_pass) {
-                String getUsername = username.getText().toString();
-                Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-                intent.putExtra("key", getUsername);
-                startActivity(intent);
-                finish();
-            } else {
-                txtv_incorrect.setText("Incorrect information");
-                txtv_incorrect.setTextColor(getResources().getColor(R.color.red));
-            }
         }
+
+        if(!check_name_pass) {
+            txtv_incorrect.setText("Incorrect information");
+            txtv_incorrect.setTextColor(getResources().getColor(R.color.red));
+            return;
+        }
+
+        String getUsername = username.getText().toString();
+        Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+        intent.putExtra("key", getUsername);
+        startActivity(intent);
+        finish();
     }
 }
