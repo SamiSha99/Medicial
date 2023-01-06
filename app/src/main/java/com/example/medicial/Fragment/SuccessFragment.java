@@ -1,5 +1,6 @@
 package com.example.medicial.Fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -20,7 +21,7 @@ public class SuccessFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-//        {Inflate the layout for this fragment}
+        // {Inflate the layout for this fragment}
         view = inflater.inflate(R.layout.fragment_success, container, false);
 
         Runnable runnable = this::ReturnToLogin;
