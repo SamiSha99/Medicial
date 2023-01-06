@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -40,20 +41,21 @@ public class ScheduleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule);
 
-//        {Full screen activity}
+        // {Full screen activity}
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-//        {Toolbar}
+        // {Toolbar}
         toolbar = findViewById(R.id.sch_toolbar);
         setSupportActionBar(toolbar);
 
-//        {Setting up action bar}
+        // {Setting up action bar}
         actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setHomeAsUpIndicator(getResources().getDrawable(R.drawable.ic_baseline_arrow_back));
-
-//        {Get time}
+        if(actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeAsUpIndicator(ContextCompat.getDrawable(this, R.drawable.ic_baseline_arrow_back));
+        }
+        // {Get time}
         get_time = findViewById(R.id.edt_time);
         get_time.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,7 +85,7 @@ public class ScheduleActivity extends AppCompatActivity {
             }
         });
 
-//        {Get date}
+        // {Get date}
         get_date = findViewById(R.id.edt_date);
 
         Calendar calendar = Calendar.getInstance();
@@ -106,9 +108,8 @@ public class ScheduleActivity extends AppCompatActivity {
 
         dateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
-            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                month = month + 1;
-                String date = day + "/" + month + "/" + year;
+            public void onDateSet(DatePicker datePicker, int y, int m, int d) {
+                String date = d + "/" + (m + 1) + "/" + y;
                 get_date.setText(date);
             }
         };
@@ -119,25 +120,29 @@ public class ScheduleActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         String receive_med_name = bundle.getString("key_medName");
         String receive_med_amount = bundle.getString("key_medAmount");
-        Integer amountInt = Integer.valueOf(receive_med_amount);
-
+        int amountInt = Integer.parseInt(receive_med_amount);
         String time = get_time.getText().toString();
         String date = get_date.getText().toString();
+        int redColor = ContextCompat.getColor(this, R.color.red);
 
-        if (time.isEmpty() || date.isEmpty()) {
+        if (time.isEmpty()) {
             get_time.setHint("required");
-            get_time.setHintTextColor(getResources().getColor(R.color.red));
-
-            get_date.setHint("required");
-            get_date.setHintTextColor(getResources().getColor(R.color.red));
-        } else {
-            dbHelper.insertMedicineData(receive_med_name, amountInt);
-            dbHelper.insertDateTime(time, date);
-
-            Intent intent = new Intent(ScheduleActivity.this, HomeActivity.class);
-            startActivity(intent);
-            finish();
+            get_time.setHintTextColor(redColor);
         }
+
+        if (date.isEmpty()) {
+            get_date.setHint("required");
+            get_date.setHintTextColor(redColor);
+        }
+
+        // invalid inputs
+        if(time.isEmpty() || date.isEmpty()) return;
+
+        dbHelper.insertMedicineData(receive_med_name, amountInt);
+        dbHelper.insertDateTime(time, date);
+        Intent intent = new Intent(ScheduleActivity.this, HomeActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     @Override
