@@ -20,8 +20,9 @@ public class AlarmReceiver extends BroadcastReceiver {
         Intent i = new Intent(context, HomeActivity.class);
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, i, 0);
+
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "notification")
-                .setSmallIcon(R.drawable.ic_baseline_notifications)
+                .setSmallIcon(0) // R.drawable.ic_baseline_notifications // NOTE: ic_baseline_notifications not defined!!!
                 .setContentTitle("Take your medicine")
                 .setContentText("Hello, it's time to take the medicine!")
                 .setAutoCancel(true)
@@ -31,5 +32,6 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
         notificationManager.notify(200, builder.build());
+
     }
 }
