@@ -87,7 +87,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
             med_time = itemView.findViewById(R.id.txtv_time);
             date_day = itemView.findViewById(R.id.txtv_day);
             date_month = itemView.findViewById(R.id.txtv_month);
-
             popup_option = itemView.findViewById(R.id.options);
             popup_option.setOnClickListener(this);
         }
@@ -111,13 +110,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
 
                     break;
                 case R.id.action_delete:
-                    // Log.d("NAME OF MEDICINE", "med name? " + med_name.getText());
-                    int position = getLayoutPosition();
-                    // Remove the item
                     int i = Integer.parseInt(med_id.getText().toString());
                     dbHelper.removeMedicineData(i);
+                    int position = getLayoutPosition();
                     medicine_name.remove(position);
-                    // Notify the adapter that an item has been removed
                     notifyItemRemoved(position);
                     return true;
 

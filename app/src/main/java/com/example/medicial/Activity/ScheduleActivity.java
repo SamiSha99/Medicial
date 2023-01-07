@@ -137,9 +137,12 @@ public class ScheduleActivity extends AppCompatActivity {
 
         // invalid inputs
         if(time.isEmpty() || date.isEmpty()) return;
+        int newMedicineID = dbHelper.insertMedicineData(receive_med_name, amountInt);
+        if(newMedicineID != -1)
+        {
+            int newAlertID = dbHelper.insertDateTime(newMedicineID, time, date);
 
-        dbHelper.insertMedicineData(receive_med_name, amountInt);
-        dbHelper.insertDateTime(time, date);
+        }
         Intent intent = new Intent(ScheduleActivity.this, HomeActivity.class);
         startActivity(intent);
         finish();

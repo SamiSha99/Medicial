@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.example.medicial.Model.User;
 
@@ -13,22 +14,21 @@ import java.util.ArrayList;
 public class DBHelper extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "Medicial.db";
-    private static final int DB_VERSION = 3;
+    private static final int DB_VERSION = 5;
     public static int activeUserID = -1;
-    private final Context context;
 
     public DBHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
-        this.context = context;
     }
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
+
         sqLiteDatabase.execSQL("create table User (id INTEGER PRIMARY KEY AUTOINCREMENT,userName TEXT, firstName TEXT, lastName TEXT, password TEXT, email TEXT)");
         sqLiteDatabase.execSQL("create table Medicine (id INTEGER PRIMARY KEY AUTOINCREMENT, medName TEXT, amount INTEGER)");
-        sqLiteDatabase.execSQL("create table Alert (id INTEGER PRIMARY KEY AUTOINCREMENT, time TIME, date DATE)");
-        // sqLiteDatabase.execSQL("create table List ( supplyAmount INTEGER, creationDate DATE,  FOREIGN KEY(userID) REFERENCES User(id), FOREIGN KEY(alertID) REFERENCES Alert(id),FOREIGN KEY(medicineID) REFERENCES Medicine(id))");
-        // sqLiteDatabase.execSQL("create table Admin (id INTEGER PRIMARY KEY AUTOINCREMENT, FOREIGN KEY(userID) REFERENCES User(id))");
+        sqLiteDatabase.execSQL("create table Alert (id INTEGER PRIMARY KEY AUTOINCREMENT, time TIME, date DATE, medID INTEGER, FOREIGN KEY(medID) REFERENCES Medicine(id))");
+        //sqLiteDatabase.execSQL("create table List ( supplyAmount INTEGER, creationDate DATE,  FOREIGN KEY(userID) REFERENCES User(id), FOREIGN KEY(alertID) REFERENCES Alert(id),FOREIGN KEY(medicineID) REFERENCES Medicine(id))");
+        //sqLiteDatabase.execSQL("create table Admin (id INTEGER PRIMARY KEY AUTOINCREMENT, userID INTEGER, FOREIGN KEY(userID) REFERENCES User(id))");
     }
 
     @Override
@@ -110,25 +110,30 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     //   {Adding new Medicine Details}
-    public boolean insertMedicineData(String medName, int amount) {
+    // Return: ID number of the medicine if inserted, -1 if failed input
+    public int insertMedicineData(String medName, int amount) {
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("medName", medName);
         values.put("amount", amount);
+        // returns the row, which ironically also the Medicine ID
+        long idPK = sqLiteDatabase.insert("Medicine", null, values);
 
-        long newRow = sqLiteDatabase.insert("Medicine", null, values);
-        return newRow != -1;
+        return idPK == -1 ? -1 : (int)idPK;
     }
 
     //   {Adding new Alert Details}
-    public boolean insertDateTime(String time, String date) {
+    // Return: ID number of the alert if inserted, -1 if failed input
+    public int insertDateTime(int medicineID, String time, String date) {
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("time", time);
         values.put("date", date);
+        values.put("medID", medicineID);
 
-        long newRow = sqLiteDatabase.insert("Alert", null, values);
-        return newRow != -1;
+        long idPK = sqLiteDatabase.insert("Alert", null, values);
+
+        return idPK == -1 ? -1 : (int)idPK;
     }
 
     public Cursor getMedicineData() {
@@ -139,17 +144,24 @@ public class DBHelper extends SQLiteOpenHelper {
         return getWritableDatabase().rawQuery("SELECT * FROM Alert", null);
     }
 
-    // Return if deleted successfully
-    // To-do: pass ID of med -> we need to clean foreign from alert table too
-    // remove alerts/ replace manually
-    public boolean removeMedicineData(int medicineID) {
-        String[] args = new String[]{String.valueOf(medicineID)};
-        boolean pass;
-        Cursor c = getWritableDatabase().rawQuery("DELETE FROM Medicine WHERE id = ?", args);
-        if (c.moveToNext()) pass = true;
-        else pass = false;
+    public void removeMedicineData(int medicineID) {
+        // Clean up alerts first
+        removeAlertData(medicineID);
+
+        SQLiteDatabase sql = getWritableDatabase();
+        sql.execSQL("DELETE FROM Medicine WHERE id = " + medicineID);
+
+        Cursor c = sql.rawQuery("SELECT * FROM Medicine WHERE id = ?",  new String[]{String.valueOf(medicineID)});
+        if(c.getCount() > 0) Log.wtf("removeMedicineData", "ID: " + medicineID + " | FAILED TO DELETE MEDICINE!");
         c.close();
-        return pass;
     }
 
+    public void removeAlertData(int medicineID) {
+        SQLiteDatabase sql = getWritableDatabase();
+        sql.execSQL("DELETE FROM Alert WHERE id = " + medicineID);
+
+        Cursor c = getWritableDatabase().rawQuery("SELECT * FROM Medicine WHERE id = ?",  new String[]{String.valueOf(medicineID)});
+        if(c.getCount() > 0) Log.wtf("removeAlertData", "FAILED TO DELETE ALERTS FOR MEDICINE ID: " + medicineID);
+        c.close();
+    }
 }

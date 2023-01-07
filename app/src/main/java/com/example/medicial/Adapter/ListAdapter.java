@@ -40,13 +40,13 @@ public class ListAdapter extends BaseAdapter {
     public View getView(int position, View view, ViewGroup viewGroup) {
 
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        view = layoutInflater.inflate(R.layout.item_profile_listview, null);
+        View v = layoutInflater.inflate(R.layout.item_profile_listview, null);
 
-        EditText user_name = (EditText) view.findViewById(R.id.edt_prof_username);
-        EditText first_name = (EditText) view.findViewById(R.id.edt_prof_firstname);
-        EditText last_name = (EditText) view.findViewById(R.id.edt_prof_lastname);
-        EditText email = (EditText) view.findViewById(R.id.edt_prof_email);
-        EditText password = (EditText) view.findViewById(R.id.edt_prof_password);
+        EditText user_name = v.findViewById(R.id.edt_prof_username);
+        EditText first_name = v.findViewById(R.id.edt_prof_firstname);
+        EditText last_name = v.findViewById(R.id.edt_prof_lastname);
+        EditText email = v.findViewById(R.id.edt_prof_email);
+        EditText password = v.findViewById(R.id.edt_prof_password);
 
         User user = arrayList.get(position);
         user_name.setText(user.getUsername());
@@ -55,6 +55,6 @@ public class ListAdapter extends BaseAdapter {
         email.setText(user.getEmail());
         password.setText(user.getPassword());
 
-        return view;
+        return v;
     }
 }
