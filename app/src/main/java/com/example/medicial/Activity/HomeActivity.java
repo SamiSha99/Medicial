@@ -42,7 +42,7 @@ public class HomeActivity extends AppCompatActivity
     NavigationView navigationView;
     FloatingActionButton floatingActionButton;
     RecyclerView recyclerView;
-    ArrayList<String> id, medicine_name, amount, time, date;
+    ArrayList<String> id, medicine_name, amount, image, time, date;
     DBHelper dbHelper = new DBHelper(this);
     RecyclerAdapter recyclerAdapter;
     private AlarmManager alarmManager;
@@ -113,13 +113,14 @@ public class HomeActivity extends AppCompatActivity
 
         // {RecyclerView}
         id = new ArrayList<>();
+        image = new ArrayList<>();
         medicine_name = new ArrayList<>();
         amount = new ArrayList<>();
         time = new ArrayList<>();
         date = new ArrayList<>();
 
         recyclerView = findViewById(R.id.recyclerView);
-        recyclerAdapter = new RecyclerAdapter(this, id, medicine_name, amount, time, date);
+        recyclerAdapter = new RecyclerAdapter(this, id, medicine_name, amount, image, time, date);
         recyclerView.setAdapter(recyclerAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         DisplayData();
@@ -160,6 +161,7 @@ public class HomeActivity extends AppCompatActivity
                 id.add(String.valueOf(mCursor.getInt(0)));
                 medicine_name.add(mCursor.getString(1));
                 amount.add(mCursor.getString(2));
+                image.add(mCursor.getString(3));
             }
         }
 
