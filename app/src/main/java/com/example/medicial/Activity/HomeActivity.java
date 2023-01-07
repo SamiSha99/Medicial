@@ -1,8 +1,15 @@
 package com.example.medicial.Activity;
 
+import android.app.AlarmManager;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
@@ -16,6 +23,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.medicial.Broadcast.AlarmReceiver;
 import com.example.medicial.NavigationDrawer.CalendarActivity;
 import com.example.medicial.Database.DBHelper;
 import com.example.medicial.NavigationDrawer.ProfileActivity;
@@ -34,9 +42,11 @@ public class HomeActivity extends AppCompatActivity
     NavigationView navigationView;
     FloatingActionButton floatingActionButton;
     RecyclerView recyclerView;
-    ArrayList<String> id, medicine_name, amount, time, date;
+    ArrayList<String> id, medicine_name, amount, image, time, date;
     DBHelper dbHelper = new DBHelper(this);
     RecyclerAdapter recyclerAdapter;
+    private AlarmManager alarmManager;
+    private  PendingIntent pendingIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,16 +113,42 @@ public class HomeActivity extends AppCompatActivity
 
         // {RecyclerView}
         id = new ArrayList<>();
+        image = new ArrayList<>();
         medicine_name = new ArrayList<>();
         amount = new ArrayList<>();
         time = new ArrayList<>();
         date = new ArrayList<>();
 
         recyclerView = findViewById(R.id.recyclerView);
-        recyclerAdapter = new RecyclerAdapter(this, id, medicine_name, amount, time, date);
+        recyclerAdapter = new RecyclerAdapter(this, id, medicine_name, amount, image, time, date);
         recyclerView.setAdapter(recyclerAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         DisplayData();
+
+        // {For AlarmReceiver}
+//        CreateNotificationChannel();
+    }
+
+    public void CreateNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "notificationChannelName";
+            String description= "Channel For ALarm Manager";
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+            NotificationChannel channel = new NotificationChannel("notification", name, importance);
+            channel.setDescription(description);
+
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+
+    private void setAlarm(){
+        alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(this, AlarmReceiver.class);
+        pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
+
+        alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() +
+                AlarmManager.INTERVAL_HALF_HOUR, AlarmManager.INTERVAL_HALF_HOUR, pendingIntent);
     }
 
 
@@ -125,6 +161,7 @@ public class HomeActivity extends AppCompatActivity
                 id.add(String.valueOf(mCursor.getInt(0)));
                 medicine_name.add(mCursor.getString(1));
                 amount.add(mCursor.getString(2));
+                image.add(mCursor.getString(3));
             }
         }
 
@@ -154,11 +191,13 @@ public class HomeActivity extends AppCompatActivity
             case R.id.nav_home:
                 Intent intent_home = new Intent(getApplicationContext(), HomeActivity.class);
                 startActivity(intent_home);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 break;
 
             case R.id.nav_calendar:
                 Intent intent_calendar = new Intent(getApplicationContext(), CalendarActivity.class);
                 startActivity(intent_calendar);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 break;
 
             case R.id.nav_settings:
@@ -167,6 +206,7 @@ public class HomeActivity extends AppCompatActivity
             case R.id.nav_profile:
                 Intent intent_profile = new Intent(getApplicationContext(), ProfileActivity.class);
                 startActivity(intent_profile);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 break;
 
             case R.id.nav_logout:

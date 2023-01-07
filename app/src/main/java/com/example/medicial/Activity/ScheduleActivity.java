@@ -55,6 +55,7 @@ public class ScheduleActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeAsUpIndicator(ContextCompat.getDrawable(this, R.drawable.ic_baseline_arrow_back));
         }
+
         // {Get time}
         get_time = findViewById(R.id.edt_time);
         get_time.setOnClickListener(new View.OnClickListener() {
@@ -120,9 +121,12 @@ public class ScheduleActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         String receive_med_name = bundle.getString("key_medName");
         String receive_med_amount = bundle.getString("key_medAmount");
+        String receive_med_image = bundle.getString("key_image");
+
         int amountInt = Integer.parseInt(receive_med_amount);
         String time = get_time.getText().toString();
         String date = get_date.getText().toString();
+
         int redColor = ContextCompat.getColor(this, R.color.red);
 
         if (time.isEmpty()) {
@@ -137,11 +141,10 @@ public class ScheduleActivity extends AppCompatActivity {
 
         // invalid inputs
         if(time.isEmpty() || date.isEmpty()) return;
-        int newMedicineID = dbHelper.insertMedicineData(receive_med_name, amountInt);
+        int newMedicineID = dbHelper.insertMedicineData(receive_med_name, amountInt, receive_med_image);
         if(newMedicineID != -1)
         {
             int newAlertID = dbHelper.insertDateTime(newMedicineID, time, date);
-
         }
         Intent intent = new Intent(ScheduleActivity.this, HomeActivity.class);
         startActivity(intent);

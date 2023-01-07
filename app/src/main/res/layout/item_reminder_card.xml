@@ -85,7 +85,11 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:background="@drawable/ic_baseline_more_horiz" />
-
+                <ImageView
+                    android:id="@+id/imgv"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    />
             </LinearLayout>
 
             <LinearLayout

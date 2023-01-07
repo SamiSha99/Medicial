@@ -1,18 +1,22 @@
 package com.example.medicial.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.medicial.Activity.ReminderActivity;
 import com.example.medicial.Database.DBHelper;
 import com.example.medicial.R;
 
@@ -21,15 +25,16 @@ import java.util.ArrayList;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyViewHolder> {
     private Context context;
-    private ArrayList id, medicine_name, amount, time, date;
+    private ArrayList id, medicine_name, amount, image, time, date;
     DBHelper dbHelper;
     int monthInt;
 
-    public RecyclerAdapter(Context context, ArrayList id, ArrayList medicine_name, ArrayList amount, ArrayList time, ArrayList date) {
+    public RecyclerAdapter(Context context, ArrayList id, ArrayList medicine_name, ArrayList amount, ArrayList image, ArrayList time, ArrayList date) {
         this.context = context;
         this.id = id;
         this.medicine_name = medicine_name;
         this.amount = amount;
+        this.image = image;
         this.time = time;
         this.date = date;
         dbHelper = new DBHelper(context);
@@ -48,7 +53,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
         holder.med_name.setText(String.valueOf(medicine_name.get(position)));
         holder.med_amount.setText(String.valueOf(amount.get(position)));
         holder.med_time.setText(String.valueOf(time.get(position)));
-
+        holder.image.setImageURI(Uri.parse(image.get(position).toString()));
         try {
             String currentString = String.valueOf(date.get(position));
             String[] separated = currentString.split("/");
@@ -77,6 +82,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, PopupMenu.OnMenuItemClickListener {
         TextView med_id, med_name, med_amount, med_time, date_day, date_month, date_year;
         ImageButton popup_option;
+        ImageView image;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -87,6 +93,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
             med_time = itemView.findViewById(R.id.txtv_time);
             date_day = itemView.findViewById(R.id.txtv_day);
             date_month = itemView.findViewById(R.id.txtv_month);
+            image = itemView.findViewById(R.id.imgv);
             popup_option = itemView.findViewById(R.id.options);
             popup_option.setOnClickListener(this);
         }
@@ -110,10 +117,13 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
 
                     break;
                 case R.id.action_delete:
+                    // Log.d("NAME OF MEDICINE", "med name? " + med_name.getText());
+                    int position = getLayoutPosition();
+                    // Remove the item
                     int i = Integer.parseInt(med_id.getText().toString());
                     dbHelper.removeMedicineData(i);
-                    int position = getLayoutPosition();
                     medicine_name.remove(position);
+                    // Notify the adapter that an item has been removed
                     notifyItemRemoved(position);
                     return true;
 
