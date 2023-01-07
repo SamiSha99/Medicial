@@ -14,13 +14,13 @@ import java.util.ArrayList;
 public class DBHelper extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "Medicial.db";
-    private static final int DB_VERSION = 4;
+    private static final int DB_VERSION = 6;
     public static int activeUserID = -1;
-    private final Context context;
+    //private final Context context;
 
     public DBHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
-        this.context = context;
+        //this.context = context;
     }
 
     @Override
