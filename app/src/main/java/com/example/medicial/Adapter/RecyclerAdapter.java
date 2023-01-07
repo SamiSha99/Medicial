@@ -1,6 +1,7 @@
 package com.example.medicial.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.medicial.Activity.ReminderActivity;
 import com.example.medicial.Database.DBHelper;
 import com.example.medicial.R;
 

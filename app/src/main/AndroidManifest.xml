@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.SET_ALARM" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.CAMERA" />
 
     <application
@@ -43,16 +43,6 @@
                 android:name="android.app.lib_name"
                 android:value="android.support.PARENT_ACTIVITY" />
         </activity>
-        <activity
-            android:name=".Broadcast.AlertReceiverActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-
-        <receiver android:name=".Broadcast.AlertReceiverActivity" />
-
         <activity
             android:name=".Activity.ReminderActivity"
             android:exported="false"
@@ -100,10 +90,12 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
+        <receiver android:name=".Broadcast.AlarmReceiver" />
+
     </application>
 
 </manifest>

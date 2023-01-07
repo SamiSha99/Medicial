@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class DBHelper extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "Medicial.db";
-    private static final int DB_VERSION = 3;
+    private static final int DB_VERSION = 4;
     public static int activeUserID = -1;
     private final Context context;
 
@@ -25,7 +25,7 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL("create table User (id INTEGER PRIMARY KEY AUTOINCREMENT,userName TEXT, firstName TEXT, lastName TEXT, password TEXT, email TEXT)");
-        sqLiteDatabase.execSQL("create table Medicine (id INTEGER PRIMARY KEY AUTOINCREMENT, medName TEXT, amount INTEGER)");
+        sqLiteDatabase.execSQL("create table Medicine (id INTEGER PRIMARY KEY AUTOINCREMENT, medName TEXT, amount INTEGER, image String)");
         sqLiteDatabase.execSQL("create table Alert (id INTEGER PRIMARY KEY AUTOINCREMENT, time TIME, date DATE)");
         // sqLiteDatabase.execSQL("create table List ( supplyAmount INTEGER, creationDate DATE,  FOREIGN KEY(userID) REFERENCES User(id), FOREIGN KEY(alertID) REFERENCES Alert(id),FOREIGN KEY(medicineID) REFERENCES Medicine(id))");
         // sqLiteDatabase.execSQL("create table Admin (id INTEGER PRIMARY KEY AUTOINCREMENT, FOREIGN KEY(userID) REFERENCES User(id))");
@@ -110,11 +110,12 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     //   {Adding new Medicine Details}
-    public boolean insertMedicineData(String medName, int amount) {
+    public boolean insertMedicineData(String medName, int amount, String image) {
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("medName", medName);
         values.put("amount", amount);
+        values.put("image", image);
 
         long newRow = sqLiteDatabase.insert("Medicine", null, values);
         return newRow != -1;
@@ -151,5 +152,4 @@ public class DBHelper extends SQLiteOpenHelper {
         c.close();
         return pass;
     }
-
 }
