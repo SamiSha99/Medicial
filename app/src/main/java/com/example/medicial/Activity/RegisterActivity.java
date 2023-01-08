@@ -8,7 +8,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -38,7 +37,7 @@ public class RegisterActivity extends AppCompatActivity {
         lastName = findViewById(R.id.edt_reg_lastName);
         email = findViewById(R.id.edt_reg_email);
         password = findViewById(R.id.edt_reg_password);
-        re_password = findViewById(R.id.edt_reg_repassword);
+        re_password = findViewById(R.id.edt_reg_re_password);
 
         register = findViewById(R.id.btn_signUp);
         register.setOnClickListener(view -> Register());
@@ -121,14 +120,12 @@ public class RegisterActivity extends AppCompatActivity {
         dialog.setContentView(R.layout.dialog_success);
         Button done = dialog.findViewById(R.id.btn_done);
 
-        done.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                startActivity(intent);
-                finish();
-            }
+        done.setOnClickListener(view -> {
+            dialog.dismiss();
+            Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+            startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+            finish();
         });
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();

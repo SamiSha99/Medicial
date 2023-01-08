@@ -12,10 +12,11 @@
         android:background="@drawable/bg_bottom_corners_gradiant_accent">
 
         <ImageView
-            android:id="@+id/imageView_circle"
+            android:id="@+id/imageView_wave"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
+            android:contentDescription="@string/text_ques"
             android:scaleType="centerCrop"
             app:srcCompat="@drawable/img_wave" />
 
@@ -41,9 +42,8 @@
                 android:id="@+id/txtv_signUp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
                 android:layout_gravity="center_horizontal"
-                android:text="Sign up"
+                android:text="@string/sign_up"
                 android:textColor="@color/accent"
                 android:textSize="50sp"
                 android:textStyle="bold" />
@@ -53,10 +53,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="20dp"
+                android:autofillHints="username"
                 android:background="@drawable/custom_button_shape"
                 android:drawableStart="@drawable/ic_outline_user"
                 android:drawablePadding="8dp"
-                android:hint="User name"
+                android:hint="@string/user_name"
                 android:inputType="text"
                 android:padding="8dp"
                 android:textColor="@color/accent"
@@ -67,10 +68,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="20dp"
+                android:autofillHints="name"
                 android:background="@drawable/custom_button_shape"
                 android:drawableStart="@drawable/ic_outline_label"
                 android:drawablePadding="8dp"
-                android:hint="First name"
+                android:hint="@string/first_name"
                 android:inputType="text"
                 android:padding="8dp"
                 android:textColor="@color/accent"
@@ -87,10 +89,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="5dp"
+                android:autofillHints="name"
                 android:background="@drawable/custom_button_shape"
                 android:drawableStart="@drawable/ic_outline_label"
                 android:drawablePadding="8dp"
-                android:hint="Last name"
+                android:hint="@string/last_name"
                 android:inputType="text"
                 android:padding="8dp"
                 android:textColor="@color/accent"
@@ -107,10 +110,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="5dp"
+                android:autofillHints="emailAddress"
                 android:background="@drawable/custom_button_shape"
                 android:drawableStart="@drawable/ic_outline_email"
                 android:drawablePadding="8dp"
-                android:hint="E-mail"
+                android:hint="@string/email"
                 android:inputType="textEmailAddress"
                 android:padding="8dp"
                 android:textColor="@color/accent"
@@ -127,10 +131,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="5dp"
+                android:autofillHints="password"
                 android:background="@drawable/custom_button_shape"
                 android:drawableStart="@drawable/ic_outline_lock"
                 android:drawablePadding="8dp"
-                android:hint="Password"
+                android:hint="@string/password"
                 android:inputType="textPassword"
                 android:padding="8dp"
                 android:textColor="@color/accent"
@@ -143,15 +148,15 @@
                 android:layout_marginStart="20dp" />
 
             <EditText
-                android:id="@+id/edt_reg_repassword"
+                android:id="@+id/edt_reg_re_password"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_below="@id/edt_login_username"
                 android:layout_marginTop="5dp"
+                android:autofillHints="password"
                 android:background="@drawable/custom_button_shape"
                 android:drawableStart="@drawable/ic_outline_lock"
                 android:drawablePadding="8dp"
-                android:hint="Confirm Password"
+                android:hint="@string/re_pass"
                 android:inputType="textPassword"
                 android:padding="8dp"
                 android:textColor="@color/accent"
@@ -167,23 +172,13 @@
                 android:id="@+id/btn_signUp"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:layout_below="@id/edt_login_password"
                 android:layout_marginTop="15dp"
                 android:backgroundTint="@color/accent"
-                android:text="Sign Up"
+                android:text="@string/sign_up"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 app:cornerRadius="20dp" />
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>
-
-    <FrameLayout
-        android:id="@+id/frame_layout"
-        android:name="com.example.medicial.SuccessFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:elevation="10dp"
-        tools:layout="@layout/fragment_success" />
-
 </RelativeLayout>

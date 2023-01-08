@@ -1,23 +1,11 @@
 package com.example.medicial.Activity;
 
-import android.app.AlarmManager;
-import android.app.Dialog;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -28,7 +16,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.medicial.Broadcast.AlarmReceiver;
 import com.example.medicial.NavigationDrawer.CalendarActivity;
 import com.example.medicial.Database.DBHelper;
 import com.example.medicial.NavigationDrawer.ProfileActivity;
@@ -49,8 +36,8 @@ public class HomeActivity extends AppCompatActivity
     ArrayList<String> id, medicine_name, amount, image, time, date;
     DBHelper dbHelper = new DBHelper(this);
     RecyclerAdapter recyclerAdapter;
-    private AlarmManager alarmManager;
-    private  PendingIntent pendingIntent;
+//    AlarmManager alarmManager;
+//    PendingIntent pendingIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,12 +71,9 @@ public class HomeActivity extends AppCompatActivity
 
         // {FloatingActionButton}
         floatingActionButton = findViewById(R.id.fab);
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(HomeActivity.this, ReminderActivity.class);
-                startActivity(intent);
-            }
+        floatingActionButton.setOnClickListener(view -> {
+            Intent intent = new Intent(HomeActivity.this, ReminderActivity.class);
+            startActivity(intent);
         });
 
         drawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
@@ -133,27 +117,27 @@ public class HomeActivity extends AppCompatActivity
 //        CreateNotificationChannel();
     }
 
-    public void CreateNotificationChannel() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = "notificationChannelName";
-            String description= "Channel For ALarm Manager";
-            int importance = NotificationManager.IMPORTANCE_HIGH;
-            NotificationChannel channel = new NotificationChannel("notification", name, importance);
-            channel.setDescription(description);
+//    public void CreateNotificationChannel() {
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//            CharSequence name = "notificationChannelName";
+//            String description= "Channel For Alarm Manager";
+//            int importance = NotificationManager.IMPORTANCE_HIGH;
+//            NotificationChannel channel = new NotificationChannel("notification", name, importance);
+//            channel.setDescription(description);
+//
+//            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+//            notificationManager.createNotificationChannel(channel);
+//        }
+//    }
 
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
-        }
-    }
-
-    private void setAlarm(){
-        alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(this, AlarmReceiver.class);
-        pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
-
-        alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() +
-                AlarmManager.INTERVAL_HALF_HOUR, AlarmManager.INTERVAL_HALF_HOUR, pendingIntent);
-    }
+//    private void setAlarm(){
+//        alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+//        Intent intent = new Intent(this, AlarmReceiver.class);
+//        pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
+//
+//        alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() +
+//                AlarmManager.INTERVAL_HALF_HOUR, AlarmManager.INTERVAL_HALF_HOUR, pendingIntent);
+//    }
 
 
     private void DisplayData() {
@@ -193,13 +177,13 @@ public class HomeActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.nav_home:
-                Intent intent_home = new Intent(getApplicationContext(), HomeActivity.class);
+                Intent intent_home = new Intent(HomeActivity.this, HomeActivity.class);
                 startActivity(intent_home);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 break;
 
             case R.id.nav_calendar:
-                Intent intent_calendar = new Intent(getApplicationContext(), CalendarActivity.class);
+                Intent intent_calendar = new Intent(HomeActivity.this, CalendarActivity.class);
                 startActivity(intent_calendar);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 break;
@@ -208,13 +192,13 @@ public class HomeActivity extends AppCompatActivity
                 break;
 
             case R.id.nav_profile:
-                Intent intent_profile = new Intent(getApplicationContext(), ProfileActivity.class);
+                Intent intent_profile = new Intent(HomeActivity.this, ProfileActivity.class);
                 startActivity(intent_profile);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 break;
 
             case R.id.nav_logout:
-                Intent intent_logout = new Intent(getApplicationContext(), LoginActivity.class);
+                Intent intent_logout = new Intent(HomeActivity.this, LoginActivity.class);
                 startActivity(intent_logout);
                 finish();
         }

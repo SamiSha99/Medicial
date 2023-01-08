@@ -5,34 +5,34 @@
         <item
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_baseline_home"
-            android:title="Home" />
+            android:title="@string/ho" />
 
         <item
             android:id="@+id/nav_calendar"
             android:icon="@drawable/ic_baseline_calendar"
-            android:title="Calender" />
+            android:title="@string/cal" />
 
         <item
             android:id="@+id/nav_settings"
             android:icon="@drawable/ic_baseline_settings"
-            android:title="Settings" />
+            android:title="@string/sett" />
     </group>
 
     <item
         android:id="@+id/profile"
         android:icon="@drawable/ic_baseline_switch_account"
-        android:title="Profile">
+        android:title="@string/pro">
         <menu>
             <group android:checkableBehavior="single">
                 <item
                     android:id="@+id/nav_profile"
                     android:icon="@drawable/ic_baseline_manage_accounts"
-                    android:title="My profile" />
+                    android:title="@string/my_pro" />
 
                 <item
                     android:id="@+id/nav_logout"
                     android:icon="@drawable/ic_baseline_logout"
-                    android:title="Logout" />
+                    android:title="@string/log" />
             </group>
         </menu>
     </item>

@@ -8,7 +8,6 @@ import android.os.Handler;
 import android.view.WindowManager;
 import android.widget.TextView;
 
-import com.example.medicial.Activity.LoginActivity;
 import com.example.medicial.BuildConfig;
 import com.example.medicial.R;
 

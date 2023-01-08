@@ -22,7 +22,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="Profile"
+                android:text="@string/app_bar_profile_title"
                 android:textColor="@color/white"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -39,6 +39,7 @@
                 android:id="@+id/imageView_bg_shape"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:contentDescription="@string/imgv_description"
                 android:elevation="1dp"
                 android:scaleType="centerCrop"
                 app:srcCompat="@drawable/img_bg_shape" />
@@ -50,6 +51,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/design_circle_shape"
+                android:contentDescription="@string/imgv_description"
                 android:elevation="2dp" />
 
             <ImageView
@@ -59,6 +61,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="40dp"
                 android:background="@drawable/img_userprofile"
+                android:contentDescription="@string/imgv_description"
                 android:elevation="3dp" />
 
         </RelativeLayout>

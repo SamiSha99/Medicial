@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_below="@id/relative_layout"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:ignore="LabelFor">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView_profile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
         android:layout_margin="5dp"
         app:cardCornerRadius="30dp"
         app:cardElevation="20dp">
@@ -26,9 +27,8 @@
                 android:id="@+id/txtv_acc_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
                 android:layout_gravity="center_horizontal"
-                android:text="Account information"
+                android:text="@string/text_acc_info"
                 android:textColor="@color/accent"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -40,18 +40,20 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
-                android:text="User name"
+                android:text="@string/text_user_name"
                 android:textColor="@color/accent" />
 
             <EditText
+
                 android:id="@+id/edt_prof_username"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_below="@id/edt_login_username"
+                android:autofillHints="username"
                 android:background="@drawable/custom_button_shape"
                 android:drawableStart="@drawable/ic_outline_user"
                 android:drawablePadding="8dp"
                 android:enabled="false"
+
                 android:inputType="text"
                 android:padding="8dp"
                 android:textColor="@color/accent"
@@ -64,14 +66,14 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
-                android:text="First name"
+                android:text="@string/first_name"
                 android:textColor="@color/accent" />
 
             <EditText
                 android:id="@+id/edt_prof_firstname"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_below="@id/edt_login_username"
+                android:autofillHints="name"
                 android:background="@drawable/custom_button_shape"
                 android:drawableStart="@drawable/ic_outline_label"
                 android:drawablePadding="8dp"
@@ -88,14 +90,14 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
-                android:text="Last name"
+                android:text="@string/last_name"
                 android:textColor="@color/accent" />
 
             <EditText
                 android:id="@+id/edt_prof_lastname"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_below="@id/edt_login_username"
+                android:autofillHints="name"
                 android:background="@drawable/custom_button_shape"
                 android:drawableStart="@drawable/ic_outline_label"
                 android:drawablePadding="8dp"
@@ -112,14 +114,14 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
-                android:text="E-mail"
+                android:text="@string/email"
                 android:textColor="@color/accent" />
 
             <EditText
                 android:id="@+id/edt_prof_email"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_below="@id/edt_login_username"
+                android:autofillHints="emailAddress"
                 android:background="@drawable/custom_button_shape"
                 android:drawableStart="@drawable/ic_outline_email"
                 android:drawablePadding="8dp"
@@ -136,19 +138,19 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
-                android:text="Password"
+                android:text="@string/password"
                 android:textColor="@color/accent" />
 
             <EditText
                 android:id="@+id/edt_prof_password"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_below="@id/edt_login_username"
+                android:autofillHints="password"
                 android:background="@drawable/custom_button_shape"
                 android:drawableStart="@drawable/ic_outline_lock"
                 android:drawablePadding="8dp"
                 android:enabled="false"
-                android:inputType="text"
+                android:inputType="textPassword"
                 android:padding="8dp"
                 android:textColor="@color/accent"
                 android:textColorHint="@color/gray" />

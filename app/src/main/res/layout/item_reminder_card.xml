@@ -17,14 +17,13 @@
             android:id="@+id/txtv_medId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0"
+            android:text="@string/med_id"
             android:visibility="gone" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:layout_weight="1"
@@ -35,7 +34,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="18"
+                android:text="@string/med_day"
                 android:textColor="@color/accent"
                 android:textSize="24sp" />
 
@@ -45,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:alpha="0.5"
-                android:text="Nov"
+                android:text="@string/med_month"
                 android:textColor="@android:color/black"
                 android:textSize="18sp" />
 
@@ -76,7 +75,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:singleLine="true"
-                    android:text="Medicine name"
+                    android:text="@string/med_name"
                     android:textColor="@android:color/black"
                     android:textSize="20sp" />
 
@@ -84,12 +83,14 @@
                     android:id="@+id/options"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:background="@drawable/ic_baseline_more_horiz" />
+                    android:background="@drawable/ic_baseline_more"
+                    android:contentDescription="@string/imgv_description" />
+
                 <ImageView
                     android:id="@+id/imgv"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    />
+                    android:contentDescription="@string/imgv_description" />
             </LinearLayout>
 
             <LinearLayout
@@ -105,18 +106,18 @@
                     android:paddingStart="5dp"
                     android:paddingEnd="5dp"
                     android:singleLine="true"
-                    android:text="amount"
+                    android:text="@string/hint_amount"
                     android:textColor="@android:color/black"
                     android:textSize="14sp" />
 
                 <TextView
-                    android:id="@+id/txtv_tablest"
+                    android:id="@+id/txtv_tablets"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:alpha="0.5"
                     android:singleLine="true"
-                    android:text="tablest left"
+                    android:text="@string/text_tablets_left"
                     android:textColor="@android:color/black"
                     android:textSize="14sp" />
 
@@ -132,12 +133,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:singleLine="true"
-                    android:text="10:00 AM"
+                    android:text="@string/med_time"
                     android:textColor="@color/accent"
                     android:textSize="20sp"
                     app:drawableStartCompat="@drawable/ic_baseline_access_time" />
             </LinearLayout>
-
 
         </LinearLayout>
     </LinearLayout>

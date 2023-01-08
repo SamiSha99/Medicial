@@ -13,10 +13,11 @@
         android:background="@drawable/bg_bottom_corners_gradiant_accent">
 
         <ImageView
-            android:id="@+id/imageView_circle"
+            android:id="@+id/imageView_wave"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
+            android:contentDescription="@string/imgv_description"
             android:scaleType="centerCrop"
             app:srcCompat="@drawable/img_wave" />
 
@@ -42,9 +43,8 @@
                 android:id="@+id/txtv_login"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
                 android:layout_gravity="center_horizontal"
-                android:text="Sign in"
+                android:text="@string/sign_in"
                 android:textColor="@color/accent"
                 android:textSize="50sp"
                 android:textStyle="bold" />
@@ -54,10 +54,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="40dp"
+                android:autofillHints="username"
                 android:background="@drawable/custom_button_shape"
                 android:drawableStart="@drawable/ic_outline_user"
                 android:drawablePadding="8dp"
-                android:hint="User name"
+                android:hint="@string/user_name"
                 android:inputType="text"
                 android:padding="8dp"
                 android:textColor="@color/accent"
@@ -67,12 +68,12 @@
                 android:id="@+id/edt_login_password"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_below="@id/edt_login_username"
                 android:layout_marginTop="20dp"
+                android:autofillHints="password"
                 android:background="@drawable/custom_button_shape"
                 android:drawableStart="@drawable/ic_outline_lock"
                 android:drawablePadding="8dp"
-                android:hint="Password"
+                android:hint="@string/password"
                 android:inputType="textPassword"
                 android:padding="8dp"
                 android:textColor="@color/accent"
@@ -82,7 +83,6 @@
                 android:id="@+id/invalid"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/edt_login_password"
                 android:text=""
                 android:textAlignment="center" />
 
@@ -90,10 +90,9 @@
                 android:id="@+id/btn_login"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:layout_below="@id/edt_login_password"
                 android:layout_marginTop="30dp"
                 android:backgroundTint="@color/accent"
-                android:text="Sign in"
+                android:text="@string/text_sign_in"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 app:cornerRadius="20dp" />
@@ -102,10 +101,9 @@
                 android:id="@+id/txtv_forgetPass"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/btn_login"
                 android:layout_gravity="center_horizontal"
                 android:alpha="0.5"
-                android:text="Forget your password?"
+                android:text="@string/forget_pass"
                 android:textAllCaps="false"
                 android:textColor="@color/black"
                 android:textSize="15sp" />
@@ -126,7 +124,7 @@
             android:layout_height="wrap_content"
             android:alpha="0.5"
             android:padding="8dp"
-            android:text="You don't have an account?"
+            android:text="@string/text_ques"
             android:textColor="@color/black"
             android:textSize="14sp" />
 
@@ -134,8 +132,7 @@
             android:id="@+id/txtv_register_now"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/txtv_notSignUp"
-            android:text="SignUp Now"
+            android:text="@string/SignUp_Now"
             android:textColor="@color/accent"
             android:textSize="14sp" />
     </LinearLayout>

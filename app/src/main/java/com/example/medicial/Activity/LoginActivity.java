@@ -18,7 +18,7 @@ public class LoginActivity extends AppCompatActivity {
     DBHelper dbHelper = new DBHelper(this);
     Button login;
     EditText username, password;
-    TextView txtv_incorrect, register_now;
+    TextView txtv_invalid, register_now;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +39,7 @@ public class LoginActivity extends AppCompatActivity {
         //  {Login}
         username = findViewById(R.id.edt_login_username);
         password = findViewById(R.id.edt_login_password);
-        txtv_incorrect = findViewById(R.id.invalid);
+        txtv_invalid = findViewById(R.id.invalid);
 
         login = findViewById(R.id.btn_login);
         login.setOnClickListener(view -> Login());
@@ -62,8 +62,8 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         if(!check_name_pass) {
-            txtv_incorrect.setText("Incorrect information");
-            txtv_incorrect.setTextColor(color_red);
+            txtv_invalid.setText("Incorrect information");
+            txtv_invalid.setTextColor(color_red);
             return;
         }
 

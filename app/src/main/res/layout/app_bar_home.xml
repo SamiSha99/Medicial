@@ -22,13 +22,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="Home"
+                android:text="@string/app_bar_home_title"
                 android:textColor="@color/white"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
         </androidx.appcompat.widget.Toolbar>
-
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -42,6 +41,7 @@
         android:layout_margin="16dp"
         android:background="@color/accent"
         android:backgroundTint="@color/accent"
+        android:contentDescription="@string/imgv_description"
         app:srcCompat="@drawable/ic_baseline_alarm_add"
         app:tint="@color/white" />
 

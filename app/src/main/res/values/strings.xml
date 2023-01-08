@@ -1,9 +1,67 @@
 <resources>
     <string name="app_name">Medicial</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="add">Add</string>
+    <!-- Custom String -->
+    <string name="app_name_screen">MEDICIAL</string>
+    <string name="imgv_description">description</string>
+    <string name="sign_in">Sign in</string>
+    <string name="user_name">User name</string>
+    <string name="password">Password</string>
+    <string name="text_sign_in">Sign in</string>
+    <string name="forget_pass">Forget your password?</string>
+    <string name="text_ques">You don\'t have an account?</string>
+    <string name="SignUp_Now">SignUp Now</string>
+    <string name="sign_up">Sign up</string>
+    <string name="first_name">First name</string>
+    <string name="last_name">Last name</string>
+    <string name="email">E-mail</string>
+    <string name="re_pass">Confirm Password</string>
+    <string name="app_bar_home_title">Home</string>
+    <string name="app_bar_reminder_title">New reminder</string>
+    <string name="app_bar_profile_title">Profile</string>
+    <string name="app_bar_calendar_title">Calendar</string>
+    <string name="app_bar_schedule_title">Date Scheduler</string>
+    <string name="text_med_det">Medicine details</string>
+    <string name="text_add_med">Add medicine</string>
+    <string name="med_name">medicine name</string>
+    <string name="text_amount">Amount</string>
+    <string name="hint_amount">amount</string>
+    <string name="text_med_pic">Medicine picture</string>
+    <string name="text_sel_sch">Select schedule</string>
+    <string name="text_desc_sch">Schedule determines when notification will be pushed</string>
+    <string name="text_date">Date</string>
+    <string name="hint_date">select date</string>
+    <string name="text_time">Time</string>
+    <string name="hint_time">select time</string>
+    <string name="text_repeat">Repeat at</string>
+    <string name="hint_repeat">repeat</string>
+    <string name="dialog_text_reg">REGISTERED</string>
+    <string name="dialog_text_suc">SUCCESSFULLY</string>
+    <string name="dialog_text_done">Done</string>
+    <string name="text_acc_info">Account information</string>
+    <string name="text_user_name">User name</string>
+    <!-- item card -->
+    <string name="med_id">0</string>
+    <string name="med_day">18</string>
+    <string name="med_month">Nov</string>
+    <string name="text_tablets_left">tablets left</string>
+    <string name="med_time">10:00 AM</string>
+    <!-- date menu -->
+    <string name="save">Save</string>
+    <!-- main menu -->
+    <string name="ho">Home</string>
+    <string name="cal">Calender</string>
+    <string name="sett">Settings</string>
+    <string name="pro">Profile</string>
+    <string name="my_pro">My profile</string>
+    <string name="log">Logout</string>
+    <!-- med menu -->
+    <string name="next">Next</string>
+    <!-- pop menu -->
+    <string name="sh">Show</string>
+    <string name="del">Delete</string>
+    <string name="up">Update</string>
+
 </resources>

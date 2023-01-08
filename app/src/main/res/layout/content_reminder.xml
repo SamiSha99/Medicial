@@ -13,6 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:alpha="0.5"
+        android:contentDescription="@string/imgv_description"
         android:scaleType="centerCrop"
         app:srcCompat="@drawable/img_pills" />
 
@@ -22,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
-        android:text="Medicine details"
+        android:text="@string/text_med_det"
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold" />
@@ -51,8 +52,7 @@
                 android:id="@+id/txtv_add_medicine"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/txtv_medicine_note"
-                android:text="Add medicine"
+                android:text="@string/text_add_med"
                 android:textColor="@color/black"
                 android:textSize="15sp"
                 android:textStyle="bold" />
@@ -61,10 +61,11 @@
                 android:id="@+id/edt_medName"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:autofillHints="name"
                 android:background="@drawable/custom_edt_shape"
                 android:drawableStart="@drawable/ic_outline_medicine_bottle"
                 android:drawablePadding="8dp"
-                android:hint="medicine name"
+                android:hint="@string/med_name"
                 android:inputType="textCapSentences"
                 android:padding="8dp"
                 android:textColor="@color/accent"
@@ -96,8 +97,7 @@
                 android:id="@+id/txtv_amount_long"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/txtv_medicine_note"
-                android:text="Amount"
+                android:text="@string/text_amount"
                 android:textColor="@color/black"
                 android:textSize="15sp"
                 android:textStyle="bold" />
@@ -107,10 +107,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginEnd="5dp"
+                android:autofillHints="number"
                 android:background="@drawable/custom_edt_shape"
                 android:drawableStart="@drawable/ic_outline_tablets"
                 android:drawablePadding="8dp"
-                android:hint="amount"
+                android:hint="@string/hint_amount"
                 android:inputType="number"
                 android:padding="8dp"
                 android:textColor="@color/accent"
@@ -140,9 +141,8 @@
                 android:id="@+id/txtv_medicine_pic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/txtv_medicine_note"
                 android:layout_marginBottom="5dp"
-                android:text="Medicine picture"
+                android:text="@string/text_med_pic"
                 android:textColor="@color/black"
                 android:textSize="15sp"
                 android:textStyle="bold" />
@@ -158,9 +158,9 @@
                     android:id="@+id/imgv_medicine_pic"
                     android:layout_width="280dp"
                     android:layout_height="280dp"
-                    android:layout_below="@id/txtv_medicine_pic"
                     android:layout_gravity="center_horizontal"
                     android:layout_margin="5dp"
+                    android:contentDescription="@string/imgv_description"
                     android:src="@drawable/ic_baseline_image" />
             </LinearLayout>
         </LinearLayout>
