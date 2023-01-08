@@ -143,7 +143,7 @@ public class ReminderActivity extends AppCompatActivity {
     private void PickFromCamera() {
         // Intent to pick image from camera, the image will be return onActivityResult method
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, image_uri);
+//        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, image_uri);
         startActivityForResult(cameraIntent, IMAGE_PICK_CAMERA_CODE);
     }
 

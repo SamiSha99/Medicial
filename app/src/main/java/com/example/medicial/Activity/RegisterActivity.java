@@ -1,12 +1,14 @@
 package com.example.medicial.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
+import android.app.Dialog;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,12 +16,12 @@ import android.widget.Toast;
 
 import com.example.medicial.Database.DBHelper;
 import com.example.medicial.R;
-import com.example.medicial.Fragment.SuccessFragment;
 
 public class RegisterActivity extends AppCompatActivity {
     DBHelper dbHelper = new DBHelper(this);
     EditText username, firstName, lastName, email, password, re_password;
     Button register;
+    Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +42,9 @@ public class RegisterActivity extends AppCompatActivity {
 
         register = findViewById(R.id.btn_signUp);
         register.setOnClickListener(view -> Register());
+
+        // {Dialog}
+        dialog = new Dialog(this);
     }
 
     public void Register() {
@@ -50,84 +55,82 @@ public class RegisterActivity extends AppCompatActivity {
         String _Password = password.getText().toString();
         String _Re_password = re_password.getText().toString();
         boolean emptyField = false;
-        if(TextUtils.isEmpty(_Username))
-        {
+        if (TextUtils.isEmpty(_Username)) {
             username.setHint("required field");
             username.setHintTextColor(getResources().getColor(R.color.red));
             emptyField = true;
         }
 
-        if(TextUtils.isEmpty(_Firstname))
-        {
+        if (TextUtils.isEmpty(_Firstname)) {
             firstName.setHint("required field");
             firstName.setHintTextColor(getResources().getColor(R.color.red));
             emptyField = true;
         }
 
-        if(TextUtils.isEmpty(_Lastname))
-        {
+        if (TextUtils.isEmpty(_Lastname)) {
             lastName.setHint("required field");
             lastName.setHintTextColor(getResources().getColor(R.color.red));
             emptyField = true;
         }
 
-        if(TextUtils.isEmpty(_Email))
-        {
+        if (TextUtils.isEmpty(_Email)) {
             email.setHint("required field");
             email.setHintTextColor(getResources().getColor(R.color.red));
             emptyField = true;
         }
 
-        if(TextUtils.isEmpty(_Password))
-        {
+        if (TextUtils.isEmpty(_Password)) {
             password.setHint("required field");
             password.setHintTextColor(getResources().getColor(R.color.red));
             emptyField = true;
         }
 
-        if(TextUtils.isEmpty(_Re_password))
-        {
+        if (TextUtils.isEmpty(_Re_password)) {
             re_password.setHint("required field");
             re_password.setHintTextColor(getResources().getColor(R.color.red));
             emptyField = true;
         }
 
         // Empty Fields
-        if(emptyField)
-        {
+        if (emptyField) {
             Toast.makeText(this, "Some fields are empty!", Toast.LENGTH_SHORT).show();
             return;
         }
 
         // Password verification mismatch
-        if(!_Password.equals(_Re_password))
-        {
+        if (!_Password.equals(_Re_password)) {
             Toast.makeText(this, "Password not matching", Toast.LENGTH_SHORT).show();
             return;
         }
 
         // Username already exists
-        if(dbHelper.CheckUserName(_Username))
-        {
+        if (dbHelper.CheckUserName(_Username)) {
             Toast.makeText(this, "User already exists!", Toast.LENGTH_SHORT).show();
             return;
         }
 
         // DB insertion failure
-        if(!dbHelper.insertUserData(_Username, _Firstname, _Lastname, _Password, _Email))
-        {
+        if (!dbHelper.insertUserData(_Username, _Firstname, _Lastname, _Password, _Email)) {
             Toast.makeText(this, "REGISTRATION FAILED", Toast.LENGTH_SHORT).show();
             return;
         }
-
-        replaceFragment(new SuccessFragment());
+        ShowSuccessDialog();
     }
 
-    private void replaceFragment(Fragment fragment) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frame_layout, fragment);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
+    private void ShowSuccessDialog() {
+        dialog.setContentView(R.layout.dialog_success);
+        Button done = dialog.findViewById(R.id.btn_done);
+
+        done.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
     }
 }

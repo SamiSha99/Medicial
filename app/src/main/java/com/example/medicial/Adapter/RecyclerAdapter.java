@@ -1,9 +1,10 @@
 package com.example.medicial.Adapter;
 
+import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,11 +17,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.medicial.Activity.ReminderActivity;
 import com.example.medicial.Database.DBHelper;
 import com.example.medicial.R;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyViewHolder> {
@@ -28,7 +27,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
     private ArrayList id, medicine_name, amount, image, time, date;
     DBHelper dbHelper;
     int monthInt;
-
+    Dialog dialog;
     public RecyclerAdapter(Context context, ArrayList id, ArrayList medicine_name, ArrayList amount, ArrayList image, ArrayList time, ArrayList date) {
         this.context = context;
         this.id = id;
@@ -38,6 +37,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
         this.time = time;
         this.date = date;
         dbHelper = new DBHelper(context);
+        dialog = new Dialog(context);
     }
 
     @NonNull
@@ -114,8 +114,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
         public boolean onMenuItemClick(MenuItem menuItem) {
             switch (menuItem.getItemId()) {
                 case R.id.action_show:
-
+                    ShowImageDialog();
                     break;
+
                 case R.id.action_delete:
                     // Log.d("NAME OF MEDICINE", "med name? " + med_name.getText());
                     int position = getLayoutPosition();
@@ -135,6 +136,22 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
             }
             return true;
         }
+    }
+
+        private void ShowImageDialog() {
+        dialog.setContentView(R.layout.dialog_show_image);
+        ImageView med_image = dialog.findViewById(R.id.imgv_med_img);
+        ImageView img_close = dialog.findViewById(R.id.imgv_close);
+
+        img_close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
+
     }
 
     private String getMonthFormat(int month) {
