@@ -44,7 +44,7 @@ public class RegisterActivity extends AppCompatActivity {
         register.setOnClickListener(view -> Register());
 
         // {Dialog}
-        dialog = new Dialog(this);
+        dialog = new Dialog(this, android.R.style.Theme_Light_NoTitleBar_Fullscreen);
     }
 
     public void Register() {
