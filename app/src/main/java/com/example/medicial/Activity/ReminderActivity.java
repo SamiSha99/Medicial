@@ -10,12 +10,14 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.SparseArray;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -27,17 +29,23 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.example.medicial.R;
+import com.google.android.gms.vision.Frame;
+import com.google.android.gms.vision.text.TextBlock;
+import com.google.android.gms.vision.text.TextRecognizer;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
+
+import java.io.IOException;
 
 public class ReminderActivity extends AppCompatActivity {
     Toolbar toolbar;
     ActionBar actionBar;
     EditText med_name, med_amount;
-    ImageView imgViewUpload;
+    ImageView imgViewUpload, imageViewScanner;
     // Permissions constants
     private static final int CAMERA_REQUEST_CODE = 100;
     private static final int STORAGE_REQUEST_CODE = 101;
+    private static final int CAMERA_TEXT_REQUEST_CODE = 110;
     // Image pick constants
     private static final int IMAGE_PICK_CAMERA_CODE = 102;
     private static final int IMAGE_PICK_GALLERY_CODE = 103;
@@ -46,11 +54,31 @@ public class ReminderActivity extends AppCompatActivity {
     private String[] storage_permissions; // only storage
     // Variables (will contain data to save)
     private Uri image_uri;
+    Bitmap bitmap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reminder);
+
+        init();
+
+        imageViewScanner.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (ContextCompat.checkSelfPermission(ReminderActivity.this, Manifest.permission.CAMERA)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(ReminderActivity.this, new String[]{Manifest.permission.CAMERA}, CAMERA_REQUEST_CODE);
+                }
+
+                CropImage.activity()
+                        .setGuidelines(CropImageView.Guidelines.ON)
+                        .start(ReminderActivity.this);
+            }
+        });
+    }
+
+    private void init() {
 
 //        {Full screen activity}
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -76,12 +104,10 @@ public class ReminderActivity extends AppCompatActivity {
 //        {Upload image }
         imgViewUpload = findViewById(R.id.imgv_medicine_pic);
 
-        imgViewUpload.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ImagePickDialog();
-            }
-        });
+        imgViewUpload.setOnClickListener(view -> ImagePickDialog());
+
+//        {Text scanning}
+        imageViewScanner = findViewById(R.id.imageView_scanner);
     }
 
     private void ValidateAndSendData() {
@@ -190,6 +216,24 @@ public class ReminderActivity extends AppCompatActivity {
         ActivityCompat.requestPermissions(this, camera_permissions, CAMERA_REQUEST_CODE);
     }
 
+    private void GetTextFromImage(Bitmap bitmap) {
+        TextRecognizer textRecognizer = new TextRecognizer.Builder(this).build();
+        if (!textRecognizer.isOperational()) {
+            Toast.makeText(ReminderActivity.this, "Error Occurred!", Toast.LENGTH_SHORT).show();
+        } else {
+            Frame frame = new Frame.Builder().setBitmap(bitmap).build();
+            SparseArray<TextBlock> textBlockSparseArray = textRecognizer.detect(frame);
+            StringBuilder stringBuilder = new StringBuilder();
+
+            for (int i = 0; i < textBlockSparseArray.size(); i++) {
+                TextBlock textBlock = textBlockSparseArray.valueAt(i);
+                stringBuilder.append(textBlock.getValue());
+                stringBuilder.append("\n");
+            }
+            med_name.setText(stringBuilder.toString());
+        }
+    }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -240,10 +284,8 @@ public class ReminderActivity extends AppCompatActivity {
                         .setAspectRatio(1, 1)
                         .start(this);
 
-
             } else if (requestCode == IMAGE_PICK_CAMERA_CODE) {
                 // picked from camera
-
                 CropImage.activity(image_uri)
                         .setGuidelines(CropImageView.Guidelines.ON)
                         .setAspectRatio(1, 1)
@@ -257,10 +299,20 @@ public class ReminderActivity extends AppCompatActivity {
                     image_uri = uriResult;
                     // set image
                     imgViewUpload.setImageURI(image_uri);
-                } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+
+                    try {
+                        bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uriResult);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    GetTextFromImage(bitmap);
+                }
+
+
+                if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                     // error
                     Exception error = activityResult.getError();
-                    Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "" + error, Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -288,10 +340,8 @@ public class ReminderActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_next:
-                ValidateAndSendData();
-                break;
+        if (item.getItemId() == R.id.action_next) {
+            ValidateAndSendData();
         }
         return super.onOptionsItemSelected(item);
     }

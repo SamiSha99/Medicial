@@ -41,7 +41,7 @@
         app:cardCornerRadius="30dp"
         app:cardElevation="5dp">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -61,6 +61,7 @@
                 android:id="@+id/edt_medName"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:layout_below="@+id/txtv_add_medicine"
                 android:autofillHints="name"
                 android:background="@drawable/custom_edt_shape"
                 android:drawableStart="@drawable/ic_outline_medicine_bottle"
@@ -71,7 +72,16 @@
                 android:textColor="@color/accent"
                 android:textColorHint="@color/gray" />
 
-        </LinearLayout>
+            <ImageView
+                android:id="@+id/imageView_scanner"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_below="@+id/txtv_add_medicine"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                app:srcCompat="@drawable/ic_outline_document_scanner" />
+        </RelativeLayout>
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView

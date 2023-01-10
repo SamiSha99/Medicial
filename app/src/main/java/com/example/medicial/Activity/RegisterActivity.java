@@ -27,6 +27,13 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        init();
+        register.setOnClickListener(view -> Register());
+
+
+    }
+
+    private void init() {
         // {Full screen activity}
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -40,7 +47,6 @@ public class RegisterActivity extends AppCompatActivity {
         re_password = findViewById(R.id.edt_reg_re_password);
 
         register = findViewById(R.id.btn_signUp);
-        register.setOnClickListener(view -> Register());
 
         // {Dialog}
         dialog = new Dialog(this, android.R.style.Theme_Light_NoTitleBar_Fullscreen);
@@ -125,9 +131,17 @@ public class RegisterActivity extends AppCompatActivity {
             Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
             startActivity(intent);
             overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
-            finish();
+            onBackPressed();
         });
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 }

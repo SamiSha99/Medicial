@@ -3,6 +3,7 @@ package com.example.medicial.Activity;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -25,16 +26,16 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        init();
+        RegisterNow();
+
+        login.setOnClickListener(view -> Login());
+    }
+
+    private void init() {
         // {Full screen activity}
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
-        // {Go to activity register}
-        register_now = findViewById(R.id.txtv_register_now);
-        register_now.setOnClickListener(view -> {
-            Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
-            startActivity(intent);
-        });
 
         //  {Login}
         username = findViewById(R.id.edt_login_username);
@@ -42,7 +43,15 @@ public class LoginActivity extends AppCompatActivity {
         txtv_invalid = findViewById(R.id.invalid);
 
         login = findViewById(R.id.btn_login);
-        login.setOnClickListener(view -> Login());
+    }
+
+    private void RegisterNow() {
+        // {Go to activity register}
+        register_now = findViewById(R.id.txtv_register_now);
+        register_now.setOnClickListener(view -> {
+            Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
+            startActivity(intent);
+        });
     }
 
     public void Login() {
@@ -61,16 +70,27 @@ public class LoginActivity extends AppCompatActivity {
             password.setHintTextColor(color_red);
         }
 
-        if(!check_name_pass) {
+        if (!check_name_pass) {
             txtv_invalid.setText("Incorrect information");
             txtv_invalid.setTextColor(color_red);
             return;
         }
 
         String getUsername = username.getText().toString();
-        Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
         intent.putExtra("key", getUsername);
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        new AlertDialog.Builder(LoginActivity.this)
+                .setMessage("Are you sure to exit?")
+                .setCancelable(false)
+                .setPositiveButton("Yes", (dialogInterface, i) -> finish())
+                .setNegativeButton("No", null)
+                .show();
     }
 }
