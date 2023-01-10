@@ -27,6 +27,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.example.medicial.R;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
 public class ReminderActivity extends AppCompatActivity {
     Toolbar toolbar;
@@ -142,8 +144,14 @@ public class ReminderActivity extends AppCompatActivity {
 
     private void PickFromCamera() {
         // Intent to pick image from camera, the image will be return onActivityResult method
+        ContentValues values = new ContentValues();
+        values.put(MediaStore.Images.Media.TITLE, "Image title");
+        values.put(MediaStore.Images.Media.DESCRIPTION, "Image description");
+        // Put image uri
+        image_uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+        // Intent to open camera for image
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, image_uri);
+        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, image_uri);
         startActivityForResult(cameraIntent, IMAGE_PICK_CAMERA_CODE);
     }
 
@@ -225,15 +233,36 @@ public class ReminderActivity extends AppCompatActivity {
         // Image picked from camera or gallery will be receive here
         if (resultCode == RESULT_OK) {
             // image is picked
-            if (requestCode == IMAGE_PICK_GALLERY_CODE && resultCode == RESULT_OK && data!= null) {
+            if (requestCode == IMAGE_PICK_GALLERY_CODE) {
                 // picked from gallery
-                image_uri = data.getData();
-                imgViewUpload.setImageURI(image_uri);
+                CropImage.activity(data.getData())
+                        .setGuidelines(CropImageView.Guidelines.ON)
+                        .setAspectRatio(1, 1)
+                        .start(this);
 
-            } else if (requestCode == IMAGE_PICK_CAMERA_CODE && resultCode == RESULT_OK && data!= null) {
+
+            } else if (requestCode == IMAGE_PICK_CAMERA_CODE) {
                 // picked from camera
-                Bitmap bitmap = (Bitmap) data.getExtras().get("data");
-                imgViewUpload.setImageBitmap(bitmap);
+
+                CropImage.activity(image_uri)
+                        .setGuidelines(CropImageView.Guidelines.ON)
+                        .setAspectRatio(1, 1)
+                        .start(this);
+
+            } else if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+                // Cropped image received
+                CropImage.ActivityResult activityResult = CropImage.getActivityResult(data);
+                if (resultCode == RESULT_OK) {
+                    Uri uriResult = activityResult.getUri();
+                    image_uri = uriResult;
+                    // set image
+                    imgViewUpload.setImageURI(image_uri);
+                } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                    // error
+                    Exception error = activityResult.getError();
+                    Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
+                }
+
             }
         }
         super.onActivityResult(requestCode, resultCode, data);
