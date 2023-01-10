@@ -81,8 +81,10 @@ public class DBHelper extends SQLiteOpenHelper {
     public boolean CheckUserPassword(String userName, String password) {
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
         Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM User WHERE userName = ? AND password = ?", new String[]{userName, password});
+        activeUserID = -1;
         if (cursor != null && cursor.moveToNext()) {
             activeUserID = cursor.getInt(0);
+            Log.d("ACTIVE_USER_ID","" + activeUserID);
             cursor.close();
         }
         return activeUserID != -1; // activeUserID == -1 -> Failed Login
