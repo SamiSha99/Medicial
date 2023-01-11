@@ -29,23 +29,28 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
+        init();
+        ShowUserData();
+    }
+
+    private void init() {
         // {Full screen activity}
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         // {Toolbar}
         toolbar = findViewById(R.id.prof_toolbar);
-        if(toolbar != null) setSupportActionBar(toolbar);
+        if (toolbar != null) setSupportActionBar(toolbar);
 
         // {Setting up action bar}
         actionBar = getSupportActionBar();
-        if(actionBar != null) {
+        if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeAsUpIndicator(ContextCompat.getDrawable(this, R.drawable.ic_baseline_arrow_back));
             actionBar.setDisplayShowTitleEnabled(false);
         }
 
+        // {Hook id}
         listView = findViewById(R.id.profile_list);
-        ShowUserData();
     }
 
     public void ShowUserData() {
@@ -55,15 +60,15 @@ public class ProfileActivity extends AppCompatActivity {
         listAdapter.notifyDataSetChanged();
     }
 
-//    @Override
-//    public void onBackPressed() {
-//        super.onBackPressed();
-//        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
-//    }
-//
-//    @Override
-//    public boolean onSupportNavigateUp() {
-//        onBackPressed();
-//        return super.onSupportNavigateUp();
-//    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return super.onSupportNavigateUp();
+    }
 }

@@ -80,11 +80,13 @@
                 android:textColorHint="@color/gray" />
 
             <TextView
-                android:id="@+id/invalid"
+                android:id="@+id/txtv_invalid"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text=""
-                android:textAlignment="center" />
+                android:text="@string/invalid"
+                android:textAlignment="center"
+                android:textColor="@color/red"
+                android:visibility="invisible" />
 
             <Button
                 android:id="@+id/btn_login"

@@ -7,6 +7,7 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -37,17 +38,15 @@ public class LoginActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        //  {Login}
+        //  {Hook id}
         username = findViewById(R.id.edt_login_username);
         password = findViewById(R.id.edt_login_password);
-        txtv_invalid = findViewById(R.id.invalid);
-
+        txtv_invalid = findViewById(R.id.txtv_invalid);
         login = findViewById(R.id.btn_login);
+        register_now = findViewById(R.id.txtv_register_now);
     }
 
     private void RegisterNow() {
-        // {Go to activity register}
-        register_now = findViewById(R.id.txtv_register_now);
         register_now.setOnClickListener(view -> {
             Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
             startActivity(intent);
@@ -71,8 +70,7 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         if (!check_name_pass) {
-            txtv_invalid.setText("Incorrect information");
-            txtv_invalid.setTextColor(color_red);
+            txtv_invalid.setVisibility(View.VISIBLE);
             return;
         }
 
@@ -85,7 +83,6 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-
         new AlertDialog.Builder(LoginActivity.this)
                 .setMessage("Are you sure to exit?")
                 .setCancelable(false)

@@ -44,16 +44,9 @@ public class HomeActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        // {Full screen activity}
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
-        // {ToolBar}
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        init();
 
         // {DrawerLayout}
-        drawerLayout = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,
                 drawerLayout,
                 toolbar,
@@ -64,13 +57,10 @@ public class HomeActivity extends AppCompatActivity
         toggle.syncState();
 
         // {NavigationView}
-        navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.bringToFront();
-        // navigationView.setCheckedItem(R.id.nav_home);
 
         // {FloatingActionButton}
-        floatingActionButton = findViewById(R.id.fab);
         floatingActionButton.setOnClickListener(view -> {
             Intent intent = new Intent(HomeActivity.this, ReminderActivity.class);
             startActivity(intent);
@@ -107,10 +97,10 @@ public class HomeActivity extends AppCompatActivity
         time = new ArrayList<>();
         date = new ArrayList<>();
 
-        recyclerView = findViewById(R.id.recyclerView);
         recyclerAdapter = new RecyclerAdapter(this, id, medicine_name, amount, image, time, date);
         recyclerView.setAdapter(recyclerAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
         DisplayData();
 
         // {For AlarmReceiver}
@@ -139,6 +129,21 @@ public class HomeActivity extends AppCompatActivity
 //                AlarmManager.INTERVAL_HALF_HOUR, AlarmManager.INTERVAL_HALF_HOUR, pendingIntent);
 //    }
 
+    private void init() {
+        // {Full screen activity}
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        // {ToolBar}
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        // {Hook id}
+        drawerLayout = findViewById(R.id.drawer_layout);
+        navigationView = findViewById(R.id.nav_view);
+        floatingActionButton = findViewById(R.id.fab);
+        recyclerView = findViewById(R.id.recyclerView);
+    }
 
     private void DisplayData() {
         Cursor mCursor = dbHelper.getMedicineData();
@@ -203,8 +208,4 @@ public class HomeActivity extends AppCompatActivity
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
-
-    public void setSupportActionBar(Toolbar toolbar) {
-    }
-
 }

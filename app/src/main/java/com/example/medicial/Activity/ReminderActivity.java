@@ -3,7 +3,6 @@ package com.example.medicial.Activity;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.content.ContentValues;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -13,11 +12,9 @@ import android.provider.MediaStore;
 import android.util.SparseArray;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -45,7 +42,6 @@ public class ReminderActivity extends AppCompatActivity {
     // Permissions constants
     private static final int CAMERA_REQUEST_CODE = 100;
     private static final int STORAGE_REQUEST_CODE = 101;
-    private static final int CAMERA_TEXT_REQUEST_CODE = 110;
     // Image pick constants
     private static final int IMAGE_PICK_CAMERA_CODE = 102;
     private static final int IMAGE_PICK_GALLERY_CODE = 103;
@@ -63,37 +59,27 @@ public class ReminderActivity extends AppCompatActivity {
 
         init();
 
-        imageViewScanner.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (ContextCompat.checkSelfPermission(ReminderActivity.this, Manifest.permission.CAMERA)
-                        != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(ReminderActivity.this, new String[]{Manifest.permission.CAMERA}, CAMERA_REQUEST_CODE);
-                }
-
-                CropImage.activity()
-                        .setGuidelines(CropImageView.Guidelines.ON)
-                        .start(ReminderActivity.this);
-            }
-        });
+        imageViewScanner.setOnClickListener(view -> ImagePickDialog());
     }
 
     private void init() {
 
-//        {Full screen activity}
+        // {Full screen activity}
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-//        {Toolbar}
+        // {Toolbar}
         toolbar = findViewById(R.id.rem_toolbar);
         setSupportActionBar(toolbar);
 
-//        {Setting up action bar}
+        // {Setting up action bar}
         actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setHomeAsUpIndicator(getResources().getDrawable(R.drawable.ic_baseline_arrow_back));
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeAsUpIndicator(ContextCompat.getDrawable(this, R.drawable.ic_baseline_arrow_back));
+        }
 
-//        {Hook Edittext filed}
+        // {Hook Edittext filed}
         med_name = findViewById(R.id.edt_medName);
         med_amount = findViewById(R.id.edt_amount);
 
@@ -101,12 +87,11 @@ public class ReminderActivity extends AppCompatActivity {
         camera_permissions = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
         storage_permissions = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
-//        {Upload image }
+        // {Upload image }
         imgViewUpload = findViewById(R.id.imgv_medicine_pic);
-
         imgViewUpload.setOnClickListener(view -> ImagePickDialog());
 
-//        {Text scanning}
+        // {Text scanning}
         imageViewScanner = findViewById(R.id.imageView_scanner);
     }
 
@@ -141,25 +126,22 @@ public class ReminderActivity extends AppCompatActivity {
         // Title
         builder.setTitle("Pick image from");
         // set items/options
-        builder.setItems(options, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                // handle click
-                if (i == 0) {
-                    // Camera clicked
-                    if (!CheckCameraPermission()) {
-                        RequestCameraPermission();
-                    } else {
-                        // permission already granted
-                        PickFromCamera();
-                    }
-                } else if (i == 1) {
-                    if (!CheckStoragePermission()) {
-                        RequestStoragePermission();
-                    } else {
-                        // permission already granted
-                        PickFromGallery();
-                    }
+        builder.setItems(options, (dialogInterface, i) -> {
+            // handle click
+            if (i == 0) {
+                // Camera clicked
+                if (!CheckCameraPermission()) {
+                    RequestCameraPermission();
+                } else {
+                    // permission already granted
+                    PickFromCamera();
+                }
+            } else if (i == 1) {
+                if (!CheckStoragePermission()) {
+                    RequestStoragePermission();
+                } else {
+                    // permission already granted
+                    PickFromGallery();
                 }
             }
         });
@@ -173,8 +155,10 @@ public class ReminderActivity extends AppCompatActivity {
         ContentValues values = new ContentValues();
         values.put(MediaStore.Images.Media.TITLE, "Image title");
         values.put(MediaStore.Images.Media.DESCRIPTION, "Image description");
+
         // Put image uri
         image_uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+
         // Intent to open camera for image
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, image_uri);
@@ -189,11 +173,9 @@ public class ReminderActivity extends AppCompatActivity {
     }
 
     private boolean CheckStoragePermission() {
-        boolean result = ContextCompat.checkSelfPermission(this,
+        return ContextCompat.checkSelfPermission(this,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 == (PackageManager.PERMISSION_GRANTED);
-
-        return result;
     }
 
     private void RequestStoragePermission() {
@@ -201,15 +183,17 @@ public class ReminderActivity extends AppCompatActivity {
     }
 
     private boolean CheckCameraPermission() {
-        boolean result = ContextCompat.checkSelfPermission(this,
+        boolean result_camera;
+        result_camera = ContextCompat.checkSelfPermission(this,
                 Manifest.permission.CAMERA)
                 == (PackageManager.PERMISSION_GRANTED);
 
-        boolean result1 = ContextCompat.checkSelfPermission(this,
+        boolean result_storage;
+        result_storage = ContextCompat.checkSelfPermission(this,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 == (PackageManager.PERMISSION_GRANTED);
 
-        return result && result1;
+        return result_camera && result_storage;
     }
 
     private void RequestCameraPermission() {
@@ -279,42 +263,51 @@ public class ReminderActivity extends AppCompatActivity {
             // image is picked
             if (requestCode == IMAGE_PICK_GALLERY_CODE) {
                 // picked from gallery
-                CropImage.activity(data.getData())
-                        .setGuidelines(CropImageView.Guidelines.ON)
-                        .setAspectRatio(1, 1)
-                        .start(this);
+                if (data != null) {
+                    CropImage.activity(data.getData())
+                            .setGuidelines(CropImageView.Guidelines.ON)
+                            //.setAspectRatio(1, 1)
+                            .start(this);
+                }
 
             } else if (requestCode == IMAGE_PICK_CAMERA_CODE) {
                 // picked from camera
                 CropImage.activity(image_uri)
                         .setGuidelines(CropImageView.Guidelines.ON)
-                        .setAspectRatio(1, 1)
+                        //.setAspectRatio(1, 1)
                         .start(this);
 
             } else if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
                 // Cropped image received
                 CropImage.ActivityResult activityResult = CropImage.getActivityResult(data);
+
                 if (resultCode == RESULT_OK) {
-                    Uri uriResult = activityResult.getUri();
+                    Uri uriResult = null;
+                    if (activityResult != null) {
+                        uriResult = activityResult.getUri();
+                    }
+
+                    try {
+                        Uri uriResult2 = null;
+                        if (activityResult != null) {
+                            uriResult2 = activityResult.getUri();
+                        }
+                        bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uriResult2);
+                        GetTextFromImage(bitmap);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     image_uri = uriResult;
                     // set image
                     imgViewUpload.setImageURI(image_uri);
 
-                    try {
-                        bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uriResult);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    GetTextFromImage(bitmap);
                 }
-
 
                 if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                     // error
                     Exception error = activityResult.getError();
                     Toast.makeText(this, "" + error, Toast.LENGTH_SHORT).show();
                 }
-
             }
         }
         super.onActivityResult(requestCode, resultCode, data);

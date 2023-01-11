@@ -14,11 +14,8 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.WindowManager;
-import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.TimePicker;
 
 import com.example.medicial.Database.DBHelper;
 import com.example.medicial.R;
@@ -41,6 +38,56 @@ public class ScheduleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule);
 
+        init();
+
+        // {Get time}
+        get_time.setOnClickListener(view -> {
+            TimePickerDialog timePickerDialog = new TimePickerDialog(ScheduleActivity.this,
+                    android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                    (timePicker, hourOfDay, minute) -> {
+                        get_hour = hourOfDay;
+                        get_minute = minute;
+
+                        String time = get_hour + ":" + get_minute;
+                        SimpleDateFormat f24Hours = new SimpleDateFormat("HH:mm");
+                        try {
+                            Date date = f24Hours.parse(time);
+                            SimpleDateFormat f12Hours = new SimpleDateFormat("hh:mm aa");
+                            if (date != null) {
+                                get_time.setText(f12Hours.format(date));
+                            }
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                    }, 12, 0, false);
+            timePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            timePickerDialog.updateTime(get_hour, get_minute);
+            timePickerDialog.show();
+        });
+
+        // {Get date}
+        Calendar calendar = Calendar.getInstance();
+        final int year = calendar.get(Calendar.YEAR);
+        final int month = calendar.get(Calendar.MONTH);
+        final int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        get_date.setOnClickListener(view -> {
+            DatePickerDialog datePickerDialog = new DatePickerDialog(
+                    ScheduleActivity.this,
+                    android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                    dateSetListener,
+                    year, month, day);
+            datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            datePickerDialog.show();
+        });
+
+        dateSetListener = (datePicker, y, m, d) -> {
+            String date = d + "/" + (m + 1) + "/" + y;
+            get_date.setText(date);
+        };
+    }
+
+    private void init() {
         // {Full screen activity}
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -51,69 +98,14 @@ public class ScheduleActivity extends AppCompatActivity {
 
         // {Setting up action bar}
         actionBar = getSupportActionBar();
-        if(actionBar != null) {
+        if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeAsUpIndicator(ContextCompat.getDrawable(this, R.drawable.ic_baseline_arrow_back));
         }
 
-        // {Get time}
+        // {Hook id}
         get_time = findViewById(R.id.edt_time);
-        get_time.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                TimePickerDialog timePickerDialog = new TimePickerDialog(ScheduleActivity.this,
-                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
-                        new TimePickerDialog.OnTimeSetListener() {
-                            @Override
-                            public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
-                                get_hour = hourOfDay;
-                                get_minute = minute;
-
-                                String time = get_hour + ":" + get_minute;
-                                SimpleDateFormat f24Hours = new SimpleDateFormat("HH:mm");
-                                try {
-                                    Date date = f24Hours.parse(time);
-                                    SimpleDateFormat f12Hours = new SimpleDateFormat("hh:mm aa");
-                                    get_time.setText(f12Hours.format(date));
-                                } catch (ParseException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        }, 12, 0, false);
-                timePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                timePickerDialog.updateTime(get_hour, get_minute);
-                timePickerDialog.show();
-            }
-        });
-
-        // {Get date}
         get_date = findViewById(R.id.edt_date);
-
-        Calendar calendar = Calendar.getInstance();
-        final int year = calendar.get(Calendar.YEAR);
-        final int month = calendar.get(Calendar.MONTH);
-        final int day = calendar.get(Calendar.DAY_OF_MONTH);
-
-        get_date.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DatePickerDialog datePickerDialog = new DatePickerDialog(
-                        ScheduleActivity.this,
-                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
-                        dateSetListener,
-                        year, month, day);
-                datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                datePickerDialog.show();
-            }
-        });
-
-        dateSetListener = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker datePicker, int y, int m, int d) {
-                String date = d + "/" + (m + 1) + "/" + y;
-                get_date.setText(date);
-            }
-        };
     }
 
     public void AddNewReminder() {
@@ -140,12 +132,12 @@ public class ScheduleActivity extends AppCompatActivity {
         }
 
         // invalid inputs
-        if(time.isEmpty() || date.isEmpty()) return;
+        if (time.isEmpty() || date.isEmpty()) return;
         int newMedicineID = dbHelper.insertMedicineData(receive_med_name, amountInt, receive_med_image);
-        if(newMedicineID != -1)
-        {
+        if (newMedicineID != -1) {
             int newAlertID = dbHelper.insertDateTime(newMedicineID, time, date);
         }
+
         Intent intent = new Intent(ScheduleActivity.this, HomeActivity.class);
         startActivity(intent);
         finish();
@@ -171,10 +163,8 @@ public class ScheduleActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_save:
-                AddNewReminder();
-                break;
+        if (item.getItemId() == R.id.action_save) {
+            AddNewReminder();
         }
         return super.onOptionsItemSelected(item);
     }

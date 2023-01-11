@@ -29,8 +29,6 @@ public class RegisterActivity extends AppCompatActivity {
 
         init();
         register.setOnClickListener(view -> Register());
-
-
     }
 
     private void init() {
@@ -38,14 +36,13 @@ public class RegisterActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        // {Hook Edittext fields}
+        // {Hook Id}
         username = findViewById(R.id.edt_reg_userName);
         firstName = findViewById(R.id.edt_reg_firstName);
         lastName = findViewById(R.id.edt_reg_lastName);
         email = findViewById(R.id.edt_reg_email);
         password = findViewById(R.id.edt_reg_password);
         re_password = findViewById(R.id.edt_reg_re_password);
-
         register = findViewById(R.id.btn_signUp);
 
         // {Dialog}
@@ -59,47 +56,35 @@ public class RegisterActivity extends AppCompatActivity {
         String _Email = email.getText().toString();
         String _Password = password.getText().toString();
         String _Re_password = re_password.getText().toString();
-        boolean emptyField = false;
+
         if (TextUtils.isEmpty(_Username)) {
             username.setHint("required field");
             username.setHintTextColor(getResources().getColor(R.color.red));
-            emptyField = true;
         }
 
         if (TextUtils.isEmpty(_Firstname)) {
             firstName.setHint("required field");
             firstName.setHintTextColor(getResources().getColor(R.color.red));
-            emptyField = true;
         }
 
         if (TextUtils.isEmpty(_Lastname)) {
             lastName.setHint("required field");
             lastName.setHintTextColor(getResources().getColor(R.color.red));
-            emptyField = true;
         }
 
         if (TextUtils.isEmpty(_Email)) {
             email.setHint("required field");
             email.setHintTextColor(getResources().getColor(R.color.red));
-            emptyField = true;
         }
 
         if (TextUtils.isEmpty(_Password)) {
             password.setHint("required field");
             password.setHintTextColor(getResources().getColor(R.color.red));
-            emptyField = true;
         }
 
         if (TextUtils.isEmpty(_Re_password)) {
             re_password.setHint("required field");
             re_password.setHintTextColor(getResources().getColor(R.color.red));
-            emptyField = true;
-        }
-
-        // Empty Fields
-        if (emptyField) {
-            Toast.makeText(this, "Some fields are empty!", Toast.LENGTH_SHORT).show();
-            return;
         }
 
         // Password verification mismatch
@@ -119,6 +104,7 @@ public class RegisterActivity extends AppCompatActivity {
             Toast.makeText(this, "REGISTRATION FAILED", Toast.LENGTH_SHORT).show();
             return;
         }
+
         ShowSuccessDialog();
     }
 
@@ -128,13 +114,12 @@ public class RegisterActivity extends AppCompatActivity {
 
         done.setOnClickListener(view -> {
             dialog.dismiss();
-            Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-            startActivity(intent);
-            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
             onBackPressed();
         });
+
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
+
     }
 
     @Override
