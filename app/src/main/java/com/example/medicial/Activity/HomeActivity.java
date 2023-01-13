@@ -62,7 +62,7 @@ public class HomeActivity extends AppCompatActivity
 
         // {FloatingActionButton}
         floatingActionButton.setOnClickListener(view -> {
-            Intent intent = new Intent(HomeActivity.this, ReminderActivity.class);
+            Intent intent = new Intent(HomeActivity.this, MedicineActivity.class);
             startActivity(intent);
         });
 

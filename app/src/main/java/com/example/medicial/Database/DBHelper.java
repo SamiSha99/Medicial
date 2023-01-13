@@ -28,7 +28,6 @@ public class DBHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL("create table User (id INTEGER PRIMARY KEY AUTOINCREMENT,userName TEXT, firstName TEXT, lastName TEXT, password TEXT, email TEXT)");
         sqLiteDatabase.execSQL("create table Medicine (id INTEGER PRIMARY KEY AUTOINCREMENT, medName TEXT, amount INTEGER, image String)");
         sqLiteDatabase.execSQL("create table Alert (id INTEGER PRIMARY KEY AUTOINCREMENT, time TIME, date DATE, medID INTEGER, FOREIGN KEY(medID) REFERENCES Medicine(id))");
-        //sqLiteDatabase.execSQL("create table List ( supplyAmount INTEGER, creationDate DATE,  FOREIGN KEY(userID) REFERENCES User(id), FOREIGN KEY(alertID) REFERENCES Alert(id),FOREIGN KEY(medicineID) REFERENCES Medicine(id))");
         //sqLiteDatabase.execSQL("create table Admin (id INTEGER PRIMARY KEY AUTOINCREMENT, userID INTEGER, FOREIGN KEY(userID) REFERENCES User(id))");
     }
 
@@ -38,7 +37,6 @@ public class DBHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS User");
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS Medicine");
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS Alert");
-        //sqLiteDatabase.execSQL("DROP TABLE IF EXISTS List");
         //sqLiteDatabase.execSQL("DROP TABLE IF EXISTS Admin");
 
         // Create tables again
@@ -84,7 +82,7 @@ public class DBHelper extends SQLiteOpenHelper {
         activeUserID = -1;
         if (cursor != null && cursor.moveToNext()) {
             activeUserID = cursor.getInt(0);
-            Log.d("ACTIVE_USER_ID","" + activeUserID);
+            Log.d("ACTIVE_USER_ID", "" + activeUserID);
             cursor.close();
         }
         return activeUserID != -1; // activeUserID == -1 -> Failed Login
@@ -123,7 +121,7 @@ public class DBHelper extends SQLiteOpenHelper {
         // returns the row, which ironically also the Medicine ID
         long idPK = sqLiteDatabase.insert("Medicine", null, values);
 
-        return idPK == -1 ? -1 : (int)idPK;
+        return idPK == -1 ? -1 : (int) idPK;
     }
 
     //   {Adding new Alert Details}
@@ -137,7 +135,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         long idPK = sqLiteDatabase.insert("Alert", null, values);
 
-        return idPK == -1 ? -1 : (int)idPK;
+        return idPK == -1 ? -1 : (int) idPK;
     }
 
     public Cursor getMedicineData() {
@@ -155,8 +153,9 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase sql = getWritableDatabase();
         sql.execSQL("DELETE FROM Medicine WHERE id = " + medicineID);
 
-        Cursor c = sql.rawQuery("SELECT * FROM Medicine WHERE id = ?",  new String[]{String.valueOf(medicineID)});
-        if(c.getCount() > 0) Log.wtf("removeMedicineData", "ID: " + medicineID + " | FAILED TO DELETE MEDICINE!");
+        Cursor c = sql.rawQuery("SELECT * FROM Medicine WHERE id = ?", new String[]{String.valueOf(medicineID)});
+        if (c.getCount() > 0)
+            Log.wtf("removeMedicineData", "ID: " + medicineID + " | FAILED TO DELETE MEDICINE!");
         c.close();
     }
 
@@ -164,8 +163,20 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase sql = getWritableDatabase();
         sql.execSQL("DELETE FROM Alert WHERE id = " + medicineID);
 
-        Cursor c = getWritableDatabase().rawQuery("SELECT * FROM Medicine WHERE id = ?",  new String[]{String.valueOf(medicineID)});
-        if(c.getCount() > 0) Log.wtf("removeAlertData", "FAILED TO DELETE ALERTS FOR MEDICINE ID: " + medicineID);
+        Cursor c = getWritableDatabase().rawQuery("SELECT * FROM Medicine WHERE id = ?", new String[]{String.valueOf(medicineID)});
+        if (c.getCount() > 0)
+            Log.wtf("removeAlertData", "FAILED TO DELETE ALERTS FOR MEDICINE ID: " + medicineID);
         c.close();
+    }
+
+    public void updateMedicineData(int id, String medName, int amount, String image) {
+        SQLiteDatabase sql = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("medName", medName);
+        values.put("amount", amount);
+        values.put("image", image);
+
+        sql.update("Medicine", values, "id = ?", new String[]{String.valueOf(id)});
+        sql.close();
     }
 }

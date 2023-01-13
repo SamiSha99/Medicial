@@ -6,7 +6,7 @@
     tools:context=".Activity.ScheduleActivity">
 
     <include
-        android:id="@+id/app_bar_reminder"
+        android:id="@+id/app_bar_medicine"
         layout="@layout/app_bar_schedule"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
