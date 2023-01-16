@@ -16,6 +16,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
@@ -87,6 +88,7 @@ public class UpdateActivity extends AppCompatActivity {
     }
 
     private void update() {
+        boolean emptyInputs = false;
         Bundle bundle = getIntent().getExtras();
         String receive_med_id = bundle.getString("med_id");
         int _Med_Id = Integer.parseInt(receive_med_id);
@@ -97,19 +99,25 @@ public class UpdateActivity extends AppCompatActivity {
 
         int redColor = ContextCompat.getColor(this, R.color.red);
 
-        if (_Med_Name.isEmpty() || _Med_Amount.isEmpty()) {
+        if (_Med_Name.isEmpty()) {
             med_name.setHint("required");
             med_name.setHintTextColor(redColor);
+            emptyInputs = true;
+        }
 
+        if (_Med_Amount.isEmpty()) {
             med_amount.setHint("required");
             med_amount.setHintTextColor(redColor);
-        } else {
-            dbHelper.updateMedicineData(_Med_Id, _Med_Name, _Med_Amount_Int, _Med_Image);
-            Toast.makeText(this, "Updated", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(UpdateActivity.this, HomeActivity.class);
-            startActivity(intent);
-            finish();
+            emptyInputs = true;
         }
+
+        if(emptyInputs) return;
+        Log.d("Medicine ID:","" + _Med_Id);
+        dbHelper.updateMedicineData(_Med_Id, _Med_Name, _Med_Amount_Int, _Med_Image);
+        Toast.makeText(this, "Updated", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(UpdateActivity.this, HomeActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     private void ImagePickDialog() {
