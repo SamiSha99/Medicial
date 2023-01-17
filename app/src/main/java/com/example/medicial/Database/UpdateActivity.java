@@ -94,8 +94,6 @@ public class UpdateActivity extends AppCompatActivity {
         int _Med_Id = Integer.parseInt(receive_med_id);
         String _Med_Name = med_name.getText().toString();
         String _Med_Amount = med_amount.getText().toString();
-        int _Med_Amount_Int = Integer.parseInt(med_amount.getText().toString());
-        String _Med_Image = image_uri.toString();
 
         int redColor = ContextCompat.getColor(this, R.color.red);
 
@@ -112,7 +110,9 @@ public class UpdateActivity extends AppCompatActivity {
         }
 
         if(emptyInputs) return;
-        Log.d("Medicine ID:","" + _Med_Id);
+
+        String _Med_Image = image_uri != null ? image_uri.toString() : "";
+        int _Med_Amount_Int = Integer.parseInt(med_amount.getText().toString());
         dbHelper.updateMedicineData(_Med_Id, _Med_Name, _Med_Amount_Int, _Med_Image);
         Toast.makeText(this, "Updated", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(UpdateActivity.this, HomeActivity.class);

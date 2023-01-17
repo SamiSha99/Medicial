@@ -130,7 +130,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
 
                     case R.id.action_update:
                         Intent intent = new Intent(context, UpdateActivity.class);
-                        intent.putExtra("med_id", String.valueOf(med_id));
+                        intent.putExtra("med_id", String.valueOf(med_id.getText()));
                         context.startActivity(intent);
                         return true;
 
