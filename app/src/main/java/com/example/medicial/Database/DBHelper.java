@@ -151,22 +151,22 @@ public class DBHelper extends SQLiteOpenHelper {
         removeAlertData(medicineID);
 
         SQLiteDatabase sql = getWritableDatabase();
-        sql.execSQL("DELETE FROM Medicine WHERE id = " + medicineID);
-
+        sql.delete("Medicine", "id = ?", new String[]{String.valueOf(medicineID)});
         Cursor c = sql.rawQuery("SELECT * FROM Medicine WHERE id = ?", new String[]{String.valueOf(medicineID)});
         if (c.getCount() > 0)
             Log.wtf("removeMedicineData", "ID: " + medicineID + " | FAILED TO DELETE MEDICINE!");
         c.close();
+        sql.close();
     }
 
     public void removeAlertData(int medicineID) {
         SQLiteDatabase sql = getWritableDatabase();
-        sql.execSQL("DELETE FROM Alert WHERE id = " + medicineID);
-
-        Cursor c = getWritableDatabase().rawQuery("SELECT * FROM Medicine WHERE id = ?", new String[]{String.valueOf(medicineID)});
+        sql.delete("Alert", "id = ?", new String[]{String.valueOf(medicineID)});
+        Cursor c = getWritableDatabase().rawQuery("SELECT * FROM Alert WHERE id = ?", new String[]{String.valueOf(medicineID)});
         if (c.getCount() > 0)
             Log.wtf("removeAlertData", "FAILED TO DELETE ALERTS FOR MEDICINE ID: " + medicineID);
         c.close();
+        sql.close();
     }
 
     public void updateMedicineData(int id, String medName, int amount, String image) {
