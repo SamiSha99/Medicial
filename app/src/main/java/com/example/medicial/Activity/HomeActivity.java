@@ -1,7 +1,9 @@
 package com.example.medicial.Activity;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -107,6 +109,13 @@ public class HomeActivity extends AppCompatActivity
                 // Nothing to do
             }
         });
+
+        // {Receive username and set it in nav header}
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("username", Context.MODE_PRIVATE);
+        String usr = sharedPreferences.getString("key_user", "");
+        View headerView = navigationView.getHeaderView(0);
+        displayName = headerView.findViewById(R.id.txtv_setUserName);
+        displayName.setText(String.format("Welcome back %s", usr));
     }
 
     @SuppressLint("NotifyDataSetChanged")

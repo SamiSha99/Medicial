@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -74,9 +76,18 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
+        passUserName();
         Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    public void passUserName() {
+        SharedPreferences sharedPreferences = getSharedPreferences("username", Context.MODE_PRIVATE);
+        String user = username.getText().toString();
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("key_user", user);
+        editor.apply();
     }
 
     @Override

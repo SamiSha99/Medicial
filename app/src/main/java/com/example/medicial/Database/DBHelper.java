@@ -85,24 +85,26 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public ArrayList<User> getUserData() {
-        int id = 0;
-        String userName = "", firstName = "", lastName = "", email = "", password = "";
         ArrayList<User> arrayList = new ArrayList<>();
         SQLiteDatabase sqLiteDatabase = getReadableDatabase();
         String[] args = new String[]{String.valueOf(activeUserID)};
+
         Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM User WHERE id = ?", args);
 
-        while (cursor.moveToNext()) {
-            id = cursor.getInt(0);
-            userName = cursor.getString(1);
-            firstName = cursor.getString(2);
-            lastName = cursor.getString(3);
-            email = cursor.getString(4);
-            password = cursor.getString(5);
+        if (cursor.getCount() != 0) {
+            while (cursor.moveToNext()) {
+                int id = cursor.getInt(0);
+                String userName = cursor.getString(1);
+                String firstName = cursor.getString(2);
+                String lastName = cursor.getString(3);
+                String email = cursor.getString(4);
+                String password = cursor.getString(5);
+
+                User user = new User(id, userName, firstName, lastName, password, email);
+                arrayList.add(user);
+            }
         }
         cursor.close();
-        User user = new User(id, userName, firstName, lastName, password, email);
-        arrayList.add(user);
         return arrayList;
     }
 
@@ -146,6 +148,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 String image = cursor.getString(3);
                 String time = cursor.getString(4);
                 String date = cursor.getString(5);
+
                 Data data = new Data(mId, medName, amount, image, time, date);
                 arrayList.add(data);
             }
