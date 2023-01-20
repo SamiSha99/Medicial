@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -22,7 +23,7 @@ import com.example.medicial.Database.DBHelper;
 import com.example.medicial.NavigationDrawer.ProfileActivity;
 import com.example.medicial.NavigationDrawer.SettingActivity;
 import com.example.medicial.R;
-import com.example.medicial.Adapter.RecyclerAdapter;
+import com.example.medicial.Adapter.ReminderAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
@@ -37,7 +38,8 @@ public class HomeActivity extends AppCompatActivity
     RecyclerView recyclerView;
     ArrayList<Data> arrayList;
     DBHelper dbHelper = new DBHelper(this);
-    RecyclerAdapter recyclerAdapter;
+    ReminderAdapter reminderAdapter;
+    TextView displayName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,10 +112,10 @@ public class HomeActivity extends AppCompatActivity
     @SuppressLint("NotifyDataSetChanged")
     private void displayData() {
         arrayList = dbHelper.getReminderData();
-        recyclerAdapter = new RecyclerAdapter(this, arrayList);
-        recyclerView.setAdapter(recyclerAdapter);
+        reminderAdapter = new ReminderAdapter(this, arrayList);
+        recyclerView.setAdapter(reminderAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerAdapter.notifyDataSetChanged();
+        reminderAdapter.notifyDataSetChanged();
     }
 
     @Override

@@ -62,7 +62,7 @@
     <!-- med menu -->
     <string name="next">Next</string>
     <!-- pop menu -->
-    <string name="sh">Show</string>
+    <string name="sh">Show image</string>
     <string name="del">Delete</string>
     <string name="up">Update</string>
 

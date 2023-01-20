@@ -39,6 +39,16 @@
         </activity>
 
         <activity
+            android:name=".NavigationDrawer.SettingActivity"
+            android:exported="false"
+            android:parentActivityName=".Activity.HomeActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="android.support.PARENT_ACTIVITY" />
+        </activity>
+
+        <activity
             android:name=".NavigationDrawer.ProfileActivity"
             android:exported="false"
             android:parentActivityName=".Activity.HomeActivity"

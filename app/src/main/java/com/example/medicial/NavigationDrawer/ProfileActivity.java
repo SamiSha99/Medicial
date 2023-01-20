@@ -4,13 +4,13 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.WindowManager;
-import android.widget.ListView;
 
+import com.example.medicial.Adapter.UserAdapter;
 import com.example.medicial.Database.DBHelper;
-import com.example.medicial.Adapter.ListAdapter;
 import com.example.medicial.Model.User;
 import com.example.medicial.R;
 
@@ -19,9 +19,9 @@ import java.util.ArrayList;
 public class ProfileActivity extends AppCompatActivity {
     Toolbar toolbar;
     ActionBar actionBar;
-    ListView listView;
+    RecyclerView recyclerView;
     DBHelper dbHelper = new DBHelper(this);
-    ListAdapter listAdapter;
+    UserAdapter userAdapter;
     ArrayList<User> arrayList;
 
     @Override
@@ -51,14 +51,14 @@ public class ProfileActivity extends AppCompatActivity {
         }
 
         // {Hook id}
-        listView = findViewById(R.id.profile_list);
+        recyclerView = findViewById(R.id.user_recyclerView);
     }
 
     public void ShowUserData() {
         arrayList = dbHelper.getUserData();
-        listAdapter = new ListAdapter(this, arrayList);
-        listView.setAdapter(listAdapter);
-        listAdapter.notifyDataSetChanged();
+        userAdapter = new UserAdapter(this, arrayList);
+        recyclerView.setAdapter(userAdapter);
+        userAdapter.notifyDataSetChanged();
     }
 
     @Override
