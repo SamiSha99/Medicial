@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.example.medicial.Model.Data;
 import com.example.medicial.Model.User;
 
 import java.util.ArrayList;
@@ -16,11 +17,9 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String DB_NAME = "Medicial.db";
     private static final int DB_VERSION = 6;
     public static int activeUserID = -1;
-    //private final Context context;
 
     public DBHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
-        //this.context = context;
     }
 
     @Override
@@ -43,7 +42,6 @@ public class DBHelper extends SQLiteOpenHelper {
         onCreate(sqLiteDatabase);
     }
 
-    //   {Adding new User Details}
     public boolean insertUserData(String userName, String firstName, String lastName, String password, String email) {
         // Get the Data Repository in write mode
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
@@ -64,8 +62,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return newRow != -1;
     }
 
-    //   {Check Username}
-    public boolean CheckUserName(String userName) {
+    public boolean checkUserName(String userName) {
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
         Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM User WHERE userName = ?", new String[]{userName});
         if (cursor != null && cursor.getCount() > 0) {
@@ -75,8 +72,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return false;
     }
 
-    //   {Check Username and Password}
-    public boolean CheckUserPassword(String userName, String password) {
+    public boolean checkUserPassword(String userName, String password) {
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
         Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM User WHERE userName = ? AND password = ?", new String[]{userName, password});
         activeUserID = -1;
@@ -88,7 +84,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return activeUserID != -1; // activeUserID == -1 -> Failed Login
     }
 
-    public ArrayList<User> GetUserData() {
+    public ArrayList<User> getUserData() {
         int id = 0;
         String userName = "", firstName = "", lastName = "", email = "", password = "";
         ArrayList<User> arrayList = new ArrayList<>();
@@ -110,7 +106,6 @@ public class DBHelper extends SQLiteOpenHelper {
         return arrayList;
     }
 
-    //   {Adding new Medicine Details}
     // Return: ID number of the medicine if inserted, -1 if failed input
     public int insertMedicineData(String medName, int amount, String image) {
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
@@ -124,7 +119,6 @@ public class DBHelper extends SQLiteOpenHelper {
         return idPK == -1 ? -1 : (int) idPK;
     }
 
-    //   {Adding new Alert Details}
     // Return: ID number of the alert if inserted, -1 if failed input
     public int insertDateTime(int medicineID, String time, String date) {
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
@@ -138,12 +132,26 @@ public class DBHelper extends SQLiteOpenHelper {
         return idPK == -1 ? -1 : (int) idPK;
     }
 
-    public Cursor getMedicineData() {
-        return getWritableDatabase().rawQuery("SELECT * FROM Medicine", null);
-    }
+    public ArrayList<Data> getReminderData() {
+        ArrayList<Data> arrayList = new ArrayList<>();
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
 
-    public Cursor getAlertData() {
-        return getWritableDatabase().rawQuery("SELECT * FROM Alert", null);
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT m.id, m.medName, m.amount, m.image, a.time, a.date FROM Medicine m JOIN Alert a ON m.id = a.medId", null);
+
+        if (cursor.getCount() != 0) {
+            while (cursor.moveToNext()) {
+                int mId = cursor.getInt(0);
+                String medName = cursor.getString(1);
+                int amount = cursor.getInt(2);
+                String image = cursor.getString(3);
+                String time = cursor.getString(4);
+                String date = cursor.getString(5);
+                Data data = new Data(mId, medName, amount, image, time, date);
+                arrayList.add(data);
+            }
+        }
+        cursor.close();
+        return arrayList;
     }
 
     public void removeMedicineData(int medicineID) {
@@ -174,7 +182,7 @@ public class DBHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put("medName", medName);
         values.put("amount", amount);
-        if(!image.isEmpty()) values.put("image", image); // don't replace image if its empty!
+        if (!image.isEmpty()) values.put("image", image); // don't replace image if its empty!
         sql.update("Medicine", values, "id = ?", new String[]{String.valueOf(id)});
         sql.close();
     }

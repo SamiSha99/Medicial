@@ -40,6 +40,33 @@ public class ScheduleActivity extends AppCompatActivity {
 
         init();
 
+    }
+
+    private void init() {
+        // {Full screen activity}
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        // {Toolbar}
+        toolbar = findViewById(R.id.sch_toolbar);
+        setSupportActionBar(toolbar);
+
+        // {Setting up action bar}
+        actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeAsUpIndicator(ContextCompat.getDrawable(this, R.drawable.ic_baseline_arrow_back));
+        }
+
+        // {Hook id}
+        get_time = findViewById(R.id.edt_time);
+        get_date = findViewById(R.id.edt_date);
+
+        getTime();
+        getDate();
+    }
+
+    private void getTime() {
         // {Get time}
         get_time.setOnClickListener(view -> {
             TimePickerDialog timePickerDialog = new TimePickerDialog(ScheduleActivity.this,
@@ -64,7 +91,9 @@ public class ScheduleActivity extends AppCompatActivity {
             timePickerDialog.updateTime(get_hour, get_minute);
             timePickerDialog.show();
         });
+    }
 
+    private void getDate() {
         // {Get date}
         Calendar calendar = Calendar.getInstance();
         final int year = calendar.get(Calendar.YEAR);
@@ -85,27 +114,6 @@ public class ScheduleActivity extends AppCompatActivity {
             String date = d + "/" + (m + 1) + "/" + y;
             get_date.setText(date);
         };
-    }
-
-    private void init() {
-        // {Full screen activity}
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
-        // {Toolbar}
-        toolbar = findViewById(R.id.sch_toolbar);
-        setSupportActionBar(toolbar);
-
-        // {Setting up action bar}
-        actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setHomeAsUpIndicator(ContextCompat.getDrawable(this, R.drawable.ic_baseline_arrow_back));
-        }
-
-        // {Hook id}
-        get_time = findViewById(R.id.edt_time);
-        get_date = findViewById(R.id.edt_date);
     }
 
     public void AddNewReminder() {

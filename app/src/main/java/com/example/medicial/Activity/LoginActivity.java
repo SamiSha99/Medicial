@@ -56,7 +56,7 @@ public class LoginActivity extends AppCompatActivity {
     public void Login() {
         String Username = username.getText().toString();
         String Password = password.getText().toString();
-        boolean check_name_pass = dbHelper.CheckUserPassword(Username, Password);
+        boolean check_name_pass = dbHelper.checkUserPassword(Username, Password);
         int color_red = ContextCompat.getColor(this, R.color.red);
 
         if (TextUtils.isEmpty(Username)) {
@@ -74,9 +74,7 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        String getUsername = username.getText().toString();
         Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-        intent.putExtra("key", getUsername);
         startActivity(intent);
         finish();
     }

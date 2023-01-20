@@ -3,6 +3,8 @@ package com.example.medicial.Adapter;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,27 +18,22 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.medicial.Database.DBHelper;
-import com.example.medicial.Database.ShowActivity;
 import com.example.medicial.Database.UpdateActivity;
+import com.example.medicial.Model.Data;
 import com.example.medicial.R;
 
 import java.util.ArrayList;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyViewHolder> {
-    private Context context;
-    private ArrayList id, medicine_name, amount, image, time, date;
+    private final Context context;
+    ArrayList<Data> arrayList;
     DBHelper dbHelper;
     int monthInt;
     Dialog dialog;
 
-    public RecyclerAdapter(Context context, ArrayList id, ArrayList medicine_name, ArrayList amount, ArrayList image, ArrayList time, ArrayList date) {
+    public RecyclerAdapter(Context context, ArrayList<Data> arrayList) {
         this.context = context;
-        this.id = id;
-        this.medicine_name = medicine_name;
-        this.amount = amount;
-        this.image = image;
-        this.time = time;
-        this.date = date;
+        this.arrayList = arrayList;
         dbHelper = new DBHelper(context);
         dialog = new Dialog(context);
     }
@@ -50,14 +47,14 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.med_id.setText(String.valueOf(id.get(position)));
-        holder.med_name.setText(String.valueOf(medicine_name.get(position)));
-        holder.med_amount.setText(String.valueOf(amount.get(position)));
-        holder.med_time.setText(String.valueOf(time.get(position)));
-        holder.image.setImageURI(Uri.parse(image.get(position).toString()));
+        holder.med_id.setText(String.valueOf(arrayList.get(position).get_Med_Id()));
+        holder.med_name.setText(arrayList.get(position).get_Med_Name());
+        holder.med_amount.setText(String.valueOf(arrayList.get(position).get_Med_Amount()));
+        holder.image.setImageURI(Uri.parse(arrayList.get(position).get_Med_Image()));
+        holder.med_time.setText(arrayList.get(position).get_Time());
 
         try {
-            String currentString = String.valueOf(date.get(position));
+            String currentString = String.valueOf(arrayList.get(position).get_Date());
             String[] separated = currentString.split("/");
 
             String day = separated[0];
@@ -69,16 +66,16 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
 
             holder.date_day.setText(day);
             holder.date_month.setText(setMonth);
+            holder.date_year.setText(year);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     @Override
     public int getItemCount() {
-        return medicine_name.size();
+        return arrayList.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -95,6 +92,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
             med_time = itemView.findViewById(R.id.txtv_time);
             date_day = itemView.findViewById(R.id.txtv_day);
             date_month = itemView.findViewById(R.id.txtv_month);
+            date_year = itemView.findViewById(R.id.txtv_year);
             image = itemView.findViewById(R.id.imgv);
 
             popup_Menu = itemView.findViewById(R.id.options);
@@ -109,57 +107,46 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
         private void ShowPopupMenu(View view) {
             PopupMenu popupMenu = new PopupMenu(view.getContext(), view);
             popupMenu.inflate(R.menu.popup_option_menu);
+            int position = getLayoutPosition();
 
             popupMenu.setOnMenuItemClickListener(menuItem -> {
-                switch (menuItem.getItemId()) {
-                    case R.id.action_show:
-                        Intent show_intent = new Intent(context, ShowActivity.class);
-//                        show_intent.putExtra("image", Uri.parse(image.get(pos)));
-                        context.startActivity(show_intent);
-                        return true;
 
-                    case R.id.action_delete:
-                        int position = getLayoutPosition();
-                        // Remove the item
-                        int i = Integer.parseInt(med_id.getText().toString());
-                        dbHelper.removeMedicineData(i);
-                        medicine_name.remove(position);
-                        // Notify the adapter that an item has been removed
-                        notifyItemRemoved(position);
-                        return true;
+                if (menuItem.getItemId() == R.id.action_show) {
+                    dialog.setContentView(R.layout.dialog_show_image);
+                    ImageView med_image = dialog.findViewById(R.id.imgv_med_img);
 
-                    case R.id.action_update:
-                        Intent intent = new Intent(context, UpdateActivity.class);
-                        intent.putExtra("med_id", String.valueOf(med_id.getText()));
-                        context.startActivity(intent);
-                        return true;
+                    med_image.setImageURI(Uri.parse(arrayList.get(position).get_Med_Image()));
 
-                    default:
-                        return false;
+                    ImageView img_close = dialog.findViewById(R.id.imgv_close);
+                    img_close.setOnClickListener(view1 -> dialog.dismiss());
+
+                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    dialog.show();
+                    return true;
+
+                } else if (menuItem.getItemId() == R.id.action_delete) {
+                    // Remove the item
+                    int i = Integer.parseInt(med_id.getText().toString());
+                    dbHelper.removeMedicineData(i);
+                    arrayList.remove(position);
+                    // Notify the adapter that an item has been removed
+                    notifyItemRemoved(position);
+                    return true;
+
+                } else if (menuItem.getItemId() == R.id.action_update) {
+                    Intent intent_update = new Intent(context, UpdateActivity.class);
+                    intent_update.putExtra("med_id", String.valueOf(med_id.getText()));
+                    intent_update.putExtra("med_name", med_name.getText().toString());
+                    intent_update.putExtra("med_amount", med_amount.getText().toString());
+                    context.startActivity(intent_update);
+                    return true;
+
                 }
+                return false;
             });
             popupMenu.show();
         }
     }
-
-//    private void ShowImageDialog() {
-//        dialog.setContentView(R.layout.dialog_show_image);
-//        ImageView med_image = dialog.findViewById(R.id.imgv_med_img);
-//        Uri imguri = Uri.parse(image.getDrawable().toString());
-//        med_image.setImageURI(imguri);
-//
-//        ImageView img_close = dialog.findViewById(R.id.imgv_close);
-//
-//        img_close.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                dialog.dismiss();
-//            }
-//        });
-//        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-//        dialog.show();
-//
-//    }
 
     private String getMonthFormat(int month) {
         switch (month) {

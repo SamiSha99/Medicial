@@ -16,7 +16,6 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
@@ -91,6 +90,12 @@ public class UpdateActivity extends AppCompatActivity {
         boolean emptyInputs = false;
         Bundle bundle = getIntent().getExtras();
         String receive_med_id = bundle.getString("med_id");
+        String receive_med_name = bundle.getString("med_name");
+        String receive_med_amount = bundle.getString("med_amount");
+        // To get the prev data and put in edittext
+//        med_name.setText(receive_med_name);
+//        med_amount.setText(receive_med_amount);
+
         int _Med_Id = Integer.parseInt(receive_med_id);
         String _Med_Name = med_name.getText().toString();
         String _Med_Amount = med_amount.getText().toString();
@@ -271,5 +276,10 @@ public class UpdateActivity extends AppCompatActivity {
             update();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 }

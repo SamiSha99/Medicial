@@ -58,7 +58,6 @@ public class MedicineActivity extends AppCompatActivity {
         setContentView(R.layout.activity_medicine);
 
         init();
-
         imageViewScanner.setOnClickListener(view -> ImagePickDialog());
     }
 
@@ -95,7 +94,7 @@ public class MedicineActivity extends AppCompatActivity {
         imageViewScanner = findViewById(R.id.imageView_scanner);
     }
 
-    private void ValidateAndSendData() {
+    private void ValidateAndPassData() {
         if (med_name.getText().toString().isEmpty() || med_amount.getText().toString().isEmpty()) {
             med_name.setHint("required");
             med_name.setHintTextColor(getResources().getColor(R.color.red));
@@ -334,7 +333,7 @@ public class MedicineActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.action_next) {
-            ValidateAndSendData();
+            ValidateAndPassData();
         }
         return super.onOptionsItemSelected(item);
     }

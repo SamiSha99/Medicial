@@ -35,7 +35,8 @@ public class ProfileActivity extends AppCompatActivity {
 
     private void init() {
         // {Full screen activity}
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         // {Toolbar}
         toolbar = findViewById(R.id.prof_toolbar);
@@ -54,7 +55,7 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     public void ShowUserData() {
-        arrayList = dbHelper.GetUserData();
+        arrayList = dbHelper.getUserData();
         listAdapter = new ListAdapter(this, arrayList);
         listView.setAdapter(listAdapter);
         listAdapter.notifyDataSetChanged();

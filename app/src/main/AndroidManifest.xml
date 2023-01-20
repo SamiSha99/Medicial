@@ -19,14 +19,6 @@
         tools:targetApi="31">
 
         <activity
-            android:name=".Database.ShowActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-
-        <activity
             android:name=".Database.UpdateActivity"
             android:exported="false"
             android:parentActivityName=".Activity.HomeActivity"
@@ -122,7 +114,7 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <receiver android:name=".Broadcast.AlarmReceiver" />
+        <receiver android:name=".Broadcast.AlertReceiver" />
 
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"

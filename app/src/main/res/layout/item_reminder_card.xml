@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_view"
     android:layout_width="match_parent"
     android:layout_height="150dp"
     app:cardCornerRadius="10dp"
@@ -17,7 +18,6 @@
             android:id="@+id/txtv_medId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/med_id"
             android:visibility="gone" />
 
         <LinearLayout
@@ -47,6 +47,12 @@
                 android:text="@string/med_month"
                 android:textColor="@android:color/black"
                 android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/txtv_year"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
 
         </LinearLayout>
 
@@ -90,7 +96,8 @@
                     android:id="@+id/imgv"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:contentDescription="@string/imgv_description" />
+                    android:contentDescription="@string/imgv_description"
+                    android:visibility="gone" />
             </LinearLayout>
 
             <LinearLayout

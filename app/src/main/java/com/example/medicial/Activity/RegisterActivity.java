@@ -94,7 +94,7 @@ public class RegisterActivity extends AppCompatActivity {
         }
 
         // Username already exists
-        if (dbHelper.CheckUserName(_Username)) {
+        if (dbHelper.checkUserName(_Username)) {
             Toast.makeText(this, "User already exists!", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -119,7 +119,6 @@ public class RegisterActivity extends AppCompatActivity {
 
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
-
     }
 
     @Override
