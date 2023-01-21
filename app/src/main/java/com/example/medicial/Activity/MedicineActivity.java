@@ -51,12 +51,13 @@ public class MedicineActivity extends AppCompatActivity {
     // Variables (will contain data to save)
     private Uri image_uri;
     Bitmap bitmap;
+    private boolean textExtracted = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_medicine);
-
+        textExtracted = false;
         init();
         imageViewScanner.setOnClickListener(view -> ImagePickDialog());
     }
@@ -200,24 +201,6 @@ public class MedicineActivity extends AppCompatActivity {
         ActivityCompat.requestPermissions(this, camera_permissions, CAMERA_REQUEST_CODE);
     }
 
-    private void GetTextFromImage(Bitmap bitmap) {
-        TextRecognizer textRecognizer = new TextRecognizer.Builder(this).build();
-        if (!textRecognizer.isOperational()) {
-            Toast.makeText(MedicineActivity.this, "Error Occurred!", Toast.LENGTH_SHORT).show();
-        } else {
-            Frame frame = new Frame.Builder().setBitmap(bitmap).build();
-            SparseArray<TextBlock> textBlockSparseArray = textRecognizer.detect(frame);
-            StringBuilder stringBuilder = new StringBuilder();
-
-            for (int i = 0; i < textBlockSparseArray.size(); i++) {
-                TextBlock textBlock = textBlockSparseArray.valueAt(i);
-                stringBuilder.append(textBlock.getValue());
-                stringBuilder.append("\n");
-            }
-            med_name.setText(stringBuilder.toString());
-        }
-    }
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -276,37 +259,43 @@ public class MedicineActivity extends AppCompatActivity {
                         .setGuidelines(CropImageView.Guidelines.ON)
                         //.setAspectRatio(1, 1)
                         .start(this);
+            }
+        }
 
-            } else if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
-                // Cropped image received
-                CropImage.ActivityResult activityResult = CropImage.getActivityResult(data);
+        // get cropped image
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            if (resultCode == RESULT_OK) {
+                Uri resultUri = null;
+                if (result != null) {
+                    resultUri = result.getUri();
+                }
 
-                if (resultCode == RESULT_OK) {
-                    Uri uriResult = null;
-                    if (activityResult != null) {
-                        uriResult = activityResult.getUri();
-                    }
-
+                if (!textExtracted) {
                     try {
-                        Uri uriResult2 = null;
-                        if (activityResult != null) {
-                            uriResult2 = activityResult.getUri();
+                        bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), resultUri);
+                        TextRecognizer recognizer = new TextRecognizer.Builder(getApplicationContext()).build();
+
+                        if (!recognizer.isOperational()) {
+                            Toast.makeText(MedicineActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Frame frame = new Frame.Builder().setBitmap(bitmap).build();
+                            SparseArray<TextBlock> items = recognizer.detect(frame);
+                            StringBuilder sb = new StringBuilder();
+                            for (int i = 0; i < items.size(); i++) {
+                                TextBlock myItem = items.valueAt(i);
+                                sb.append(myItem.getValue());
+                                sb.append("\n");
+                            }
+                            med_name.setText(sb.toString());
                         }
-                        bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uriResult2);
-                        GetTextFromImage(bitmap);
+                        textExtracted = true;
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    image_uri = uriResult;
-                    // set image
+                } else {
+                    image_uri = resultUri;
                     imgViewUpload.setImageURI(image_uri);
-
-                }
-
-                if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
-                    // error
-                    Exception error = activityResult.getError();
-                    Toast.makeText(this, "" + error, Toast.LENGTH_SHORT).show();
                 }
             }
         }
