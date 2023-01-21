@@ -95,22 +95,23 @@ public class MedicineActivity extends AppCompatActivity {
     }
 
     private void ValidateAndPassData() {
-        if (med_name.getText().toString().isEmpty() || med_amount.getText().toString().isEmpty()) {
-            med_name.setHint("required");
-            med_name.setHintTextColor(getResources().getColor(R.color.red));
+        String _MedName = med_name.getText().toString();
+        String _MedAmount = med_amount.getText().toString();
+        String _MedImage = image_uri != null ? image_uri.toString() : "";
 
-            med_amount.setHint("required");
-            med_amount.setHintTextColor(getResources().getColor(R.color.red));
+        if (_MedName.length() == 0) {
+            med_name.requestFocus();
+            med_name.setError("Field cannot be empty");
+
+        } else if (_MedAmount.length() == 0) {
+            med_amount.requestFocus();
+            med_amount.setError("Field cannot be empty");
 
         } else {
-            String get_med_name = med_name.getText().toString();
-            String get_med_amount = med_amount.getText().toString();
-            String get_image = image_uri != null ? image_uri.toString() : "";
-
             Intent intent = new Intent(this, ScheduleActivity.class);
-            intent.putExtra("key_medName", get_med_name);
-            intent.putExtra("key_medAmount", get_med_amount);
-            intent.putExtra("key_image", get_image);
+            intent.putExtra("key_medName", _MedName);
+            intent.putExtra("key_medAmount", _MedAmount);
+            intent.putExtra("key_medImage", _MedImage);
 
             startActivity(intent);
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);

@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -57,55 +56,92 @@ public class RegisterActivity extends AppCompatActivity {
         String _Password = password.getText().toString();
         String _Re_password = re_password.getText().toString();
 
-        if (TextUtils.isEmpty(_Username)) {
-            username.setHint("required field");
-            username.setHintTextColor(getResources().getColor(R.color.red));
-        }
+        boolean check = validateInfo(_Username, _Firstname, _Lastname, _Email, _Password, _Re_password);
+        if (check) {
+            // Username already exists
+            if (dbHelper.checkUserName(_Username)) {
+                Toast.makeText(this, "User already exists!", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
-        if (TextUtils.isEmpty(_Firstname)) {
-            firstName.setHint("required field");
-            firstName.setHintTextColor(getResources().getColor(R.color.red));
+            // DB insertion failure
+            if (!dbHelper.insertUserData(_Username, _Firstname, _Lastname, _Password, _Email)) {
+                Toast.makeText(this, "REGISTRATION FAILED", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            ShowSuccessDialog();
         }
+    }
 
-        if (TextUtils.isEmpty(_Lastname)) {
-            lastName.setHint("required field");
-            lastName.setHintTextColor(getResources().getColor(R.color.red));
+    private boolean validateInfo(String _Username, String _Firstname, String _Lastname, String _Email, String _Password, String _Re_password) {
+        if (_Username.length() == 0) {
+            username.requestFocus();
+            username.setError("Field cannot be empty");
+            return false;
+
+        } else if (_Username.length() < 6) {
+            username.requestFocus();
+            username.setError("Minimum 6 characters required");
+            return false;
+
+        } else if (!_Username.matches("^[a-zA-Z0-9]+$")) {
+            username.requestFocus();
+            username.setError("Enter only letters and numbers");
+            return false;
+
+        } else if (_Firstname.length() == 0) {
+            firstName.requestFocus();
+            firstName.setError("Field cannot be empty");
+            return false;
+
+        } else if (!_Firstname.matches("[a-zA-Z]+")) {
+            firstName.requestFocus();
+            firstName.setError("Enter only letters");
+            return false;
+
+        } else if (_Lastname.length() == 0) {
+            lastName.requestFocus();
+            lastName.setError("Field cannot be empty");
+            return false;
+
+        } else if (!_Lastname.matches("[a-zA-Z]+")) {
+            lastName.requestFocus();
+            lastName.setError("Enter only letters");
+            return false;
+
+        } else if (_Email.length() == 0) {
+            email.requestFocus();
+            email.setError("Field cannot be empty");
+            return false;
+
+        } else if (!_Email.matches("[a-zA-Z0-9]+@[a-z]+\\.[a-z]+")) {
+            email.requestFocus();
+            email.setError("Enter valid email address");
+            return false;
+
+        } else if (_Password.length() == 0) {
+            password.requestFocus();
+            password.setError("Field cannot be empty");
+            return false;
+
+        } else if (_Password.length() < 6) {
+            password.requestFocus();
+            password.setError("Minimum 6 characters required");
+            return false;
+
+        } else if (_Re_password.length() == 0) {
+            re_password.requestFocus();
+            re_password.setError("Field cannot be empty");
+            return false;
+
+        } else if (!_Re_password.equals(_Password)) {
+            re_password.requestFocus();
+            re_password.setError("Password does not match");
+            return false;
+
+        } else {
+            return true;
         }
-
-        if (TextUtils.isEmpty(_Email)) {
-            email.setHint("required field");
-            email.setHintTextColor(getResources().getColor(R.color.red));
-        }
-
-        if (TextUtils.isEmpty(_Password)) {
-            password.setHint("required field");
-            password.setHintTextColor(getResources().getColor(R.color.red));
-        }
-
-        if (TextUtils.isEmpty(_Re_password)) {
-            re_password.setHint("required field");
-            re_password.setHintTextColor(getResources().getColor(R.color.red));
-        }
-
-        // Password verification mismatch
-        if (!_Password.equals(_Re_password)) {
-            Toast.makeText(this, "Password not matching", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        // Username already exists
-        if (dbHelper.checkUserName(_Username)) {
-            Toast.makeText(this, "User already exists!", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        // DB insertion failure
-        if (!dbHelper.insertUserData(_Username, _Firstname, _Lastname, _Password, _Email)) {
-            Toast.makeText(this, "REGISTRATION FAILED", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        ShowSuccessDialog();
     }
 
     private void ShowSuccessDialog() {

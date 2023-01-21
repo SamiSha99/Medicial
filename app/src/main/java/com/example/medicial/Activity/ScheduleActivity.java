@@ -119,36 +119,31 @@ public class ScheduleActivity extends AppCompatActivity {
     public void AddNewReminder() {
         // get medicine data from reminder activity
         Bundle bundle = getIntent().getExtras();
-        String receive_med_name = bundle.getString("key_medName");
-        String receive_med_amount = bundle.getString("key_medAmount");
-        String receive_med_image = bundle.getString("key_image");
+        String receive_medName = bundle.getString("key_medName");
+        String receive_medAmount = bundle.getString("key_medAmount");
+        String receive_medImage = bundle.getString("key_medImage");
 
-        int amountInt = Integer.parseInt(receive_med_amount);
-        String time = get_time.getText().toString();
-        String date = get_date.getText().toString();
+        int amountInt = Integer.parseInt(receive_medAmount);
+        String _Date = get_date.getText().toString();
+        String _Time = get_time.getText().toString();
 
-        int redColor = ContextCompat.getColor(this, R.color.red);
+        if (_Date.length() == 0) {
+            get_date.requestFocus();
+            get_date.setError("Field cannot be empty");
 
-        if (time.isEmpty()) {
-            get_time.setHint("required");
-            get_time.setHintTextColor(redColor);
+        } else if (_Time.length() == 0) {
+            get_time.requestFocus();
+            get_time.setError("Field cannot be empty");
+
+        } else {
+            int newMedicineID = dbHelper.insertMedicineData(receive_medName, amountInt, receive_medImage);
+            if (newMedicineID != -1) {
+                int newAlertID = dbHelper.insertDateTime(newMedicineID, _Time, _Date);  // newAlertID it not used!!
+            }
+            Intent intent = new Intent(ScheduleActivity.this, HomeActivity.class);
+            startActivity(intent);
+            finish();
         }
-
-        if (date.isEmpty()) {
-            get_date.setHint("required");
-            get_date.setHintTextColor(redColor);
-        }
-
-        // invalid inputs
-        if (time.isEmpty() || date.isEmpty()) return;
-        int newMedicineID = dbHelper.insertMedicineData(receive_med_name, amountInt, receive_med_image);
-        if (newMedicineID != -1) {
-            int newAlertID = dbHelper.insertDateTime(newMedicineID, time, date);
-        }
-
-        Intent intent = new Intent(ScheduleActivity.this, HomeActivity.class);
-        startActivity(intent);
-        finish();
     }
 
     @Override

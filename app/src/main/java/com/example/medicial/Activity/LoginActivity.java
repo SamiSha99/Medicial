@@ -1,14 +1,12 @@
 package com.example.medicial.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -56,30 +54,38 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void Login() {
-        String Username = username.getText().toString();
-        String Password = password.getText().toString();
-        boolean check_name_pass = dbHelper.checkUserPassword(Username, Password);
-        int color_red = ContextCompat.getColor(this, R.color.red);
+        String _Username = username.getText().toString();
+        String _Password = password.getText().toString();
 
-        if (TextUtils.isEmpty(Username)) {
-            username.setHint("Required field");
-            username.setHintTextColor(color_red);
+        boolean check = validateInfo(_Username, _Password);
+        if (check) {
+            boolean check_name_pass = dbHelper.checkUserPassword(_Username, _Password);
+            if (!check_name_pass) {
+                txtv_invalid.setVisibility(View.VISIBLE);
+
+            } else {
+                passUserName();
+                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                startActivity(intent);
+                finish();
+            }
         }
+    }
 
-        if (TextUtils.isEmpty(Password)) {
-            password.setHint("Required field");
-            password.setHintTextColor(color_red);
+    private boolean validateInfo(String _Username, String _Password) {
+        if (_Username.length() == 0) {
+            username.requestFocus();
+            username.setError("Field cannot be empty");
+            return false;
+
+        } else if (_Password.length() == 0) {
+            password.requestFocus();
+            password.setError("Field cannot be empty");
+            return false;
+
+        } else {
+            return true;
         }
-
-        if (!check_name_pass) {
-            txtv_invalid.setVisibility(View.VISIBLE);
-            return;
-        }
-
-        passUserName();
-        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-        startActivity(intent);
-        finish();
     }
 
     public void passUserName() {
