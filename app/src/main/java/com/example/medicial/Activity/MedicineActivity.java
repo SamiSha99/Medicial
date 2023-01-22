@@ -242,64 +242,68 @@ public class MedicineActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         // Image picked from camera or gallery will be receive here
-        if (resultCode == RESULT_OK) {
-            // image is picked
-            if (requestCode == IMAGE_PICK_GALLERY_CODE) {
-                // picked from gallery
-                if (data != null) {
-                    CropImage.activity(data.getData())
-                            .setGuidelines(CropImageView.Guidelines.ON)
-                            //.setAspectRatio(1, 1)
-                            .start(this);
-                }
+        if (resultCode != RESULT_OK) {
+            Toast.makeText(MedicineActivity.this, "Error: Could not pick an image.", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-            } else if (requestCode == IMAGE_PICK_CAMERA_CODE) {
+        switch (requestCode)
+        {
+            case IMAGE_PICK_GALLERY_CODE:
+                // picked from gallery
+                if (data == null) {
+                    Toast.makeText(MedicineActivity.this, "Error: Data is null.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                // image is picked
+                CropImage.activity(data.getData()).setGuidelines(CropImageView.Guidelines.ON).start(this);
+                break;
+            case IMAGE_PICK_CAMERA_CODE:
                 // picked from camera
-                CropImage.activity(image_uri)
-                        .setGuidelines(CropImageView.Guidelines.ON)
-                        //.setAspectRatio(1, 1)
-                        .start(this);
-            }
+                CropImage.activity(image_uri).setGuidelines(CropImageView.Guidelines.ON).start(this);
+                break;
         }
 
         // get cropped image
-        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
-            CropImage.ActivityResult result = CropImage.getActivityResult(data);
-            if (resultCode == RESULT_OK) {
-                Uri resultUri = null;
-                if (result != null) {
-                    resultUri = result.getUri();
-                }
-
-                if (!textExtracted) {
-                    try {
-                        bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), resultUri);
-                        TextRecognizer recognizer = new TextRecognizer.Builder(getApplicationContext()).build();
-
-                        if (!recognizer.isOperational()) {
-                            Toast.makeText(MedicineActivity.this, "Error", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Frame frame = new Frame.Builder().setBitmap(bitmap).build();
-                            SparseArray<TextBlock> items = recognizer.detect(frame);
-                            StringBuilder sb = new StringBuilder();
-                            for (int i = 0; i < items.size(); i++) {
-                                TextBlock myItem = items.valueAt(i);
-                                sb.append(myItem.getValue());
-                                sb.append("\n");
-                            }
-                            med_name.setText(sb.toString());
-                        }
-                        textExtracted = true;
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    image_uri = resultUri;
-                    imgViewUpload.setImageURI(image_uri);
-                }
-            }
-        }
+        SetCroppedImage(requestCode, resultCode, data);
+        ExtractTextFromImage(image_uri);
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void SetCroppedImage(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode != CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) return;
+        CropImage.ActivityResult result = CropImage.getActivityResult(data);
+        if (resultCode != RESULT_OK) return;
+
+        Uri resultUri = null;
+        if (result != null) resultUri = result.getUri();
+        image_uri = resultUri;
+        imgViewUpload.setImageURI(image_uri);
+    }
+
+    private void ExtractTextFromImage(Uri resultUri)
+    {
+        try {
+            bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), resultUri);
+            TextRecognizer recognizer = new TextRecognizer.Builder(getApplicationContext()).build();
+
+            if (recognizer.isOperational()) {
+                Frame frame = new Frame.Builder().setBitmap(bitmap).build();
+                SparseArray<TextBlock> items = recognizer.detect(frame);
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < items.size(); i++) {
+                    TextBlock myItem = items.valueAt(i);
+                    sb.append(myItem.getValue());
+                    sb.append("\n");
+                }
+                med_name.setText(sb.toString());
+            }
+
+            //Toast.makeText(MedicineActivity.this, "Text Recognizer not operational.", Toast.LENGTH_SHORT).show();
+            textExtracted = true;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
