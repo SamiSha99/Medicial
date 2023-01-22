@@ -88,11 +88,16 @@
                 android:textColor="@color/red"
                 android:visibility="invisible" />
 
+            <CheckBox
+                android:id="@+id/checkBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/checkbox" />
+
             <Button
                 android:id="@+id/btn_login"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:layout_marginTop="30dp"
                 android:backgroundTint="@color/accent"
                 android:text="@string/text_sign_in"
                 android:textColor="@color/white"
@@ -109,6 +114,7 @@
                 android:textAllCaps="false"
                 android:textColor="@color/black"
                 android:textSize="15sp" />
+
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>

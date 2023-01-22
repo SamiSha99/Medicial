@@ -39,7 +39,6 @@ public class ScheduleActivity extends AppCompatActivity {
         setContentView(R.layout.activity_schedule);
 
         init();
-
     }
 
     private void init() {

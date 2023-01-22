@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -21,6 +22,7 @@ public class LoginActivity extends AppCompatActivity {
     Button login;
     EditText username, password;
     TextView txtv_invalid, register_now;
+    CheckBox checkBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +31,7 @@ public class LoginActivity extends AppCompatActivity {
 
         init();
         RegisterNow();
-
+        rememberMe();
         login.setOnClickListener(view -> Login());
     }
 
@@ -44,6 +46,9 @@ public class LoginActivity extends AppCompatActivity {
         txtv_invalid = findViewById(R.id.txtv_invalid);
         login = findViewById(R.id.btn_login);
         register_now = findViewById(R.id.txtv_register_now);
+
+        // {Remember me}
+        checkBox = findViewById(R.id.checkBox);
     }
 
     private void RegisterNow() {
@@ -64,6 +69,18 @@ public class LoginActivity extends AppCompatActivity {
                 txtv_invalid.setVisibility(View.VISIBLE);
 
             } else {
+                if (checkBox.isChecked()) {
+                    SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = pref.edit();
+                    editor.putString("email", username.getText().toString());
+                    editor.putString("password", password.getText().toString());
+                    editor.apply();
+                } else {
+                    SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0);
+                    SharedPreferences.Editor editor = pref.edit();
+                    editor.clear();
+                    editor.apply();
+                }
                 passUserName();
                 Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                 startActivity(intent);
@@ -94,6 +111,15 @@ public class LoginActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("key_user", user);
         editor.apply();
+    }
+
+    private void rememberMe() {
+
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", Context.MODE_PRIVATE);
+        String _Email = pref.getString("email", "");
+        String _Password = pref.getString("password", "");
+        username.setText(_Email);
+        password.setText(_Password);
     }
 
     @Override

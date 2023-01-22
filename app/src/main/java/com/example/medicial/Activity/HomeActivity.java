@@ -157,6 +157,10 @@ public class HomeActivity extends AppCompatActivity
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
         } else if (item.getItemId() == R.id.nav_logout) {
+            SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("MyPref", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.clear();
+            editor.apply();
             Intent intent_logout = new Intent(HomeActivity.this, LoginActivity.class);
             startActivity(intent_logout);
             finish();

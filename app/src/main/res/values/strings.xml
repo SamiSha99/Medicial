@@ -10,6 +10,7 @@
     <string name="user_name">User name</string>
     <string name="password">Password</string>
     <string name="invalid">Incorrect information</string>
+    <string name="checkbox">Remember Me</string>
     <string name="text_sign_in">Sign in</string>
     <string name="forget_pass">Forget your password?</string>
     <string name="text_ques">You don\'t have an account?</string>
