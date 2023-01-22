@@ -114,7 +114,7 @@ public class RegisterActivity extends AppCompatActivity {
             email.setError("Field cannot be empty");
             return false;
 
-        } else if (!_Email.matches("[a-zA-Z0-9]+@[a-z]+\\.[a-z]+")) {
+        } else if (!_Email.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")) {
             email.requestFocus();
             email.setError("Enter valid email address");
             return false;
