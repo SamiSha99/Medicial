@@ -6,7 +6,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 
 import android.os.Bundle;
-import android.view.WindowManager;
 
 import com.example.medicial.R;
 
@@ -23,9 +22,6 @@ public class SettingActivity extends AppCompatActivity {
     }
 
     private void init() {
-        // {Full screen activity}
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
         // {Toolbar}
         toolbar = findViewById(R.id.cal_toolbar);
         setSupportActionBar(toolbar);

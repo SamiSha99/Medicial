@@ -14,7 +14,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.WindowManager;
 import android.widget.EditText;
 
 import com.example.medicial.Database.DBHelper;
@@ -42,10 +41,6 @@ public class ScheduleActivity extends AppCompatActivity {
     }
 
     private void init() {
-        // {Full screen activity}
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
         // {Toolbar}
         toolbar = findViewById(R.id.sch_toolbar);
         setSupportActionBar(toolbar);
@@ -128,11 +123,11 @@ public class ScheduleActivity extends AppCompatActivity {
 
         if (_Date.length() == 0) {
             get_date.requestFocus();
-            get_date.setError("Field cannot be empty");
+            get_date.setError(getResources().getString(R.string.empty));
 
         } else if (_Time.length() == 0) {
             get_time.requestFocus();
-            get_time.setError("Field cannot be empty");
+            get_time.setError(getResources().getString(R.string.empty));
 
         } else {
             int newMedicineID = dbHelper.insertMedicineData(receive_medName, amountInt, receive_medImage);

@@ -1,31 +1,31 @@
 package com.example.medicial.Activity;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.medicial.Adapter.ReminderAdapter;
+import com.example.medicial.Database.DBHelper;
 import com.example.medicial.Model.Data;
 import com.example.medicial.NavigationDrawer.CalendarActivity;
-import com.example.medicial.Database.DBHelper;
 import com.example.medicial.NavigationDrawer.ProfileActivity;
 import com.example.medicial.NavigationDrawer.SettingActivity;
 import com.example.medicial.R;
-import com.example.medicial.Adapter.ReminderAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
@@ -53,10 +53,6 @@ public class HomeActivity extends AppCompatActivity
     }
 
     private void init() {
-        // {Full screen activity}
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
         // {ToolBar}
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -112,10 +108,10 @@ public class HomeActivity extends AppCompatActivity
 
         // {Receive username and set it in nav header}
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("username", Context.MODE_PRIVATE);
-        String usr = sharedPreferences.getString("key_user", "");
+        String _StrUser = sharedPreferences.getString("key_user", "");
         View headerView = navigationView.getHeaderView(0);
         displayName = headerView.findViewById(R.id.txtv_setUserName);
-        displayName.setText(String.format("Welcome back %s", usr));
+        displayName.setText(String.format("Welcome %s", _StrUser));
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -131,6 +127,13 @@ public class HomeActivity extends AppCompatActivity
     public void onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            new AlertDialog.Builder(HomeActivity.this)
+                    .setMessage("Are you sure to Logout?")
+                    .setCancelable(false)
+                    .setPositiveButton("Yes", (dialogInterface, i) -> logout())
+                    .setNegativeButton("No", null)
+                    .show();
         }
     }
 
@@ -157,16 +160,20 @@ public class HomeActivity extends AppCompatActivity
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
         } else if (item.getItemId() == R.id.nav_logout) {
-            SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("MyPref", Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.clear();
-            editor.apply();
-            Intent intent_logout = new Intent(HomeActivity.this, LoginActivity.class);
-            startActivity(intent_logout);
-            finish();
+            logout();
         }
 
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void logout() {
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("MyPref", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
+        editor.apply();
+        Intent intent_logout = new Intent(HomeActivity.this, LoginActivity.class);
+        startActivity(intent_logout);
+        finish();
     }
 }

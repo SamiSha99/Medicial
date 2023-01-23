@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -31,10 +30,6 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void init() {
-        // {Full screen activity}
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
         // {Hook Id}
         username = findViewById(R.id.edt_reg_userName);
         firstName = findViewById(R.id.edt_reg_firstName);
@@ -60,13 +55,14 @@ public class RegisterActivity extends AppCompatActivity {
         if (check) {
             // Username already exists
             if (dbHelper.checkUserName(_Username)) {
-                Toast.makeText(this, "User already exists!", Toast.LENGTH_SHORT).show();
+                username.requestFocus();
+                username.setError(getResources().getString(R.string.username_exists));
                 return;
             }
 
             // DB insertion failure
             if (!dbHelper.insertUserData(_Username, _Firstname, _Lastname, _Password, _Email)) {
-                Toast.makeText(this, "REGISTRATION FAILED", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getResources().getString(R.string.reg_filled), Toast.LENGTH_SHORT).show();
                 return;
             }
             ShowSuccessDialog();
@@ -76,67 +72,67 @@ public class RegisterActivity extends AppCompatActivity {
     private boolean validateInfo(String _Username, String _Firstname, String _Lastname, String _Email, String _Password, String _Re_password) {
         if (_Username.length() == 0) {
             username.requestFocus();
-            username.setError("Field cannot be empty");
+            username.setError(getResources().getString(R.string.empty));
             return false;
 
         } else if (_Username.length() < 6) {
             username.requestFocus();
-            username.setError("Minimum 6 characters required");
+            username.setError(getResources().getString(R.string.username_length));
             return false;
 
         } else if (!_Username.matches("^[a-zA-Z0-9]+$")) {
             username.requestFocus();
-            username.setError("Enter only letters and numbers");
+            username.setError(getResources().getString(R.string.username_inputType));
             return false;
 
         } else if (_Firstname.length() == 0) {
             firstName.requestFocus();
-            firstName.setError("Field cannot be empty");
+            firstName.setError(getResources().getString(R.string.empty));
             return false;
 
         } else if (!_Firstname.matches("[a-zA-Z]+")) {
             firstName.requestFocus();
-            firstName.setError("Enter only letters");
+            firstName.setError(getResources().getString(R.string.username_inputType));
             return false;
 
         } else if (_Lastname.length() == 0) {
             lastName.requestFocus();
-            lastName.setError("Field cannot be empty");
+            lastName.setError(getResources().getString(R.string.empty));
             return false;
 
         } else if (!_Lastname.matches("[a-zA-Z]+")) {
             lastName.requestFocus();
-            lastName.setError("Enter only letters");
+            lastName.setError(getResources().getString(R.string.username_inputType));
             return false;
 
         } else if (_Email.length() == 0) {
             email.requestFocus();
-            email.setError("Field cannot be empty");
+            email.setError(getResources().getString(R.string.empty));
             return false;
 
         } else if (!_Email.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")) {
             email.requestFocus();
-            email.setError("Enter valid email address");
+            email.setError(getResources().getString(R.string.invalid_email));
             return false;
 
         } else if (_Password.length() == 0) {
             password.requestFocus();
-            password.setError("Field cannot be empty");
+            password.setError(getResources().getString(R.string.empty));
             return false;
 
         } else if (_Password.length() < 6) {
             password.requestFocus();
-            password.setError("Minimum 6 characters required");
+            password.setError(getResources().getString(R.string.password_length));
             return false;
 
         } else if (_Re_password.length() == 0) {
             re_password.requestFocus();
-            re_password.setError("Field cannot be empty");
+            re_password.setError(getResources().getString(R.string.empty));
             return false;
 
         } else if (!_Re_password.equals(_Password)) {
             re_password.requestFocus();
-            re_password.setError("Password does not match");
+            re_password.setError(getResources().getString(R.string.password_notMatching));
             return false;
 
         } else {

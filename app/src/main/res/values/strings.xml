@@ -66,5 +66,15 @@
     <string name="sh">Show image</string>
     <string name="del">Delete</string>
     <string name="up">Update</string>
+    <!-- validation-->
+    <string name="empty">Field cannot be empty</string>
+    <string name="username_length">Minimum 6 characters required</string>
+    <string name="username_inputType">Enter only letters and numbers</string>
+    <string name="username_exists">User already exists!</string>
+    <string name="name_inputType">Enter only letters</string>
+    <string name="invalid_email">Enter valid email address</string>
+    <string name="password_length">Minimum 6 characters required</string>
+    <string name="password_notMatching">Password does not match</string>
+    <string name="reg_filled">REGISTRATION FAILED</string>
 
 </resources>

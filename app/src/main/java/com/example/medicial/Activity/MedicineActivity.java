@@ -9,19 +9,19 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.util.SparseArray;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
@@ -57,17 +57,12 @@ public class MedicineActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_medicine);
-        textExtracted = false;
+
         init();
         imageViewScanner.setOnClickListener(view -> ImagePickDialog());
     }
 
     private void init() {
-
-        // {Full screen activity}
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
         // {Toolbar}
         toolbar = findViewById(R.id.med_toolbar);
         setSupportActionBar(toolbar);
@@ -92,6 +87,7 @@ public class MedicineActivity extends AppCompatActivity {
         imgViewUpload.setOnClickListener(view -> ImagePickDialog());
 
         // {Text scanning}
+        textExtracted = false;
         imageViewScanner = findViewById(R.id.imageView_scanner);
     }
 
@@ -102,11 +98,11 @@ public class MedicineActivity extends AppCompatActivity {
 
         if (_MedName.length() == 0) {
             med_name.requestFocus();
-            med_name.setError("Field cannot be empty");
+            med_name.setError(getResources().getString(R.string.empty));
 
         } else if (_MedAmount.length() == 0) {
             med_amount.requestFocus();
-            med_amount.setError("Field cannot be empty");
+            med_amount.setError(getResources().getString(R.string.empty));
 
         } else {
             Intent intent = new Intent(this, ScheduleActivity.class);
@@ -145,10 +141,7 @@ public class MedicineActivity extends AppCompatActivity {
                     PickFromGallery();
                 }
             }
-        });
-
-        // create/show dialog
-        builder.create().show();
+        }).show();
     }
 
     private void PickFromCamera() {
@@ -242,68 +235,70 @@ public class MedicineActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         // Image picked from camera or gallery will be receive here
-        if (resultCode != RESULT_OK) {
-            Toast.makeText(MedicineActivity.this, "Error: Could not pick an image.", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        switch (requestCode)
-        {
-            case IMAGE_PICK_GALLERY_CODE:
+        if (resultCode == RESULT_OK) {
+            // image is picked
+            if (requestCode == IMAGE_PICK_GALLERY_CODE) {
                 // picked from gallery
-                if (data == null) {
-                    Toast.makeText(MedicineActivity.this, "Error: Data is null.", Toast.LENGTH_SHORT).show();
-                    return;
+                if (data != null) {
+                    CropImage.activity(data.getData())
+                            .setGuidelines(CropImageView.Guidelines.ON)
+                            .start(this);
                 }
-                // image is picked
-                CropImage.activity(data.getData()).setGuidelines(CropImageView.Guidelines.ON).start(this);
-                break;
-            case IMAGE_PICK_CAMERA_CODE:
+
+            } else if (requestCode == IMAGE_PICK_CAMERA_CODE) {
                 // picked from camera
-                CropImage.activity(image_uri).setGuidelines(CropImageView.Guidelines.ON).start(this);
-                break;
+                CropImage.activity(image_uri)
+                        .setGuidelines(CropImageView.Guidelines.ON)
+                        .start(this);
+            }
         }
 
         // get cropped image
-        SetCroppedImage(requestCode, resultCode, data);
-        ExtractTextFromImage(image_uri);
-        super.onActivityResult(requestCode, resultCode, data);
-    }
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            if (resultCode == RESULT_OK) {
+                Uri resultUri = null;
+                if (result != null) resultUri = result.getUri();
 
-    private void SetCroppedImage(int requestCode, int resultCode, @Nullable Intent data) {
-        if (requestCode != CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) return;
-        CropImage.ActivityResult result = CropImage.getActivityResult(data);
-        if (resultCode != RESULT_OK) return;
+                // to check first if is the input manually or using text Extract
+                // if is the input manually
+                if (med_name.length() != 0) {  // if is enter the name before set image
+                    image_uri = resultUri;
+                    imgViewUpload.setImageURI(image_uri);
 
-        Uri resultUri = null;
-        if (result != null) resultUri = result.getUri();
-        image_uri = resultUri;
-        imgViewUpload.setImageURI(image_uri);
-    }
+                } else if (!textExtracted) {  // if the input is using text Extract
+                    try {
+                        bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), resultUri);
+                        TextRecognizer recognizer = new TextRecognizer.Builder(getApplicationContext()).build();
 
-    private void ExtractTextFromImage(Uri resultUri)
-    {
-        try {
-            bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), resultUri);
-            TextRecognizer recognizer = new TextRecognizer.Builder(getApplicationContext()).build();
-
-            if (recognizer.isOperational()) {
-                Frame frame = new Frame.Builder().setBitmap(bitmap).build();
-                SparseArray<TextBlock> items = recognizer.detect(frame);
-                StringBuilder sb = new StringBuilder();
-                for (int i = 0; i < items.size(); i++) {
-                    TextBlock myItem = items.valueAt(i);
-                    sb.append(myItem.getValue());
-                    sb.append("\n");
+                        if (!recognizer.isOperational()) {
+                            Toast.makeText(MedicineActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Frame frame = new Frame.Builder().setBitmap(bitmap).build();
+                            SparseArray<TextBlock> items = recognizer.detect(frame);
+                            StringBuilder sb = new StringBuilder();
+                            for (int i = 0; i < items.size(); i++) {
+                                TextBlock myItem = items.valueAt(i);
+                                sb.append(myItem.getValue());
+                                sb.append("\n");
+                            }
+                            med_name.setText(sb.toString());
+                        }
+                        textExtracted = true;
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    if (TextUtils.isEmpty(med_name.getText().toString())) {
+                        textExtracted = true;
+                    } else {
+                        image_uri = resultUri;
+                        imgViewUpload.setImageURI(image_uri);
+                    }
                 }
-                med_name.setText(sb.toString());
             }
-
-            //Toast.makeText(MedicineActivity.this, "Text Recognizer not operational.", Toast.LENGTH_SHORT).show();
-            textExtracted = true;
-        } catch (IOException e) {
-            e.printStackTrace();
         }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override

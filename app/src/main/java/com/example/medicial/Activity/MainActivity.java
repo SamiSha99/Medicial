@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.example.medicial.BuildConfig;
@@ -24,10 +23,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void init() {
-        // {Full screen activity}
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
         // {Splash screen activity}
         Runnable runnable = this::Call_Login_Activity;
         handler.postDelayed(runnable, 2500);

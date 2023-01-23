@@ -6,8 +6,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.view.WindowManager;
 
 import com.example.medicial.Adapter.UserAdapter;
 import com.example.medicial.Database.DBHelper;
@@ -34,10 +34,6 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void init() {
-        // {Full screen activity}
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
         // {Toolbar}
         toolbar = findViewById(R.id.prof_toolbar);
         if (toolbar != null) setSupportActionBar(toolbar);
@@ -54,6 +50,7 @@ public class ProfileActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.user_recyclerView);
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void ShowUserData() {
         arrayList = dbHelper.getUserData();
         userAdapter = new UserAdapter(this, arrayList);

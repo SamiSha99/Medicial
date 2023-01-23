@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <style name="Theme.Medicial" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
@@ -14,11 +14,8 @@
         <!-- Customize your theme here. -->
         <item name="actionMenuTextColor">@color/white</item>
         <item name="android:actionMenuTextColor">@color/white</item>
+        <!-- Full screen -->
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
     </style>
-
-    <style name="TextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-        <item name="boxStrokeColor">@color/accent</item>
-        <item name="boxStrokeWidth">2dp</item>
-    </style>
-
 </resources>

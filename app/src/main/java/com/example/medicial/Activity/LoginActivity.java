@@ -1,18 +1,17 @@
 package com.example.medicial.Activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.medicial.Database.DBHelper;
 import com.example.medicial.R;
@@ -36,11 +35,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void init() {
-        // {Full screen activity}
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
-        //  {Hook id}
+        // {Hook id}
         username = findViewById(R.id.edt_login_username);
         password = findViewById(R.id.edt_login_password);
         txtv_invalid = findViewById(R.id.txtv_invalid);
@@ -49,6 +44,7 @@ public class LoginActivity extends AppCompatActivity {
 
         // {Remember me}
         checkBox = findViewById(R.id.checkBox);
+        checkBox.setChecked(true);
     }
 
     private void RegisterNow() {
@@ -72,7 +68,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (checkBox.isChecked()) {
                     SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = pref.edit();
-                    editor.putString("email", username.getText().toString());
+                    editor.putString("username", username.getText().toString());
                     editor.putString("password", password.getText().toString());
                     editor.apply();
                 } else {
@@ -92,12 +88,12 @@ public class LoginActivity extends AppCompatActivity {
     private boolean validateInfo(String _Username, String _Password) {
         if (_Username.length() == 0) {
             username.requestFocus();
-            username.setError("Field cannot be empty");
+            username.setError(getResources().getString(R.string.empty));
             return false;
 
         } else if (_Password.length() == 0) {
             password.requestFocus();
-            password.setError("Field cannot be empty");
+            password.setError(getResources().getString(R.string.empty));
             return false;
 
         } else {
@@ -107,18 +103,17 @@ public class LoginActivity extends AppCompatActivity {
 
     public void passUserName() {
         SharedPreferences sharedPreferences = getSharedPreferences("username", Context.MODE_PRIVATE);
-        String user = username.getText().toString();
+        String _StrUser = username.getText().toString();
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("key_user", user);
+        editor.putString("key_user", _StrUser);
         editor.apply();
     }
 
     private void rememberMe() {
-
         SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", Context.MODE_PRIVATE);
-        String _Email = pref.getString("email", "");
+        String _Username = pref.getString("username", "");
         String _Password = pref.getString("password", "");
-        username.setText(_Email);
+        username.setText(_Username);
         password.setText(_Password);
     }
 
