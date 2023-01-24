@@ -1,36 +1,34 @@
 package com.example.medicial.Activity;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.ImageButton;
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 
-import android.app.DatePickerDialog;
-import android.app.TimePickerDialog;
-import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.EditText;
-
+import com.example.medicial.Broadcast.AlarmReceiver;
 import com.example.medicial.Database.DBHelper;
 import com.example.medicial.R;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 public class ScheduleActivity extends AppCompatActivity {
     Toolbar toolbar;
     ActionBar actionBar;
-    EditText get_date, get_time;
+    TextView _Date, _Time;
+    ImageButton imgBtnDate, imgBtnTime;
     DBHelper dbHelper = new DBHelper(this);
-    DatePickerDialog.OnDateSetListener dateSetListener;
-    int get_hour, get_minute;
+    private int _Year, _Month, _Day, _Hour, _Minute;
+    private AlarmReceiver alarmReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,61 +51,58 @@ public class ScheduleActivity extends AppCompatActivity {
         }
 
         // {Hook id}
-        get_time = findViewById(R.id.edt_time);
-        get_date = findViewById(R.id.edt_date);
+        imgBtnDate = findViewById(R.id.img_btn_date);
+        imgBtnTime = findViewById(R.id.img_btn_time);
+        _Time = findViewById(R.id.txtv_set_time);
+        _Date = findViewById(R.id.txtv_set_date);
 
+        alarmReceiver = new AlarmReceiver();
         getTime();
         getDate();
     }
 
+    // {Get time}
     private void getTime() {
-        // {Get time}
-        get_time.setOnClickListener(view -> {
-            TimePickerDialog timePickerDialog = new TimePickerDialog(ScheduleActivity.this,
-                    android.R.style.Theme_Holo_Light_Dialog_MinWidth,
-                    (timePicker, hourOfDay, minute) -> {
-                        get_hour = hourOfDay;
-                        get_minute = minute;
+        Calendar calendar = Calendar.getInstance();
+        _Hour = calendar.get(Calendar.HOUR_OF_DAY);
+        _Minute = calendar.get(Calendar.MINUTE);
 
-                        String time = get_hour + ":" + get_minute;
-                        SimpleDateFormat f24Hours = new SimpleDateFormat("HH:mm");
-                        try {
-                            Date date = f24Hours.parse(time);
-                            SimpleDateFormat f12Hours = new SimpleDateFormat("hh:mm aa");
-                            if (date != null) {
-                                get_time.setText(f12Hours.format(date));
-                            }
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-                    }, 12, 0, false);
-            timePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-            timePickerDialog.updateTime(get_hour, get_minute);
+        imgBtnTime.setOnClickListener(view -> {
+            TimePickerDialog timePickerDialog = new TimePickerDialog(ScheduleActivity.this, R.style.DateTimePickerTheme, (timePicker, hourOfDay, minute) -> {
+                _Time.setText(String.format("%02d:%02d", hourOfDay, minute));
+                _Hour = hourOfDay;
+                _Minute = minute;
+            }, _Hour, _Minute, false);
             timePickerDialog.show();
         });
     }
 
+    // {Get date}
     private void getDate() {
-        // {Get date}
         Calendar calendar = Calendar.getInstance();
-        final int year = calendar.get(Calendar.YEAR);
-        final int month = calendar.get(Calendar.MONTH);
-        final int day = calendar.get(Calendar.DAY_OF_MONTH);
+        _Year = calendar.get(Calendar.YEAR);
+        _Month = calendar.get(Calendar.MONTH);
+        _Day = calendar.get(Calendar.DAY_OF_MONTH);
 
-        get_date.setOnClickListener(view -> {
-            DatePickerDialog datePickerDialog = new DatePickerDialog(
-                    ScheduleActivity.this,
-                    android.R.style.Theme_Holo_Light_Dialog_MinWidth,
-                    dateSetListener,
-                    year, month, day);
-            datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        imgBtnDate.setOnClickListener(view -> {
+            DatePickerDialog datePickerDialog = new DatePickerDialog(ScheduleActivity.this, R.style.DateTimePickerTheme, (datePicker, year, month, dayOfMonth) -> {
+                _Date.setText(String.format("%04d-%02d-%02d", year, month + 1, dayOfMonth));
+                _Year = year;
+                _Month = month;
+                _Day = dayOfMonth;
+            }, _Year, _Month, _Day);
             datePickerDialog.show();
         });
+    }
 
-        dateSetListener = (datePicker, y, m, d) -> {
-            String date = d + "/" + (m + 1) + "/" + y;
-            get_date.setText(date);
-        };
+    public void setAlarm() {
+        Bundle bundle = getIntent().getExtras();
+        String receive_medName = bundle.getString("key_medName");
+        String message = "Hello, its time to take your medicine " + receive_medName;
+        alarmReceiver.setOneTimeAlarm(ScheduleActivity.this, AlarmReceiver.TYPE_ONE_TIME,
+                _Date.getText().toString(),
+                _Time.getText().toString(),
+                message);
     }
 
     public void AddNewReminder() {
@@ -118,19 +113,20 @@ public class ScheduleActivity extends AppCompatActivity {
         String receive_medImage = bundle.getString("key_medImage");
 
         int amountInt = Integer.parseInt(receive_medAmount);
-        String _Date = get_date.getText().toString();
-        String _Time = get_time.getText().toString();
+        String _Date = this._Date.getText().toString();
+        String _Time = this._Time.getText().toString();
 
         if (_Date.length() == 0) {
-            get_date.requestFocus();
-            get_date.setError(getResources().getString(R.string.empty));
+            this._Date.requestFocus();
+            this._Date.setError(getResources().getString(R.string.empty));
 
         } else if (_Time.length() == 0) {
-            get_time.requestFocus();
-            get_time.setError(getResources().getString(R.string.empty));
+            this._Time.requestFocus();
+            this._Time.setError(getResources().getString(R.string.empty));
 
         } else {
             int newMedicineID = dbHelper.insertMedicineData(receive_medName, amountInt, receive_medImage);
+            setAlarm();
             if (newMedicineID != -1) {
                 int newAlertID = dbHelper.insertDateTime(newMedicineID, _Time, _Date);  // newAlertID it not used!!
             }

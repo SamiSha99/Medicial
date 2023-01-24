@@ -43,7 +43,7 @@
         app:cardCornerRadius="30dp"
         app:cardElevation="5dp">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -59,21 +59,36 @@
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
-            <EditText
-                android:id="@+id/edt_date"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:autofillHints="date_format"
-                android:background="@drawable/custom_edt_shape"
-                android:drawableStart="@drawable/ic_baseline_calendar"
-                android:drawablePadding="8dp"
-                android:hint="@string/hint_date"
-                android:inputType="date"
-                android:padding="8dp"
-                android:textColor="@color/accent"
-                android:textColorHint="@color/gray" />
+            <ImageButton
+                android:id="@+id/img_btn_date"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_below="@id/txtv_date"
+                android:background="@null"
+                android:contentDescription="to get date"
+                android:src="@drawable/ic_baseline_calendar" />
 
-        </LinearLayout>
+            <TextView
+                android:id="@+id/txtv_set_date"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_below="@id/txtv_date"
+                android:hint="here will show date"
+                android:paddingVertical="12dp"
+                android:textAlignment="center"
+                android:textColor="@color/accent"
+                android:textColorHint="@color/gray"
+                android:textSize="20sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_below="@id/txtv_set_date"
+                android:alpha="0.5"
+                android:background="@color/accent" />
+
+        </RelativeLayout>
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
@@ -89,7 +104,7 @@
         app:cardCornerRadius="30dp"
         app:cardElevation="5dp">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -105,21 +120,36 @@
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
-            <EditText
-                android:id="@+id/edt_time"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:autofillHints="time_format"
-                android:background="@drawable/custom_edt_shape"
-                android:drawableStart="@drawable/ic_baseline_access_time"
-                android:drawablePadding="8dp"
-                android:hint="@string/hint_time"
-                android:inputType="textCapSentences"
-                android:padding="8dp"
-                android:textColor="@color/accent"
-                android:textColorHint="@color/gray" />
+            <ImageButton
+                android:id="@+id/img_btn_time"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_below="@id/txtv_time"
+                android:background="@null"
+                android:contentDescription="to get time"
+                android:src="@drawable/ic_baseline_access_time" />
 
-        </LinearLayout>
+            <TextView
+                android:id="@+id/txtv_set_time"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_below="@id/txtv_time"
+                android:hint="here will show time"
+                android:paddingVertical="12dp"
+                android:textAlignment="center"
+                android:textColor="@color/accent"
+                android:textColorHint="@color/gray"
+                android:textSize="20sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_below="@id/txtv_set_time"
+                android:alpha="0.5"
+                android:background="@color/accent" />
+
+        </RelativeLayout>
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
@@ -135,7 +165,7 @@
         app:cardCornerRadius="30dp"
         app:cardElevation="5dp">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -151,21 +181,36 @@
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
-            <EditText
-                android:id="@+id/edt_repeat_time"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:autofillHints="date_format"
-                android:background="@drawable/custom_edt_shape"
-                android:drawableStart="@drawable/ic_baseline_event_repeat"
-                android:drawablePadding="8dp"
-                android:hint="@string/hint_repeat"
-                android:inputType="textCapSentences"
-                android:padding="8dp"
-                android:textColor="@color/accent"
-                android:textColorHint="@color/gray" />
+            <ImageButton
+                android:id="@+id/img_btn_repeat"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_below="@id/txtv_repeat_time"
+                android:background="@null"
+                android:contentDescription="to get time"
+                android:src="@drawable/ic_baseline_event_repeat" />
 
-        </LinearLayout>
+            <TextView
+                android:id="@+id/txtv_set_repeat"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_below="@id/txtv_repeat_time"
+                android:hint="here will show time"
+                android:paddingVertical="12dp"
+                android:textAlignment="center"
+                android:textColor="@color/accent"
+                android:textColorHint="@color/gray"
+                android:textSize="20sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_below="@id/txtv_set_repeat"
+                android:alpha="0.5"
+                android:background="@color/accent" />
+
+        </RelativeLayout>
     </androidx.cardview.widget.CardView>
 </RelativeLayout>
 
