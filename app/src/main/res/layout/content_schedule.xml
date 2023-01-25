@@ -9,7 +9,7 @@
     tools:context=".Activity.ScheduleActivity">
 
     <TextView
-        android:id="@+id/txtv_medicine_det"
+        android:id="@+id/txtv_schedule_det"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -20,34 +20,29 @@
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/txtv_medicine_note"
+        android:id="@+id/txtv_schedule_note"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/txtv_medicine_det"
+        android:layout_below="@id/txtv_schedule_det"
         android:layout_marginStart="10dp"
         android:alpha="0.5"
         android:text="@string/text_desc_sch"
         android:textColor="@color/black"
-        android:textSize="12sp" />
+        android:textSize="12sp"
+        tools:ignore="TextContrastCheck" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/txtv_medicine_note"
-        android:layout_centerInParent="true"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="5dp"
+        android:layout_below="@id/txtv_schedule_note"
+        android:layout_margin="10dp"
         app:cardCornerRadius="30dp"
         app:cardElevation="5dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:orientation="vertical"
             android:padding="24dp">
 
             <TextView
@@ -61,20 +56,20 @@
 
             <ImageButton
                 android:id="@+id/img_btn_date"
-                style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_below="@id/txtv_date"
                 android:background="@null"
-                android:contentDescription="to get date"
-                android:src="@drawable/ic_baseline_calendar" />
+                android:contentDescription="@string/imgv_description"
+                android:src="@drawable/ic_baseline_calendar"
+                tools:ignore="DuplicateSpeakableTextCheck" />
 
             <TextView
                 android:id="@+id/txtv_set_date"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:layout_below="@id/txtv_date"
-                android:hint="here will show date"
+                android:hint="@string/hint_date"
                 android:paddingVertical="12dp"
                 android:textAlignment="center"
                 android:textColor="@color/accent"
@@ -96,19 +91,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/cardView_date"
-        android:layout_centerInParent="true"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="5dp"
+        android:layout_margin="10dp"
         app:cardCornerRadius="30dp"
         app:cardElevation="5dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:orientation="vertical"
             android:padding="24dp">
 
             <TextView
@@ -122,12 +111,11 @@
 
             <ImageButton
                 android:id="@+id/img_btn_time"
-                style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_below="@id/txtv_time"
                 android:background="@null"
-                android:contentDescription="to get time"
+                android:contentDescription="@string/imgv_description"
                 android:src="@drawable/ic_baseline_access_time" />
 
             <TextView
@@ -135,7 +123,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:layout_below="@id/txtv_time"
-                android:hint="here will show time"
+                android:hint="@string/hint_time"
                 android:paddingVertical="12dp"
                 android:textAlignment="center"
                 android:textColor="@color/accent"
@@ -157,19 +145,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/cardView_time"
-        android:layout_centerInParent="true"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="5dp"
+        android:layout_margin="10dp"
         app:cardCornerRadius="30dp"
         app:cardElevation="5dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:orientation="vertical"
             android:padding="24dp">
 
             <TextView
@@ -183,12 +165,11 @@
 
             <ImageButton
                 android:id="@+id/img_btn_repeat"
-                style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_below="@id/txtv_repeat_time"
                 android:background="@null"
-                android:contentDescription="to get time"
+                android:contentDescription="@string/imgv_description"
                 android:src="@drawable/ic_baseline_event_repeat" />
 
             <TextView
@@ -196,7 +177,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:layout_below="@id/txtv_repeat_time"
-                android:hint="here will show time"
                 android:paddingVertical="12dp"
                 android:textAlignment="center"
                 android:textColor="@color/accent"

@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class DBHelper extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "Medicial.db";
-    private static final int DB_VERSION = 6;
+    private static final int DB_VERSION = 7;
     public static int activeUserID = -1;
 
     public DBHelper(Context context) {
@@ -25,7 +25,7 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL("create table User (id INTEGER PRIMARY KEY AUTOINCREMENT,userName TEXT, firstName TEXT, lastName TEXT, password TEXT, email TEXT)");
-        sqLiteDatabase.execSQL("create table Medicine (id INTEGER PRIMARY KEY AUTOINCREMENT, medName TEXT, amount INTEGER, image String)");
+        sqLiteDatabase.execSQL("create table Medicine (id INTEGER PRIMARY KEY AUTOINCREMENT, medName TEXT, amount INTEGER, description TEXT, image String)");
         sqLiteDatabase.execSQL("create table Alert (id INTEGER PRIMARY KEY AUTOINCREMENT, time TIME, date DATE, medID INTEGER, FOREIGN KEY(medID) REFERENCES Medicine(id))");
         //sqLiteDatabase.execSQL("create table Admin (id INTEGER PRIMARY KEY AUTOINCREMENT, userID INTEGER, FOREIGN KEY(userID) REFERENCES User(id))");
     }
@@ -109,11 +109,12 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     // Return: ID number of the medicine if inserted, -1 if failed input
-    public int insertMedicineData(String medName, int amount, String image) {
+    public int insertMedicineData(String medName, int amount, String description, String image) {
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("medName", medName);
         values.put("amount", amount);
+        values.put("description", description);
         values.put("image", image);
         // returns the row, which ironically also the Medicine ID
         long idPK = sqLiteDatabase.insert("Medicine", null, values);
@@ -138,18 +139,19 @@ public class DBHelper extends SQLiteOpenHelper {
         ArrayList<Data> arrayList = new ArrayList<>();
         SQLiteDatabase sqLiteDatabase = getReadableDatabase();
 
-        Cursor cursor = sqLiteDatabase.rawQuery("SELECT m.id, m.medName, m.amount, m.image, a.time, a.date FROM Medicine m JOIN Alert a ON m.id = a.medId", null);
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT m.id, m.medName, m.amount, m.description, m.image, a.time, a.date FROM Medicine m JOIN Alert a ON m.id = a.medId", null);
 
         if (cursor.getCount() != 0) {
             while (cursor.moveToNext()) {
                 int mId = cursor.getInt(0);
                 String medName = cursor.getString(1);
                 int amount = cursor.getInt(2);
-                String image = cursor.getString(3);
-                String time = cursor.getString(4);
-                String date = cursor.getString(5);
+                String description = cursor.getString(3);
+                String image = cursor.getString(4);
+                String time = cursor.getString(5);
+                String date = cursor.getString(6);
 
-                Data data = new Data(mId, medName, amount, image, time, date);
+                Data data = new Data(mId, medName, amount, description, image, time, date);
                 arrayList.add(data);
             }
         }

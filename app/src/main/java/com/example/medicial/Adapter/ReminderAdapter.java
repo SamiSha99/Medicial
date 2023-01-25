@@ -50,7 +50,8 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.MyView
         holder.med_id.setText(String.valueOf(arrayList.get(position).get_Med_Id()));
         holder.med_name.setText(arrayList.get(position).get_Med_Name());
         holder.med_amount.setText(String.valueOf(arrayList.get(position).get_Med_Amount()));
-        holder.image.setImageURI(Uri.parse(arrayList.get(position).get_Med_Image()));
+        holder.med_desc.setText(arrayList.get(position).get_Med_Desc());
+        holder.med_image.setImageURI(Uri.parse(arrayList.get(position).get_Med_Image()));
         holder.med_time.setText(arrayList.get(position).get_Time());
 
         try {
@@ -79,9 +80,9 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.MyView
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView med_id, med_name, med_amount, med_time, date_day, date_month, date_year;
+        TextView med_id, med_name, med_amount, med_desc, med_time, date_day, date_month, date_year;
         ImageButton popup_Menu;
-        ImageView image;
+        ImageView med_image;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -89,11 +90,13 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.MyView
             med_id = itemView.findViewById(R.id.txtv_medId);
             med_name = itemView.findViewById(R.id.txtv_medName);
             med_amount = itemView.findViewById(R.id.txtv_amount);
+            med_desc = itemView.findViewById(R.id.txtv_desc);
+            med_image = itemView.findViewById(R.id.imgv);
+
             med_time = itemView.findViewById(R.id.txtv_time);
             date_day = itemView.findViewById(R.id.txtv_day);
             date_month = itemView.findViewById(R.id.txtv_month);
             date_year = itemView.findViewById(R.id.txtv_year);
-            image = itemView.findViewById(R.id.imgv);
 
             popup_Menu = itemView.findViewById(R.id.options);
             popup_Menu.setOnClickListener(this);

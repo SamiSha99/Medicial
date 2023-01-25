@@ -12,17 +12,17 @@
         android:id="@+id/imgv_bg_pills"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:alpha="0.5"
+        android:alpha="0.2"
         android:contentDescription="@string/imgv_description"
         android:scaleType="centerCrop"
         app:srcCompat="@drawable/img_pills" />
 
     <TextView
-        android:id="@+id/txtv_medicine_det"
+        android:id="@+id/txtv_schedule_det"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
         android:text="@string/text_med_det"
         android:textColor="@color/black"
         android:textSize="20sp"
@@ -32,20 +32,14 @@
         android:id="@+id/cardView_add_med"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/txtv_medicine_det"
-        android:layout_centerInParent="true"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="5dp"
+        android:layout_below="@id/txtv_schedule_det"
+        android:layout_margin="10dp"
         app:cardCornerRadius="30dp"
         app:cardElevation="5dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:orientation="vertical"
             android:padding="24dp">
 
             <TextView
@@ -62,26 +56,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_below="@+id/txtv_add_medicine"
+                android:layout_marginEnd="40dp"
                 android:autofillHints="name"
-                android:background="@drawable/custom_edt_shape"
+                android:backgroundTint="@color/accent"
                 android:drawableStart="@drawable/ic_outline_medicine_bottle"
                 android:drawablePadding="8dp"
                 android:hint="@string/med_name"
                 android:inputType="textCapSentences"
                 android:padding="8dp"
                 android:textColor="@color/accent"
-                android:textColorHint="@color/gray" />
+                android:textColorHint="@color/gray"
+                tools:ignore="VisualLintTextFieldSize,TextContrastCheck" />
 
             <ImageView
                 android:id="@+id/imageView_scanner"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_below="@+id/txtv_add_medicine"
                 android:layout_alignParentEnd="true"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
                 android:contentDescription="@string/imgv_description"
                 app:srcCompat="@drawable/ic_outline_document_scanner" />
+
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 
@@ -90,17 +85,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/cardView_add_med"
-        android:layout_centerInParent="true"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="5dp"
+        android:layout_margin="10dp"
         app:cardCornerRadius="30dp"
         app:cardElevation="5dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
             android:orientation="vertical"
             android:padding="24dp">
 
@@ -117,63 +108,59 @@
                 android:id="@+id/edt_amount"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginEnd="5dp"
                 android:autofillHints="number"
-                android:background="@drawable/custom_edt_shape"
+                android:backgroundTint="@color/accent"
                 android:drawableStart="@drawable/ic_outline_tablets"
                 android:drawablePadding="8dp"
                 android:hint="@string/hint_amount"
                 android:inputType="number"
                 android:padding="8dp"
                 android:textColor="@color/accent"
-                android:textColorHint="@color/gray" />
+                android:textColorHint="@color/gray"
+                tools:ignore="VisualLintTextFieldSize,TextContrastCheck" />
+
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardView_picture"
+        android:id="@+id/cardView_add_desc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/cardView_add_amount"
-        android:layout_centerInParent="true"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
+        android:layout_margin="10dp"
         app:cardCornerRadius="30dp"
         app:cardElevation="5dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
             android:orientation="vertical"
             android:padding="24dp">
 
             <TextView
-                android:id="@+id/txtv_medicine_pic"
+                android:id="@+id/txtv_desc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:text="@string/text_med_pic"
+                android:text="@string/text_desc"
                 android:textColor="@color/black"
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
-            <LinearLayout
+            <EditText
+                android:id="@+id/edt_desc"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_horizontal"
-                android:background="@drawable/dashed_border"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:autofillHints=""
+                android:background="@drawable/custom_edt_shape"
+                android:gravity="top"
+                android:hint="@string/hint_desc"
+                android:inputType="textMultiLine"
+                android:minHeight="150dp"
+                android:padding="10dp"
+                android:textColor="@color/accent"
+                android:textColorHint="@color/gray"
+                tools:ignore="VisualLintTextFieldSize,TextContrastCheck" />
 
-                <ImageView
-                    android:id="@+id/imgv_medicine_pic"
-                    android:layout_width="280dp"
-                    android:layout_height="280dp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_margin="5dp"
-                    android:contentDescription="@string/imgv_description"
-                    android:src="@drawable/ic_baseline_image" />
-            </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </RelativeLayout>

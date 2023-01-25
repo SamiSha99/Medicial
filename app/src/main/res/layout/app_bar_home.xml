@@ -35,7 +35,7 @@
         android:background="@color/accent"
         android:backgroundTint="@color/accent"
         android:contentDescription="@string/imgv_description"
-        app:srcCompat="@drawable/ic_baseline_alarm_add"
+        app:srcCompat="@drawable/ic_baseline_add"
         app:tint="@color/white" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

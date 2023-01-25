@@ -80,7 +80,7 @@ public class RegisterActivity extends AppCompatActivity {
             username.setError(getResources().getString(R.string.username_length));
             return false;
 
-        } else if (!_Username.matches("^[a-zA-Z0-9]+$")) {
+        } else if (!_Username.matches("^[a-zA-Z\\d]+$")) {
             username.requestFocus();
             username.setError(getResources().getString(R.string.username_inputType));
             return false;
@@ -110,7 +110,7 @@ public class RegisterActivity extends AppCompatActivity {
             email.setError(getResources().getString(R.string.empty));
             return false;
 
-        } else if (!_Email.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")) {
+        } else if (!_Email.matches("^[a-zA-Z\\d._%+-]+@[a-zA-Z\\d.-]+\\.[a-zA-Z]{2,}$")) {
             email.requestFocus();
             email.setError(getResources().getString(R.string.invalid_email));
             return false;

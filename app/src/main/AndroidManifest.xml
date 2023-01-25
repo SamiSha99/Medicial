@@ -18,7 +18,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Medicial"
         tools:targetApi="31">
-
+        <activity
+            android:name=".Activity.ImageActivity"
+            android:exported="false"
+            android:parentActivityName=".Activity.MedicineActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="android.support.PARENT_ACTIVITY" />
+        </activity>
         <activity
             android:name=".Database.UpdateActivity"
             android:exported="false"
@@ -28,17 +36,15 @@
                 android:name="android.app.lib_name"
                 android:value="android.support.PARENT_ACTIVITY" />
         </activity>
-
         <activity
             android:name=".Activity.ScheduleActivity"
             android:exported="false"
-            android:parentActivityName=".Activity.MedicineActivity"
+            android:parentActivityName=".Activity.ImageActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="android.support.PARENT_ACTIVITY" />
         </activity>
-
         <activity
             android:name=".NavigationDrawer.SettingActivity"
             android:exported="false"
@@ -48,7 +54,6 @@
                 android:name="android.app.lib_name"
                 android:value="android.support.PARENT_ACTIVITY" />
         </activity>
-
         <activity
             android:name=".NavigationDrawer.ProfileActivity"
             android:exported="false"
@@ -58,7 +63,6 @@
                 android:name="android.app.lib_name"
                 android:value="android.support.PARENT_ACTIVITY" />
         </activity>
-
         <activity
             android:name=".NavigationDrawer.CalendarActivity"
             android:exported="false"
@@ -68,7 +72,6 @@
                 android:name="android.app.lib_name"
                 android:value="android.support.PARENT_ACTIVITY" />
         </activity>
-
         <activity
             android:name=".Activity.MedicineActivity"
             android:exported="false"
@@ -78,7 +81,6 @@
                 android:name="android.app.lib_name"
                 android:value="android.support.PARENT_ACTIVITY" />
         </activity>
-
         <activity
             android:name=".Activity.HomeActivity"
             android:exported="false"
@@ -87,7 +89,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name=".Activity.RegisterActivity"
             android:exported="false"
@@ -96,7 +97,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name=".Activity.LoginActivity"
             android:exported="false"
@@ -105,7 +105,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name=".Activity.MainActivity"
             android:exported="true"

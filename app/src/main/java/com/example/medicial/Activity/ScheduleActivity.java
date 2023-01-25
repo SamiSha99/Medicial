@@ -19,7 +19,10 @@ import com.example.medicial.Broadcast.AlarmReceiver;
 import com.example.medicial.Database.DBHelper;
 import com.example.medicial.R;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 public class ScheduleActivity extends AppCompatActivity {
     Toolbar toolbar;
@@ -29,6 +32,7 @@ public class ScheduleActivity extends AppCompatActivity {
     DBHelper dbHelper = new DBHelper(this);
     private int _Year, _Month, _Day, _Hour, _Minute;
     private AlarmReceiver alarmReceiver;
+    String _StrTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,11 +61,11 @@ public class ScheduleActivity extends AppCompatActivity {
         _Date = findViewById(R.id.txtv_set_date);
 
         alarmReceiver = new AlarmReceiver();
+        // {Call time picker & date picker}
         getTime();
         getDate();
     }
 
-    // {Get time}
     private void getTime() {
         Calendar calendar = Calendar.getInstance();
         _Hour = calendar.get(Calendar.HOUR_OF_DAY);
@@ -69,7 +73,9 @@ public class ScheduleActivity extends AppCompatActivity {
 
         imgBtnTime.setOnClickListener(view -> {
             TimePickerDialog timePickerDialog = new TimePickerDialog(ScheduleActivity.this, R.style.DateTimePickerTheme, (timePicker, hourOfDay, minute) -> {
-                _Time.setText(String.format("%02d:%02d", hourOfDay, minute));
+                SimpleDateFormat sdf = new SimpleDateFormat("hh:mm aa", Locale.getDefault());
+                _Time.setText(sdf.format(new Date(0, 0, 0, hourOfDay, minute)));
+                _StrTime = String.format("%02d:%02d", hourOfDay, minute); // format time for alarm
                 _Hour = hourOfDay;
                 _Minute = minute;
             }, _Hour, _Minute, false);
@@ -101,7 +107,7 @@ public class ScheduleActivity extends AppCompatActivity {
         String message = "Hello, its time to take your medicine " + receive_medName;
         alarmReceiver.setOneTimeAlarm(ScheduleActivity.this, AlarmReceiver.TYPE_ONE_TIME,
                 _Date.getText().toString(),
-                _Time.getText().toString(),
+                _StrTime,
                 message);
     }
 
@@ -110,6 +116,7 @@ public class ScheduleActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         String receive_medName = bundle.getString("key_medName");
         String receive_medAmount = bundle.getString("key_medAmount");
+        String receive_medDesc = bundle.getString("key_medDesc");
         String receive_medImage = bundle.getString("key_medImage");
 
         int amountInt = Integer.parseInt(receive_medAmount);
@@ -125,7 +132,7 @@ public class ScheduleActivity extends AppCompatActivity {
             this._Time.setError(getResources().getString(R.string.empty));
 
         } else {
-            int newMedicineID = dbHelper.insertMedicineData(receive_medName, amountInt, receive_medImage);
+            int newMedicineID = dbHelper.insertMedicineData(receive_medName, amountInt, receive_medDesc, receive_medImage);
             setAlarm();
             if (newMedicineID != -1) {
                 int newAlertID = dbHelper.insertDateTime(newMedicineID, _Time, _Date);  // newAlertID it not used!!

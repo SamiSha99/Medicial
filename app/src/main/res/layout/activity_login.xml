@@ -62,7 +62,8 @@
                 android:inputType="text"
                 android:padding="8dp"
                 android:textColor="@color/accent"
-                android:textColorHint="@color/gray" />
+                android:textColorHint="@color/gray"
+                tools:ignore="TextContrastCheck,VisualLintTextFieldSize" />
 
             <EditText
                 android:id="@+id/edt_login_password"
@@ -77,7 +78,8 @@
                 android:inputType="textPassword"
                 android:padding="8dp"
                 android:textColor="@color/accent"
-                android:textColorHint="@color/gray" />
+                android:textColorHint="@color/gray"
+                tools:ignore="TextContrastCheck,VisualLintTextFieldSize" />
 
             <TextView
                 android:id="@+id/txtv_invalid"
@@ -92,7 +94,8 @@
                 android:id="@+id/checkBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/checkbox" />
+                android:text="@string/checkbox"
+                tools:ignore="VisualLintButtonSize" />
 
             <Button
                 android:id="@+id/btn_login"
@@ -102,7 +105,8 @@
                 android:text="@string/text_sign_in"
                 android:textColor="@color/white"
                 android:textSize="18sp"
-                app:cornerRadius="20dp" />
+                app:cornerRadius="20dp"
+                tools:ignore="DuplicateSpeakableTextCheck,TextContrastCheck,TextContrastCheck,VisualLintButtonSize" />
 
             <TextView
                 android:id="@+id/txtv_forgetPass"
@@ -113,7 +117,8 @@
                 android:text="@string/forget_pass"
                 android:textAllCaps="false"
                 android:textColor="@color/black"
-                android:textSize="15sp" />
+                android:textSize="15sp"
+                tools:ignore="TextContrastCheck" />
 
 
         </LinearLayout>
@@ -134,7 +139,8 @@
             android:padding="8dp"
             android:text="@string/text_ques"
             android:textColor="@color/black"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            tools:ignore="TextContrastCheck" />
 
         <TextView
             android:id="@+id/txtv_register_now"
@@ -142,7 +148,8 @@
             android:layout_height="wrap_content"
             android:text="@string/SignUp_Now"
             android:textColor="@color/accent"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            tools:ignore="TextContrastCheck" />
     </LinearLayout>
 
 </RelativeLayout>

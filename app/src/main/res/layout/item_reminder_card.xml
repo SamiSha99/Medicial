@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/card_view"
     android:layout_width="match_parent"
-    android:layout_height="150dp"
+    android:layout_height="180dp"
     app:cardCornerRadius="10dp"
     app:cardElevation="5dp"
     app:cardUseCompatPadding="true"
-    app:contentPadding="10dp">
+    app:contentPadding="10dp"
+    tools:ignore="TextSizeCheck">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -46,7 +48,8 @@
                 android:alpha="0.5"
                 android:text="@string/med_month"
                 android:textColor="@android:color/black"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                tools:ignore="TextContrastCheck" />
 
             <TextView
                 android:id="@+id/txtv_year"
@@ -90,7 +93,8 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:background="@drawable/ic_baseline_more"
-                    android:contentDescription="@string/imgv_description" />
+                    android:contentDescription="@string/imgv_description"
+                    tools:ignore="TouchTargetSizeCheck" />
 
                 <ImageView
                     android:id="@+id/imgv"
@@ -98,6 +102,7 @@
                     android:layout_height="50dp"
                     android:contentDescription="@string/imgv_description"
                     android:visibility="gone" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -108,32 +113,44 @@
                     android:id="@+id/txtv_amount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:alpha="0.5"
                     android:paddingStart="5dp"
                     android:paddingEnd="5dp"
                     android:singleLine="true"
                     android:text="@string/hint_amount"
-                    android:textColor="@android:color/black"
-                    android:textSize="14sp" />
+                    android:textColor="@color/accent"
+                    android:textSize="14sp"
+                    tools:ignore="TextContrastCheck" />
 
                 <TextView
                     android:id="@+id/txtv_tablets"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
                     android:alpha="0.5"
                     android:singleLine="true"
                     android:text="@string/text_tablets_left"
                     android:textColor="@android:color/black"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    tools:ignore="TextContrastCheck" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center">
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txtv_desc"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:alpha="0.5"
+                    android:inputType="textMultiLine"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp"
+                    tools:ignore="SpeakableTextPresentCheck,TextViewEdits" />
 
                 <TextView
                     android:id="@+id/txtv_time"
@@ -144,6 +161,7 @@
                     android:textColor="@color/accent"
                     android:textSize="20sp"
                     app:drawableStartCompat="@drawable/ic_baseline_access_time" />
+
             </LinearLayout>
 
         </LinearLayout>
