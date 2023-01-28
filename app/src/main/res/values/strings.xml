@@ -26,6 +26,7 @@
     <string name="app_bar_calendar_title">Calendar</string>
     <string name="app_bar_schedule_title">New reminder</string>
     <string name="app_bar_update_title">Update data</string>
+    <string name="app_bar_forget_pass_title">Reset password</string>
     <string name="text_med_det">Medicine details</string>
     <string name="text_add_med">Add medicine</string>
     <string name="med_name">medicine name</string>
@@ -48,6 +49,13 @@
     <string name="dialog_text_done">Done</string>
     <string name="text_acc_info">Account information</string>
     <string name="text_user_name">User name</string>
+    <string name="text_enter_user_name">Enter your username</string>
+    <string name="hint_user_name">username</string>
+    <string name="text_enter_pass">Enter password</string>
+    <string name="hint_pass">new password</string>
+    <string name="text_enter_repass">Repeat password</string>
+    <string name="hint_repass">retype password</string>
+    <string name="btn_reset">Reset password</string>
     <!-- item card -->
     <string name="med_id">0</string>
     <string name="med_day">18</string>

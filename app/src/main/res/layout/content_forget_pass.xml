@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="10dp"
+    app:cardCornerRadius="30dp"
+    app:cardElevation="5dp"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".Database.ForgetPassActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <TextView
+            android:id="@+id/txtv_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_enter_user_name"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/edt_fp_username"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginBottom="10dp"
+            android:autofillHints=""
+            android:backgroundTint="@color/accent"
+            android:drawableStart="@drawable/ic_outline_user"
+            android:drawablePadding="8dp"
+            android:hint="@string/hint_user_name"
+            android:inputType="text"
+            android:padding="8dp"
+            android:textColor="@color/accent"
+            android:textColorHint="@color/gray"
+            tools:ignore="TextContrastCheck,VisualLintTextFieldSize" />
+
+        <TextView
+            android:id="@+id/txtv_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_enter_pass"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/edt_fp_pass"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginBottom="10dp"
+            android:autofillHints=""
+            android:backgroundTint="@color/accent"
+            android:drawableStart="@drawable/ic_outline_lock"
+            android:drawablePadding="8dp"
+            android:hint="@string/hint_pass"
+            android:inputType="text"
+            android:padding="8dp"
+            android:textColor="@color/accent"
+            android:textColorHint="@color/gray"
+            tools:ignore="TextContrastCheck,VisualLintTextFieldSize" />
+
+        <TextView
+            android:id="@+id/txtv_repass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_enter_repass"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/edt_fp_repass"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:autofillHints=""
+            android:backgroundTint="@color/accent"
+            android:drawableStart="@drawable/ic_outline_lock"
+            android:drawablePadding="8dp"
+            android:hint="@string/hint_repass"
+            android:inputType="text"
+            android:padding="8dp"
+            android:textColor="@color/accent"
+            android:textColorHint="@color/gray"
+            tools:ignore="TextContrastCheck,VisualLintTextFieldSize" />
+
+        <Button
+            android:id="@+id/btn_reset"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="@color/accent"
+            android:text="@string/btn_reset"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            app:cornerRadius="20dp"
+            tools:ignore="TextContrastCheck,VisualLintButtonSize" />
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
+
+

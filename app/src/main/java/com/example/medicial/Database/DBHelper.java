@@ -3,6 +3,7 @@ package com.example.medicial.Database;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -190,5 +191,23 @@ public class DBHelper extends SQLiteOpenHelper {
         if (!image.isEmpty()) values.put("image", image); // don't replace image if its empty!
         sql.update("Medicine", values, "id = ?", new String[]{String.valueOf(id)});
         sql.close();
+    }
+
+    public boolean resetPassword(String userName, String password) {
+        SQLiteDatabase sql = getWritableDatabase();
+        boolean passwordResetSuccess = false;
+        try {
+            if (checkUserName(userName)) {
+                ContentValues values = new ContentValues();
+                values.put("password", password);
+                sql.update("User", values, "userName =?", new String[]{userName});
+                passwordResetSuccess = true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            sql.close();
+        }
+        return passwordResetSuccess;
     }
 }

@@ -63,7 +63,7 @@ public class UpdateActivity extends AppCompatActivity {
 
     private void init() {
         // {Toolbar}
-        toolbar = findViewById(R.id.med_toolbar);
+        toolbar = findViewById(R.id.up_toolbar);
         setSupportActionBar(toolbar);
 
         // {Setting up action bar}

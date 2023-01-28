@@ -1,13 +1,18 @@
 package com.example.medicial.Activity;
 
+import android.annotation.SuppressLint;
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -17,9 +22,12 @@ import androidx.core.content.ContextCompat;
 
 import com.example.medicial.Broadcast.AlarmReceiver;
 import com.example.medicial.Database.DBHelper;
+import com.example.medicial.Model.Data;
 import com.example.medicial.R;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -27,12 +35,10 @@ import java.util.Locale;
 public class ScheduleActivity extends AppCompatActivity {
     Toolbar toolbar;
     ActionBar actionBar;
-    TextView _Date, _Time;
+    TextView _Date, _Time, _Repeat;
     ImageButton imgBtnDate, imgBtnTime;
     DBHelper dbHelper = new DBHelper(this);
     private int _Year, _Month, _Day, _Hour, _Minute;
-    private AlarmReceiver alarmReceiver;
-    String _StrTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,60 +65,18 @@ public class ScheduleActivity extends AppCompatActivity {
         imgBtnTime = findViewById(R.id.img_btn_time);
         _Time = findViewById(R.id.txtv_set_time);
         _Date = findViewById(R.id.txtv_set_date);
+        _Repeat = findViewById(R.id.txtv_set_repeat);
 
-        alarmReceiver = new AlarmReceiver();
         // {Call time picker & date picker}
         getTime();
         getDate();
-    }
 
-    private void getTime() {
-        Calendar calendar = Calendar.getInstance();
-        _Hour = calendar.get(Calendar.HOUR_OF_DAY);
-        _Minute = calendar.get(Calendar.MINUTE);
-
-        imgBtnTime.setOnClickListener(view -> {
-            TimePickerDialog timePickerDialog = new TimePickerDialog(ScheduleActivity.this, R.style.DateTimePickerTheme, (timePicker, hourOfDay, minute) -> {
-                SimpleDateFormat sdf = new SimpleDateFormat("hh:mm aa", Locale.getDefault());
-                _Time.setText(sdf.format(new Date(0, 0, 0, hourOfDay, minute)));
-                _StrTime = String.format("%02d:%02d", hourOfDay, minute); // format time for alarm
-                _Hour = hourOfDay;
-                _Minute = minute;
-            }, _Hour, _Minute, false);
-            timePickerDialog.show();
-        });
-    }
-
-    // {Get date}
-    private void getDate() {
-        Calendar calendar = Calendar.getInstance();
-        _Year = calendar.get(Calendar.YEAR);
-        _Month = calendar.get(Calendar.MONTH);
-        _Day = calendar.get(Calendar.DAY_OF_MONTH);
-
-        imgBtnDate.setOnClickListener(view -> {
-            DatePickerDialog datePickerDialog = new DatePickerDialog(ScheduleActivity.this, R.style.DateTimePickerTheme, (datePicker, year, month, dayOfMonth) -> {
-                _Date.setText(String.format("%04d-%02d-%02d", year, month + 1, dayOfMonth));
-                _Year = year;
-                _Month = month;
-                _Day = dayOfMonth;
-            }, _Year, _Month, _Day);
-            datePickerDialog.show();
-        });
-    }
-
-    public void setAlarm() {
-        Bundle bundle = getIntent().getExtras();
-        String receive_medName = bundle.getString("key_medName");
-        String message = "Hello, its time to take your medicine " + receive_medName;
-        alarmReceiver.setOneTimeAlarm(ScheduleActivity.this, AlarmReceiver.TYPE_ONE_TIME,
-                _Date.getText().toString(),
-                _StrTime,
-                message);
+        // {Alarm Receiver}
+        AlarmReceiver alarmReceiver = new AlarmReceiver();
+        alarmReceiver.createNotificationChannel(this);
     }
 
     public void AddNewReminder() {
-        // get medicine data from reminder activity
         Bundle bundle = getIntent().getExtras();
         String receive_medName = bundle.getString("key_medName");
         String receive_medAmount = bundle.getString("key_medAmount");
@@ -135,12 +99,78 @@ public class ScheduleActivity extends AppCompatActivity {
             int newMedicineID = dbHelper.insertMedicineData(receive_medName, amountInt, receive_medDesc, receive_medImage);
             setAlarm();
             if (newMedicineID != -1) {
-                int newAlertID = dbHelper.insertDateTime(newMedicineID, _Time, _Date);  // newAlertID it not used!!
+                dbHelper.insertDateTime(newMedicineID, _Time, _Date);
             }
             Intent intent = new Intent(ScheduleActivity.this, HomeActivity.class);
             startActivity(intent);
             finish();
         }
+    }
+
+    private void getTime() {
+        Calendar calendar = Calendar.getInstance();
+        _Hour = calendar.get(Calendar.HOUR_OF_DAY);
+        _Minute = calendar.get(Calendar.MINUTE);
+
+        imgBtnTime.setOnClickListener(view -> {
+            TimePickerDialog timePickerDialog = new TimePickerDialog(ScheduleActivity.this, R.style.DateTimePickerTheme, (timePicker, hourOfDay, minute) -> {
+                calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                calendar.set(Calendar.MINUTE, minute);
+                SimpleDateFormat sdf = new SimpleDateFormat("hh:mm aa", Locale.getDefault());
+                _Time.setText(sdf.format(calendar.getTime()));
+                _Hour = hourOfDay;
+                _Minute = minute;
+            }, _Hour, _Minute, false);
+            timePickerDialog.show();
+        });
+    }
+
+    private void getDate() {
+        Calendar calendar = Calendar.getInstance();
+        _Year = calendar.get(Calendar.YEAR);
+        _Month = calendar.get(Calendar.MONTH);
+        _Day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        imgBtnDate.setOnClickListener(view -> {
+            DatePickerDialog datePickerDialog = new DatePickerDialog(ScheduleActivity.this, R.style.DateTimePickerTheme, (datePicker, year, month, dayOfMonth) -> {
+                calendar.set(year, month, dayOfMonth);
+                @SuppressLint("SimpleDateFormat")
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+                String formattedDate = dateFormat.format(calendar.getTime());
+                _Date.setText(formattedDate);
+                _Year = year;
+                _Month = month;
+                _Day = dayOfMonth;
+            }, _Year, _Month, _Day);
+            datePickerDialog.show();
+        });
+    }
+
+    public void setAlarm() {
+        ArrayList<Data> _Data = dbHelper.getReminderData();
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat tf = new SimpleDateFormat("HH:mm");
+//        Date d, t;
+//        for (int i = 0; i < _Data.size(); i++) {
+//            Data data = _Data.get(i);
+//            try {
+//                d = df.parse(data.get_Date());
+//                t = tf.parse(data.get_Time());
+//                _Repeat.setText(d + " " + t);
+//            } catch (ParseException e) {
+//                throw new RuntimeException(e);
+//            }
+//            calendar.setTime(d);
+//            calendar.set(Calendar.HOUR_OF_DAY, t.getHours());
+//            calendar.set(Calendar.MINUTE, t.getMinutes());
+//            calendar.set(Calendar.SECOND, 0);
+//            Intent intent = new Intent(this, AlarmReceiver.class);
+//            PendingIntent pendingIntent = PendingIntent.getBroadcast(this, i, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+//            AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+//            alarmManager.setAlarmClock(new AlarmManager.AlarmClockInfo(calendar.getTimeInMillis(), pendingIntent), pendingIntent);
+//        }
+//        Toast.makeText(ScheduleActivity.this, "Reminder set!", Toast.LENGTH_SHORT).show();
     }
 
     @Override

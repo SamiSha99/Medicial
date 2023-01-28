@@ -58,12 +58,12 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.MyView
             String currentString = String.valueOf(arrayList.get(position).get_Date());
             String[] separated = currentString.split("-");
 
-            String day = separated[2];
+            String day = separated[0];
             String month = separated[1]; // get month from date string
             monthInt = Integer.parseInt(month); // convert month string to integer
             String setMonth = getMonthFormat(monthInt); // get month format string
 
-            String year = separated[0];
+            String year = separated[2];
 
             holder.date_day.setText(day);
             holder.date_month.setText(setMonth);

@@ -113,13 +113,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
                 android:alpha="0.5"
                 android:text="@string/forget_pass"
                 android:textAllCaps="false"
                 android:textColor="@color/black"
                 android:textSize="15sp"
                 tools:ignore="TextContrastCheck" />
-
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>
@@ -150,6 +150,6 @@
             android:textColor="@color/accent"
             android:textSize="14sp"
             tools:ignore="TextContrastCheck" />
-    </LinearLayout>
 
+    </LinearLayout>
 </RelativeLayout>

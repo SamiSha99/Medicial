@@ -14,13 +14,14 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.medicial.Database.DBHelper;
+import com.example.medicial.Database.ForgetPassActivity;
 import com.example.medicial.R;
 
 public class LoginActivity extends AppCompatActivity {
     DBHelper dbHelper = new DBHelper(this);
     Button login;
     EditText username, password;
-    TextView txtv_invalid, register_now;
+    TextView txtv_invalid, register_now, forget_pass;
     CheckBox checkBox;
 
     @Override
@@ -31,6 +32,7 @@ public class LoginActivity extends AppCompatActivity {
         init();
         RegisterNow();
         rememberMe();
+        forgetPass();
         login.setOnClickListener(view -> Login());
     }
 
@@ -40,18 +42,12 @@ public class LoginActivity extends AppCompatActivity {
         password = findViewById(R.id.edt_login_password);
         txtv_invalid = findViewById(R.id.txtv_invalid);
         login = findViewById(R.id.btn_login);
+        forget_pass = findViewById(R.id.txtv_forgetPass);
         register_now = findViewById(R.id.txtv_register_now);
 
         // {Remember me}
         checkBox = findViewById(R.id.checkBox);
         checkBox.setChecked(true);
-    }
-
-    private void RegisterNow() {
-        register_now.setOnClickListener(view -> {
-            Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
-            startActivity(intent);
-        });
     }
 
     public void Login() {
@@ -83,6 +79,20 @@ public class LoginActivity extends AppCompatActivity {
                 finish();
             }
         }
+    }
+
+    private void forgetPass() {
+        forget_pass.setOnClickListener(view -> {
+            Intent intent = new Intent(LoginActivity.this, ForgetPassActivity.class);
+            startActivity(intent);
+        });
+    }
+
+    private void RegisterNow() {
+        register_now.setOnClickListener(view -> {
+            Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
+            startActivity(intent);
+        });
     }
 
     private boolean validateInfo(String _Username, String _Password) {
