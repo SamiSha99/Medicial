@@ -16,8 +16,9 @@ import java.util.ArrayList;
 public class DBHelper extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "Medicial.db";
-    private static final int DB_VERSION = 7;
+    private static final int DB_VERSION = 10;
     public static int activeUserID = -1;
+    public static boolean isAdmin = false;
 
     public DBHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -28,7 +29,8 @@ public class DBHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL("create table User (id INTEGER PRIMARY KEY AUTOINCREMENT,userName TEXT, firstName TEXT, lastName TEXT, password TEXT, email TEXT)");
         sqLiteDatabase.execSQL("create table Medicine (id INTEGER PRIMARY KEY AUTOINCREMENT, medName TEXT, amount INTEGER, description TEXT, image String)");
         sqLiteDatabase.execSQL("create table Alert (id INTEGER PRIMARY KEY AUTOINCREMENT, time TIME, date DATE, medID INTEGER, FOREIGN KEY(medID) REFERENCES Medicine(id))");
-        //sqLiteDatabase.execSQL("create table Admin (id INTEGER PRIMARY KEY AUTOINCREMENT, userID INTEGER, FOREIGN KEY(userID) REFERENCES User(id))");
+        sqLiteDatabase.execSQL("create table Admin (id INTEGER PRIMARY KEY AUTOINCREMENT, userID INTEGER, FOREIGN KEY(userID) REFERENCES User(id))");
+        createAdmins(sqLiteDatabase);
     }
 
     @Override
@@ -37,10 +39,36 @@ public class DBHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS User");
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS Medicine");
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS Alert");
-        //sqLiteDatabase.execSQL("DROP TABLE IF EXISTS Admin");
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS Admin");
 
         // Create tables again
         onCreate(sqLiteDatabase);
+    }
+    public void createAdmins(SQLiteDatabase db) {
+        insertAdminData("admin", "secret", "user", "123456", "NotYourBusiness@Medicial.com", db);
+    }
+
+    public boolean insertAdminData(String userName, String firstName, String lastName, String password, String email, SQLiteDatabase db) {
+        SQLiteDatabase sqLiteDatabase = db != null ? db : getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put("userName", userName);
+        values.put("firstName", firstName);
+        values.put("lastName", lastName);
+        values.put("password", password);
+        values.put("email", email);
+
+        long newRow = sqLiteDatabase.insert("User", null, values);
+        if(newRow == -1) {
+            sqLiteDatabase.close();
+            return false;
+        }
+
+        values.clear();
+        values.put("userID", newRow);
+        long newAdminRow = sqLiteDatabase.insert("Admin", null, values);
+        //sqLiteDatabase.close();
+        return newAdminRow != -1;
     }
 
     public boolean insertUserData(String userName, String firstName, String lastName, String password, String email) {
@@ -77,10 +105,13 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
         Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM User WHERE userName = ? AND password = ?", new String[]{userName, password});
         activeUserID = -1;
+        isAdmin = false;
         if (cursor != null && cursor.moveToNext()) {
             activeUserID = cursor.getInt(0);
-            Log.d("ACTIVE_USER_ID", "" + activeUserID);
             cursor.close();
+            isAdmin = isUserAdmin(activeUserID);
+            Log.d("ACTIVE_USER_ID", "" + activeUserID);
+            Log.d("Admin? =>", "" + isAdmin);
         }
         return activeUserID != -1; // activeUserID == -1 -> Failed Login
     }
@@ -107,6 +138,14 @@ public class DBHelper extends SQLiteOpenHelper {
         }
         cursor.close();
         return arrayList;
+    }
+
+    public boolean isUserAdmin(int userID) {
+        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM Admin WHERE userID = ?", new String[]{String.valueOf(userID)});
+        boolean match = cursor.getCount() != 0;
+        cursor.close();
+        return match;
     }
 
     // Return: ID number of the medicine if inserted, -1 if failed input
