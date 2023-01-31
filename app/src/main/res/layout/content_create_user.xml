@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="24dp"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".admin.CreateUserActivity">
+
+    <EditText
+        android:id="@+id/edt_reg_userName"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:autofillHints="username"
+        android:background="@drawable/custom_button_shape"
+        android:drawableStart="@drawable/ic_outline_user"
+        android:drawablePadding="8dp"
+        android:hint="@string/user_name"
+        android:inputType="text"
+        android:padding="8dp"
+        android:textColor="@color/accent"
+        android:textColorHint="@color/gray"
+        tools:ignore="TextContrastCheck,VisualLintTextFieldSize" />
+
+    <EditText
+        android:id="@+id/edt_reg_firstName"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="20dp"
+        android:autofillHints="name"
+        android:background="@drawable/custom_button_shape"
+        android:drawableStart="@drawable/ic_outline_label"
+        android:drawablePadding="8dp"
+        android:hint="@string/first_name"
+        android:inputType="text"
+        android:padding="8dp"
+        android:textColor="@color/accent"
+        android:textColorHint="@color/gray"
+        tools:ignore="TextContrastCheck,VisualLintTextFieldSize" />
+
+    <EditText
+        android:id="@+id/edt_reg_lastName"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="20dp"
+        android:autofillHints="name"
+        android:background="@drawable/custom_button_shape"
+        android:drawableStart="@drawable/ic_outline_label"
+        android:drawablePadding="8dp"
+        android:hint="@string/last_name"
+        android:inputType="text"
+        android:padding="8dp"
+        android:textColor="@color/accent"
+        android:textColorHint="@color/gray"
+        tools:ignore="TextContrastCheck,VisualLintTextFieldSize" />
+
+    <EditText
+        android:id="@+id/edt_reg_email"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="20dp"
+        android:autofillHints="emailAddress"
+        android:background="@drawable/custom_button_shape"
+        android:drawableStart="@drawable/ic_outline_email"
+        android:drawablePadding="8dp"
+        android:hint="@string/email"
+        android:inputType="textEmailAddress"
+        android:padding="8dp"
+        android:textColor="@color/accent"
+        android:textColorHint="@color/gray"
+        tools:ignore="TextContrastCheck,VisualLintTextFieldSize" />
+
+    <EditText
+        android:id="@+id/edt_reg_password"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="20dp"
+        android:autofillHints="password"
+        android:background="@drawable/custom_button_shape"
+        android:drawableStart="@drawable/ic_outline_lock"
+        android:drawablePadding="8dp"
+        android:hint="@string/password"
+        android:inputType="textPassword"
+        android:padding="8dp"
+        android:textColor="@color/accent"
+        android:textColorHint="@color/gray"
+        tools:ignore="TextContrastCheck,VisualLintTextFieldSize" />
+
+    <EditText
+        android:id="@+id/edt_reg_re_password"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="20dp"
+        android:autofillHints="password"
+        android:background="@drawable/custom_button_shape"
+        android:drawableStart="@drawable/ic_outline_lock"
+        android:drawablePadding="8dp"
+        android:hint="@string/re_pass"
+        android:inputType="textPassword"
+        android:padding="8dp"
+        android:textColor="@color/accent"
+        android:textColorHint="@color/gray"
+        tools:ignore="TextContrastCheck,VisualLintTextFieldSize" />
+
+    <Button
+        android:id="@+id/btn_create_user"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="15dp"
+        android:backgroundTint="@color/accent"
+        android:text="@string/app_bar_create_u_title"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:cornerRadius="20dp"
+        tools:ignore="TextContrastCheck,VisualLintButtonSize" />
+
+</LinearLayout>
+
+

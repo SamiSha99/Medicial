@@ -27,6 +27,11 @@
     <string name="app_bar_calendar_title">Calendar</string>
     <string name="app_bar_schedule_title">New reminder</string>
     <string name="app_bar_update_title">Update data</string>
+    <string name="app_bar_create_u_title">Create user</string>
+    <string name="app_bar_delete_u_title">Delete user</string>
+    <string name="app_bar_update_u_title">Update user</string>
+    <string name="app_bar_show_u_title">Show users</string>
+    <string name="app_bar_show_ud_title">Show user data</string>
     <string name="app_bar_forget_pass_title">Reset password</string>
     <string name="text_med_det">Medicine details</string>
     <string name="text_add_med">Add medicine</string>
