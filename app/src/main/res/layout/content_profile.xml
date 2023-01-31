@@ -7,7 +7,7 @@
     android:layout_marginTop="200dp"
     android:orientation="vertical"
     android:padding="15dp"
-    tools:context=".NavigationDrawer.ProfileActivity">
+    tools:context=".navigationDrawer.ProfileActivity">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/user_recyclerView"

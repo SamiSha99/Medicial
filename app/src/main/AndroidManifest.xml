@@ -20,79 +20,87 @@
         android:theme="@style/Theme.Medicial"
         tools:targetApi="31">
         <activity
-            android:name=".Database.ForgetPassActivity"
+            android:name=".admin.AdminActivity"
             android:exported="false"
-            android:parentActivityName=".Activity.LoginActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="android.support.PARENT_ACTIVITY" />
         </activity>
         <activity
-            android:name=".Activity.ImageActivity"
+            android:name=".database.ForgetPassActivity"
             android:exported="false"
-            android:parentActivityName=".Activity.MedicineActivity"
+            android:parentActivityName=".activity.LoginActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="android.support.PARENT_ACTIVITY" />
         </activity>
         <activity
-            android:name=".Database.UpdateActivity"
+            android:name=".activity.ImageActivity"
             android:exported="false"
-            android:parentActivityName=".Activity.HomeActivity"
+            android:parentActivityName=".activity.MedicineActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="android.support.PARENT_ACTIVITY" />
         </activity>
         <activity
-            android:name=".Activity.ScheduleActivity"
+            android:name=".database.UpdateActivity"
             android:exported="false"
-            android:parentActivityName=".Activity.ImageActivity"
+            android:parentActivityName=".activity.HomeActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="android.support.PARENT_ACTIVITY" />
         </activity>
         <activity
-            android:name=".NavigationDrawer.SettingActivity"
+            android:name=".activity.ScheduleActivity"
             android:exported="false"
-            android:parentActivityName=".Activity.HomeActivity"
+            android:parentActivityName=".activity.ImageActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="android.support.PARENT_ACTIVITY" />
         </activity>
         <activity
-            android:name=".NavigationDrawer.ProfileActivity"
+            android:name=".navigationDrawer.SettingActivity"
             android:exported="false"
-            android:parentActivityName=".Activity.HomeActivity"
+            android:parentActivityName=".activity.HomeActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="android.support.PARENT_ACTIVITY" />
         </activity>
         <activity
-            android:name=".NavigationDrawer.CalendarActivity"
+            android:name=".navigationDrawer.ProfileActivity"
             android:exported="false"
-            android:parentActivityName=".Activity.HomeActivity"
+            android:parentActivityName=".activity.HomeActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="android.support.PARENT_ACTIVITY" />
         </activity>
         <activity
-            android:name=".Activity.MedicineActivity"
+            android:name=".navigationDrawer.CalendarActivity"
             android:exported="false"
-            android:parentActivityName=".Activity.HomeActivity"
+            android:parentActivityName=".activity.HomeActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="android.support.PARENT_ACTIVITY" />
         </activity>
         <activity
-            android:name=".Activity.HomeActivity"
+            android:name=".activity.MedicineActivity"
+            android:exported="false"
+            android:parentActivityName=".activity.HomeActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="android.support.PARENT_ACTIVITY" />
+        </activity>
+        <activity
+            android:name=".activity.HomeActivity"
             android:exported="false"
             android:screenOrientation="portrait">
             <meta-data
@@ -100,7 +108,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".Activity.RegisterActivity"
+            android:name=".activity.RegisterActivity"
             android:exported="false"
             android:screenOrientation="portrait">
             <meta-data
@@ -108,7 +116,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".Activity.LoginActivity"
+            android:name=".activity.LoginActivity"
             android:exported="false"
             android:screenOrientation="portrait">
             <meta-data
@@ -116,7 +124,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".Activity.MainActivity"
+            android:name=".activity.MainActivity"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -135,7 +143,7 @@
             android:resource="@array/preloaded_fonts" />
 
         <receiver
-            android:name=".Broadcast.AlarmReceiver"
+            android:name=".broadcast.AlarmReceiver"
             android:enabled="true"
             android:exported="true" />
 

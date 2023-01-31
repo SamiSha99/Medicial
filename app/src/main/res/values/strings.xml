@@ -21,6 +21,7 @@
     <string name="email">E-mail</string>
     <string name="re_pass">Confirm Password</string>
     <string name="app_bar_home_title">Home</string>
+    <string name="app_bar_admin_title">Admin Dashboard</string>
     <string name="app_bar_reminder_title">New reminder</string>
     <string name="app_bar_profile_title">Profile</string>
     <string name="app_bar_calendar_title">Calendar</string>
@@ -87,5 +88,12 @@
     <string name="password_length">Minimum 6 characters required</string>
     <string name="password_notMatching">Password does not match</string>
     <string name="reg_filled">REGISTRATION FAILED</string>
+    <!-- Admin Dashboard -->
+    <string name="create">create user</string>
+    <string name="delete">delete user</string>
+    <string name="show">show users</string>
+    <string name="update">update user</string>
+    <string name="show_data">show users data</string>
+
 
 </resources>

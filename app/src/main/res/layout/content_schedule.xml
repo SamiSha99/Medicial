@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".Activity.ScheduleActivity">
+    tools:context=".activity.ScheduleActivity">
 
     <TextView
         android:id="@+id/txtv_schedule_det"
