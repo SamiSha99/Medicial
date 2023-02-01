@@ -5,9 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="24dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".admin.ShowDataActivity">
+
+    <de.codecrafters.tableview.TableView
+        android:id="@+id/table_data_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        app:tableView_columnCount="6" />
 
 </LinearLayout>
 

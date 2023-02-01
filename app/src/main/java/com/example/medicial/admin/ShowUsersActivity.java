@@ -91,6 +91,7 @@ public class ShowUsersActivity extends AppCompatActivity {
 
         for (int i = 0; i < arraylist.size(); i++) {
             User user = arraylist.get(i);
+
             userData[i][0] = String.valueOf(user.getId());
             userData[i][1] = user.getUsername();
             userData[i][2] = user.getFirstname();

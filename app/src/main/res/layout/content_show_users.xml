@@ -12,7 +12,8 @@
         android:id="@+id/table_data_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:tableView_columnCount="6"/>
+        android:layout_margin="5dp"
+        app:tableView_columnCount="6" />
 </LinearLayout>
 
 
