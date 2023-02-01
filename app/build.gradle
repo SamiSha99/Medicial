@@ -36,6 +36,8 @@ android {
 }
 
 dependencies {
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+    implementation 'de.codecrafters.tableview:tableview:2.8.0'
     implementation 'com.google.android.gms:play-services-vision:19.0.0'
     implementation 'com.theartofdev.edmodo:android-image-cropper:2.8.+'
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.19'

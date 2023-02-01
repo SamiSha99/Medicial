@@ -31,8 +31,7 @@
         <activity
             android:name=".admin.ShowUsersActivity"
             android:exported="false"
-            android:parentActivityName=".admin.AdminActivity"
-            android:screenOrientation="portrait">
+            android:parentActivityName=".admin.AdminActivity">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="android.support.PARENT_ACTIVITY" />

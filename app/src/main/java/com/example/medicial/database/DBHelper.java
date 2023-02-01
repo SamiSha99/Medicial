@@ -44,6 +44,7 @@ public class DBHelper extends SQLiteOpenHelper {
         // Create tables again
         onCreate(sqLiteDatabase);
     }
+
     public void createAdmins(SQLiteDatabase db) {
         insertAdminData("admin", "secret", "user", "123456", "NotYourBusiness@Medicial.com", db);
     }
@@ -59,7 +60,7 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put("email", email);
 
         long newRow = sqLiteDatabase.insert("User", null, values);
-        if(newRow == -1) {
+        if (newRow == -1) {
             sqLiteDatabase.close();
             return false;
         }
@@ -122,6 +123,29 @@ public class DBHelper extends SQLiteOpenHelper {
         String[] args = new String[]{String.valueOf(activeUserID)};
 
         Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM User WHERE id = ?", args);
+
+        if (cursor.getCount() != 0) {
+            while (cursor.moveToNext()) {
+                int id = cursor.getInt(0);
+                String userName = cursor.getString(1);
+                String firstName = cursor.getString(2);
+                String lastName = cursor.getString(3);
+                String email = cursor.getString(4);
+                String password = cursor.getString(5);
+
+                User user = new User(id, userName, firstName, lastName, password, email);
+                arrayList.add(user);
+            }
+        }
+        cursor.close();
+        return arrayList;
+    }
+
+    public ArrayList<User> getAllUserData() {
+        ArrayList<User> arrayList = new ArrayList<>();
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM User ", null);
 
         if (cursor.getCount() != 0) {
             while (cursor.moveToNext()) {
