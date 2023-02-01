@@ -9,6 +9,34 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".admin.DeleteUserActivity">
 
+    <EditText
+        android:id="@+id/edt_del_byId"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="20dp"
+        android:autofillHints="name"
+        android:background="@drawable/custom_button_shape"
+        android:drawableStart="@drawable/ic_outline_user"
+        android:drawablePadding="8dp"
+        android:hint="@string/user_id"
+        android:inputType="number"
+        android:padding="8dp"
+        android:textColor="@color/accent"
+        android:textColorHint="@color/gray"
+        tools:ignore="TextContrastCheck,VisualLintTextFieldSize" />
+
+    <Button
+        android:id="@+id/btn_delete_user"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="15dp"
+        android:backgroundTint="@color/accent"
+        android:text="@string/app_bar_delete_u_title"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:cornerRadius="20dp"
+        tools:ignore="TextContrastCheck,VisualLintButtonSize" />
+
 </LinearLayout>
 
 
