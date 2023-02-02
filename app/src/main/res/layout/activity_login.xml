@@ -151,14 +151,5 @@
             android:textSize="14sp"
             tools:ignore="TextContrastCheck" />
 
-        <TextView
-            android:id="@+id/txtv_admin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="test admin"
-            android:textColor="@color/accent"
-            android:textSize="14sp"
-            tools:ignore="TextContrastCheck" />
-
     </LinearLayout>
 </RelativeLayout>

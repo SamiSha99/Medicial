@@ -70,6 +70,13 @@ public class UpdateUserActivity extends AppCompatActivity {
                 id.setError("wrong id");
             } else {
                 dbHelper.updateUser(_Id, _Username, _Firstname, _Lastname, _Password, _Email);
+                id.setText("");
+                username.setText("");
+                firstName.setText("");
+                lastName.setText("");
+                email.setText("");
+                password.setText("");
+                re_password.setText("");
                 Toast.makeText(UpdateUserActivity.this, "Update Successfully", Toast.LENGTH_SHORT).show();
             }
         }
