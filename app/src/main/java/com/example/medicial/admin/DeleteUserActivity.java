@@ -40,6 +40,7 @@ public class DeleteUserActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeAsUpIndicator(ContextCompat.getDrawable(this, R.drawable.ic_baseline_arrow_back));
         }
+
         delete_user = findViewById(R.id.edt_del_byId);
         _Delete = findViewById(R.id.btn_delete_user);
     }

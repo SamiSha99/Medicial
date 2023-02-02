@@ -32,7 +32,7 @@
         android:layout_centerHorizontal="true"
         android:layout_margin="38dp"
         android:layout_marginTop="10dp"
-        android:background="@drawable/img_userprofile"
+        android:background="@drawable/img_user"
         android:contentDescription="@string/imgv_description"
         android:elevation="2dp" />
 

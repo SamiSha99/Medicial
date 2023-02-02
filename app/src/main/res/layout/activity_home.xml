@@ -5,6 +5,7 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:elevation="10dp"
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
 
@@ -23,31 +24,4 @@
         app:itemIconTint="@color/accent"
         app:menu="@menu/main_menu" />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <ImageView
-            android:id="@+id/imageView_list"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_margin="50dp"
-            android:alpha="0.4"
-            android:contentDescription="@string/imgv_description"
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/img_list" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="65dp"
-            android:layout_marginRight="10dp"
-            android:nestedScrollingEnabled="true"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-
-    </RelativeLayout>
 </androidx.drawerlayout.widget.DrawerLayout>
