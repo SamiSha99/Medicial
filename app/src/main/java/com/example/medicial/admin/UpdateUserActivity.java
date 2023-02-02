@@ -54,7 +54,10 @@ public class UpdateUserActivity extends AppCompatActivity {
 
     private void UpdateUser() {
         String _Str_Id = id.getText().toString();
-        int _Id = Integer.parseInt(_Str_Id);
+        int _Id = 0;
+        if (!_Str_Id.isEmpty()) {
+            _Id = Integer.parseInt(_Str_Id);
+        }
         String _Username = username.getText().toString();
         String _Firstname = firstName.getText().toString();
         String _Lastname = lastName.getText().toString();
