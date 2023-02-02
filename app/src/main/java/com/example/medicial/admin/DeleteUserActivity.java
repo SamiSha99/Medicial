@@ -26,7 +26,7 @@ public class DeleteUserActivity extends AppCompatActivity {
         setContentView(R.layout.activity_delete_user);
 
         init();
-        DeleteUser();
+        _Delete.setOnClickListener(v -> DeleteUser());
     }
 
     private void init() {
@@ -45,12 +45,32 @@ public class DeleteUserActivity extends AppCompatActivity {
     }
 
     private void DeleteUser() {
-        _Delete.setOnClickListener(v -> {
-            int _Id = Integer.parseInt(delete_user.getText().toString());
-            dbHelper.deleteUser(_Id);
-            delete_user.setText("");
-            Toast.makeText(DeleteUserActivity.this, "User Deleted", Toast.LENGTH_SHORT).show();
-        });
+        String _Str_Id = delete_user.getText().toString();
+        int _Id = Integer.parseInt(_Str_Id);
+        boolean check = validateInfo(_Str_Id);
+
+        if (check) {
+            boolean delete = dbHelper.deleteUser(_Id);
+            if (!delete) {
+                delete_user.requestFocus();
+                delete_user.setError("Wrong Id");
+
+            } else {
+                dbHelper.deleteUser(_Id);
+                delete_user.setText("");
+                Toast.makeText(DeleteUserActivity.this, "User Deleted", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private boolean validateInfo(String _Str_Id) {
+        if (_Str_Id.length() == 0) {
+            delete_user.requestFocus();
+            delete_user.setError(getResources().getString(R.string.empty));
+            return false;
+        } else {
+            return true;
+        }
     }
 
     @Override

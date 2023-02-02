@@ -9,18 +9,26 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".admin.UpdateUserActivity">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="5dp"
+        android:text="Enter id of user to update it"
+        android:textSize="15sp"
+        android:textStyle="bold"/>
+
     <EditText
         android:id="@+id/edt_up_userId"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
         android:autofillHints="username"
         android:background="@drawable/custom_button_shape"
         android:drawableStart="@drawable/ic_outline_user"
         android:drawablePadding="8dp"
         android:hint="@string/user_id"
-        android:inputType="text"
+        android:inputType="number"
         android:padding="8dp"
         android:textColor="@color/accent"
         android:textColorHint="@color/gray"

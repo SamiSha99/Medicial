@@ -274,9 +274,55 @@ public class DBHelper extends SQLiteOpenHelper {
         return passwordResetSuccess;
     }
 
-    public void deleteUser(int id) {
+    public boolean checkUserId(int id) {
+        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM User WHERE id = ?", new String[]{String.valueOf(id)});
+        if (cursor != null && cursor.getCount() > 0) {
+            cursor.close();
+            return true;
+        }
+        return false;
+    }
+
+    public boolean deleteUser(int id) {
         SQLiteDatabase sql = getWritableDatabase();
-        sql.delete("User", "id = ?", new String[]{String.valueOf(id)});
-        sql.close();
+        boolean chkID = false;
+        try {
+            if (checkUserId(id)) {
+                sql.delete("User", "id = ?", new String[]{String.valueOf(id)});
+                sql.close();
+                chkID = true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            sql.close();
+        }
+        return chkID;
+    }
+
+
+    public boolean updateUser(int id, String userName, String firstName, String lastName, String password, String email) {
+        SQLiteDatabase sql = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        boolean chkID = false;
+        try {
+            if (checkUserId(id)) {
+                values.put("userName", userName);
+                values.put("firstName", firstName);
+                values.put("lastName", lastName);
+                values.put("password", password);
+                values.put("email", email);
+
+                sql.update("User", values, "id = ?", new String[]{String.valueOf(id)});
+                sql.close();
+                chkID = true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            sql.close();
+        }
+        return chkID;
     }
 }
