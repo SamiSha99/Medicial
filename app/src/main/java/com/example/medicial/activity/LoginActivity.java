@@ -77,7 +77,7 @@ public class LoginActivity extends AppCompatActivity {
                     editor.apply();
                 }
                 passUserName();
-                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                Intent intent = new Intent(LoginActivity.this, DBHelper.isAdmin ? AdminActivity.class : HomeActivity.class);
                 startActivity(intent);
                 finish();
             }
