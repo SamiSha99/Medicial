@@ -31,12 +31,12 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void init() {
         // {Hook Id}
-        username = findViewById(R.id.edt_reg_userName);
-        firstName = findViewById(R.id.edt_reg_firstName);
-        lastName = findViewById(R.id.edt_reg_lastName);
-        email = findViewById(R.id.edt_reg_email);
-        password = findViewById(R.id.edt_reg_password);
-        re_password = findViewById(R.id.edt_reg_re_password);
+        username = findViewById(R.id.edt_cre_userName);
+        firstName = findViewById(R.id.edt_cre_firstName);
+        lastName = findViewById(R.id.edt_cre_lastName);
+        email = findViewById(R.id.edt_cre_email);
+        password = findViewById(R.id.edt_cre_password);
+        re_password = findViewById(R.id.edt_cre_re_password);
         register = findViewById(R.id.btn_signUp);
 
         // {Dialog}

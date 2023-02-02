@@ -1,14 +1,18 @@
 package com.example.medicial.activity;
 
 import android.annotation.SuppressLint;
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -21,9 +25,11 @@ import com.example.medicial.database.DBHelper;
 import com.example.medicial.model.Data;
 import com.example.medicial.R;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 public class ScheduleActivity extends AppCompatActivity {
@@ -91,13 +97,13 @@ public class ScheduleActivity extends AppCompatActivity {
 
         } else {
             int newMedicineID = dbHelper.insertMedicineData(receive_medName, amountInt, receive_medDesc, receive_medImage);
-            setAlarm();
             if (newMedicineID != -1) {
                 dbHelper.insertDateTime(newMedicineID, _Time, _Date);
             }
-            Intent intent = new Intent(ScheduleActivity.this, HomeActivity.class);
-            startActivity(intent);
-            finish();
+            setAlarm();
+//            Intent intent = new Intent(ScheduleActivity.this, HomeActivity.class);
+//            startActivity(intent);
+//            finish();
         }
     }
 
@@ -145,26 +151,30 @@ public class ScheduleActivity extends AppCompatActivity {
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
         SimpleDateFormat tf = new SimpleDateFormat("HH:mm");
+
 //        Date d, t;
 //        for (int i = 0; i < _Data.size(); i++) {
 //            Data data = _Data.get(i);
 //            try {
 //                d = df.parse(data.get_Date());
 //                t = tf.parse(data.get_Time());
-//                _Repeat.setText(d + " " + t);
 //            } catch (ParseException e) {
 //                throw new RuntimeException(e);
 //            }
-//            calendar.setTime(d);
+//            calendar.setTimeInMillis(System.currentTimeMillis());
 //            calendar.set(Calendar.HOUR_OF_DAY, t.getHours());
 //            calendar.set(Calendar.MINUTE, t.getMinutes());
 //            calendar.set(Calendar.SECOND, 0);
+//            calendar.set(Calendar.DAY_OF_MONTH, d.getDate());
+//            calendar.set(Calendar.MONTH, d.getMonth());
+//            calendar.set(Calendar.YEAR, d.getYear());
+//
 //            Intent intent = new Intent(this, AlarmReceiver.class);
-//            PendingIntent pendingIntent = PendingIntent.getBroadcast(this, i, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+//            PendingIntent pendingIntent = PendingIntent.getBroadcast(this, i, intent, 0);
 //            AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 //            alarmManager.setAlarmClock(new AlarmManager.AlarmClockInfo(calendar.getTimeInMillis(), pendingIntent), pendingIntent);
 //        }
-//        Toast.makeText(ScheduleActivity.this, "Reminder set!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(ScheduleActivity.this, "Reminder set!", Toast.LENGTH_SHORT).show();
     }
 
     @Override

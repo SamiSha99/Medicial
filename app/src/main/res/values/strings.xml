@@ -63,6 +63,7 @@
     <string name="hint_repass">retype password</string>
     <string name="btn_reset">Reset password</string>
     <string name="user_id">user id</string>
+    <string name="create_failed">Failed to create a new user</string>
     <!-- item card -->
     <string name="med_id">0</string>
     <string name="med_day">18</string>
