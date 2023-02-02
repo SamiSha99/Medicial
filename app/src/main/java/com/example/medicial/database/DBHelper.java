@@ -273,4 +273,10 @@ public class DBHelper extends SQLiteOpenHelper {
         }
         return passwordResetSuccess;
     }
+
+    public void deleteUser(int id) {
+        SQLiteDatabase sql = getWritableDatabase();
+        sql.delete("User", "id = ?", new String[]{String.valueOf(id)});
+        sql.close();
+    }
 }
