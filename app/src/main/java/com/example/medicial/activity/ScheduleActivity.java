@@ -101,9 +101,9 @@ public class ScheduleActivity extends AppCompatActivity {
                 dbHelper.insertDateTime(newMedicineID, _Time, _Date);
             }
             setAlarm();
-//            Intent intent = new Intent(ScheduleActivity.this, HomeActivity.class);
-//            startActivity(intent);
-//            finish();
+            Intent intent = new Intent(ScheduleActivity.this, HomeActivity.class);
+            startActivity(intent);
+            finish();
         }
     }
 

@@ -22,7 +22,7 @@ public class LoginActivity extends AppCompatActivity {
     DBHelper dbHelper = new DBHelper(this);
     Button login;
     EditText username, password;
-    TextView txtv_invalid, register_now, forget_pass, admin;
+    TextView txtv_invalid, register_now, forget_pass;
     CheckBox checkBox;
 
     @Override
@@ -35,7 +35,6 @@ public class LoginActivity extends AppCompatActivity {
         rememberMe();
         forgetPass();
         login.setOnClickListener(view -> Login());
-        LogAdmin();
     }
 
     private void init() {
@@ -46,7 +45,6 @@ public class LoginActivity extends AppCompatActivity {
         login = findViewById(R.id.btn_login);
         forget_pass = findViewById(R.id.txtv_forgetPass);
         register_now = findViewById(R.id.txtv_register_now);
-        admin = findViewById(R.id.txtv_admin);
 
         // {Remember me}
         checkBox = findViewById(R.id.checkBox);
@@ -94,13 +92,6 @@ public class LoginActivity extends AppCompatActivity {
     private void RegisterNow() {
         register_now.setOnClickListener(view -> {
             Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
-            startActivity(intent);
-        });
-    }
-
-    private void LogAdmin() {
-        admin.setOnClickListener(view -> {
-            Intent intent = new Intent(getApplicationContext(), AdminActivity.class);
             startActivity(intent);
         });
     }

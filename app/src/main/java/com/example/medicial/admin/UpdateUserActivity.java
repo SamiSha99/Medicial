@@ -54,7 +54,10 @@ public class UpdateUserActivity extends AppCompatActivity {
 
     private void UpdateUser() {
         String _Str_Id = id.getText().toString();
-        int _Id = Integer.parseInt(_Str_Id);
+        int _Id = 0;
+        if (!_Str_Id.isEmpty()) {
+            _Id = Integer.parseInt(_Str_Id);
+        }
         String _Username = username.getText().toString();
         String _Firstname = firstName.getText().toString();
         String _Lastname = lastName.getText().toString();
@@ -70,6 +73,13 @@ public class UpdateUserActivity extends AppCompatActivity {
                 id.setError("wrong id");
             } else {
                 dbHelper.updateUser(_Id, _Username, _Firstname, _Lastname, _Password, _Email);
+                id.setText("");
+                username.setText("");
+                firstName.setText("");
+                lastName.setText("");
+                email.setText("");
+                password.setText("");
+                re_password.setText("");
                 Toast.makeText(UpdateUserActivity.this, "Update Successfully", Toast.LENGTH_SHORT).show();
             }
         }

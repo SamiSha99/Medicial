@@ -47,7 +47,10 @@ public class DeleteUserActivity extends AppCompatActivity {
 
     private void DeleteUser() {
         String _Str_Id = delete_user.getText().toString();
-        int _Id = Integer.parseInt(_Str_Id);
+        int _Id = 0;
+        if (!_Str_Id.isEmpty()) {
+            _Id = Integer.parseInt(_Str_Id);
+        }
         boolean check = validateInfo(_Str_Id);
 
         if (check) {

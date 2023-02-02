@@ -64,6 +64,7 @@
     <string name="btn_reset">Reset password</string>
     <string name="user_id">user id</string>
     <string name="create_failed">Failed to create a new user</string>
+    <string name="txtv_update">Enter the user ID you want to update</string>
     <!-- item card -->
     <string name="med_id">0</string>
     <string name="med_day">18</string>
@@ -100,7 +101,7 @@
     <string name="delete">delete user</string>
     <string name="show">show users</string>
     <string name="update">update user</string>
-    <string name="show_data">show users data</string>
+    <string name="show_data">show\ndata</string>
 
 
 </resources>
