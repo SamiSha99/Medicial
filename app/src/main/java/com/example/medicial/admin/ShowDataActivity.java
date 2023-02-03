@@ -86,7 +86,7 @@ public class ShowDataActivity extends AppCompatActivity {
         });
 
         dbHelper = new DBHelper(this);
-        arraylist = dbHelper.getReminderData();
+        arraylist = dbHelper.showData();
         String[][] reminderData = new String[arraylist.size()][6];
 
         for (int i = 0; i < arraylist.size(); i++) {

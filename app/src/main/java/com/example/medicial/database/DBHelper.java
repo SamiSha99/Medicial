@@ -224,6 +224,31 @@ public class DBHelper extends SQLiteOpenHelper {
         return arrayList;
     }
 
+    // For show data in admin {ShowDataActivity}
+    public ArrayList<Data> showData() {
+        ArrayList<Data> arrayList = new ArrayList<>();
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT m.id, m.medName, m.amount, m.description, m.image, a.time, a.date FROM Medicine m JOIN Alert a ON m.id = a.medId", null);
+
+        if (cursor.getCount() != 0) {
+            while (cursor.moveToNext()) {
+                int mId = cursor.getInt(0);
+                String medName = cursor.getString(1);
+                int amount = cursor.getInt(2);
+                String description = cursor.getString(3);
+                String image = cursor.getString(4);
+                String time = cursor.getString(5);
+                String date = cursor.getString(6);
+
+                Data data = new Data(mId, medName, amount, description, image, time, date);
+                arrayList.add(data);
+            }
+        }
+        cursor.close();
+        return arrayList;
+    }
+
     public void removeMedicineData(int medicineID) {
         // Clean up alerts first
         removeAlertData(medicineID);
