@@ -25,6 +25,7 @@ import com.example.medicial.database.DBHelper;
 import com.example.medicial.model.Data;
 import com.example.medicial.R;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -148,32 +149,36 @@ public class ScheduleActivity extends AppCompatActivity {
 
     public void setAlarm() {
         ArrayList<Data> _Data = dbHelper.getReminderData();
-        Calendar calendar = Calendar.getInstance();
+        Calendar calendar = Calendar.getInstance(), calendarDate = Calendar.getInstance();
         SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
         SimpleDateFormat tf = new SimpleDateFormat("HH:mm");
-
-//        Date d, t;
-//        for (int i = 0; i < _Data.size(); i++) {
-//            Data data = _Data.get(i);
-//            try {
-//                d = df.parse(data.get_Date());
-//                t = tf.parse(data.get_Time());
-//            } catch (ParseException e) {
-//                throw new RuntimeException(e);
-//            }
-//            calendar.setTimeInMillis(System.currentTimeMillis());
-//            calendar.set(Calendar.HOUR_OF_DAY, t.getHours());
-//            calendar.set(Calendar.MINUTE, t.getMinutes());
-//            calendar.set(Calendar.SECOND, 0);
-//            calendar.set(Calendar.DAY_OF_MONTH, d.getDate());
-//            calendar.set(Calendar.MONTH, d.getMonth());
-//            calendar.set(Calendar.YEAR, d.getYear());
-//
-//            Intent intent = new Intent(this, AlarmReceiver.class);
-//            PendingIntent pendingIntent = PendingIntent.getBroadcast(this, i, intent, 0);
-//            AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-//            alarmManager.setAlarmClock(new AlarmManager.AlarmClockInfo(calendar.getTimeInMillis(), pendingIntent), pendingIntent);
-//        }
+        Date date, t;
+        for (int i = 0; i < _Data.size(); i++) {
+            Data data = _Data.get(i);
+            try {
+                date = df.parse(data.get_Date());
+                t = tf.parse(data.get_Time());
+                if(t != null) {
+                    calendarDate.setTime(t);
+                    calendar.setTimeInMillis(System.currentTimeMillis());
+                    calendar.set(Calendar.HOUR_OF_DAY, calendarDate.get(Calendar.HOUR_OF_DAY));
+                    calendar.set(Calendar.MINUTE, calendarDate.get(Calendar.MINUTE));
+                    calendar.set(Calendar.SECOND, 0);
+                }
+                if(date != null) {
+                    calendarDate.setTime(date);
+                    calendar.set(Calendar.DAY_OF_MONTH, calendarDate.get(Calendar.DAY_OF_MONTH));
+                    calendar.set(Calendar.MONTH, calendarDate.get(Calendar.MONTH));
+                    calendar.set(Calendar.YEAR, calendarDate.get(Calendar.YEAR));
+                }
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
+            Intent intent = new Intent(this, AlarmReceiver.class);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(this, i, intent, PendingIntent.FLAG_MUTABLE);
+            AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+            alarmManager.setAlarmClock(new AlarmManager.AlarmClockInfo(calendar.getTimeInMillis(), pendingIntent), pendingIntent);
+        }
         Toast.makeText(ScheduleActivity.this, "Reminder set!", Toast.LENGTH_SHORT).show();
     }
 
