@@ -7,6 +7,7 @@ import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.ReceiverCallNotAllowedException;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -32,6 +33,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 
 public class ScheduleActivity extends AppCompatActivity {
     Toolbar toolbar;
@@ -101,7 +103,8 @@ public class ScheduleActivity extends AppCompatActivity {
             if (newMedicineID != -1) {
                 dbHelper.insertDateTime(newMedicineID, _Time, _Date);
             }
-            setAlarm();
+            //setAlarm();
+            setAlarm2(_Date, _Time);
             Intent intent = new Intent(ScheduleActivity.this, HomeActivity.class);
             startActivity(intent);
             finish();
@@ -149,24 +152,33 @@ public class ScheduleActivity extends AppCompatActivity {
 
     public void setAlarm() {
         ArrayList<Data> _Data = dbHelper.getReminderData();
-        Calendar calendar = Calendar.getInstance(), calendarDate = Calendar.getInstance();
+        Calendar calendar = Calendar.getInstance();
+        Calendar calendarDate = Calendar.getInstance();
+        Calendar now = Calendar.getInstance();
+
         SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
         SimpleDateFormat tf = new SimpleDateFormat("HH:mm");
-        Date date, t;
+        Date date, time;
         for (int i = 0; i < _Data.size(); i++) {
             Data data = _Data.get(i);
             try {
                 date = df.parse(data.get_Date());
-                t = tf.parse(data.get_Time());
-                if(t != null) {
-                    calendarDate.setTime(t);
+                time = tf.parse(data.get_Time());
+                // Apply the specified time
+                if(time != null) {
+                    calendarDate.setTime(time);
                     calendar.setTimeInMillis(System.currentTimeMillis());
                     calendar.set(Calendar.HOUR_OF_DAY, calendarDate.get(Calendar.HOUR_OF_DAY));
                     calendar.set(Calendar.MINUTE, calendarDate.get(Calendar.MINUTE));
                     calendar.set(Calendar.SECOND, 0);
+                    // Date + Specified Hour
+                    now.set(Calendar.HOUR_OF_DAY, calendarDate.get(Calendar.HOUR_OF_DAY));
+                    now.set(Calendar.MINUTE, calendarDate.get(Calendar.MINUTE));
+                    now.set(Calendar.SECOND, 0);
                 }
+                // Apply as today
                 if(date != null) {
-                    calendarDate.setTime(date);
+                    calendarDate.setTime(now.getTime());
                     calendar.set(Calendar.DAY_OF_MONTH, calendarDate.get(Calendar.DAY_OF_MONTH));
                     calendar.set(Calendar.MONTH, calendarDate.get(Calendar.MONTH));
                     calendar.set(Calendar.YEAR, calendarDate.get(Calendar.YEAR));
@@ -175,10 +187,69 @@ public class ScheduleActivity extends AppCompatActivity {
                 throw new RuntimeException(e);
             }
             Intent intent = new Intent(this, AlarmReceiver.class);
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(this, i, intent, PendingIntent.FLAG_MUTABLE);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_MUTABLE);
             AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+            // Repeat the alarm on weekly (day * 7)
+            // Repeat every 2 days? (day * 2)
+            //alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY * 7, pendingIntent);
             alarmManager.setAlarmClock(new AlarmManager.AlarmClockInfo(calendar.getTimeInMillis(), pendingIntent), pendingIntent);
         }
+        Toast.makeText(ScheduleActivity.this, "Reminder set!", Toast.LENGTH_SHORT).show();
+    }
+
+    // Redone again for clarity
+    // Note: Andriod will always clump up alarms that are "close" to each other or activate alarms that will eventually happen earlier
+    // This is a design to help with performance and saving battery
+    public void setAlarm2(String date, String time) {
+        Calendar currentDate = Calendar.getInstance(TimeZone.getDefault());
+        Calendar alarmTime = Calendar.getInstance(TimeZone.getDefault());
+        Date dDate, dTime;
+        // Parse dates
+        try {
+            dDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).parse(date);
+            dTime = new SimpleDateFormat("HH:mm", Locale.getDefault()).parse(time);
+        }
+        catch (ParseException e) { throw new RuntimeException(e); }
+        Calendar calendarDate = Calendar.getInstance(TimeZone.getDefault());
+        Calendar calendarTime = Calendar.getInstance(TimeZone.getDefault());
+        calendarDate.setTime(dDate);
+        calendarTime.setTime(dTime);
+        // Adjust to specified alarm time ("date" already specified via "Calendar.getInstance();")
+        currentDate.set(Calendar.HOUR_OF_DAY, calendarTime.get(Calendar.HOUR_OF_DAY));
+        currentDate.set(Calendar.MINUTE, calendarTime.get(Calendar.MINUTE));
+        currentDate.set(Calendar.SECOND, 0);
+        currentDate.set(Calendar.MILLISECOND, 0);
+
+        // Set up Alarm Date
+        alarmTime.setTimeZone(TimeZone.getDefault());
+        alarmTime.set(calendarDate.get(Calendar.YEAR), calendarDate.get(Calendar.MONTH), calendarDate.get(Calendar.DAY_OF_MONTH));
+        alarmTime.set(Calendar.HOUR_OF_DAY, calendarTime.get(Calendar.HOUR_OF_DAY));
+        alarmTime.set(Calendar.MINUTE, calendarTime.get(Calendar.MINUTE));
+        alarmTime.set(Calendar.SECOND, 0);
+        alarmTime.set(Calendar.MILLISECOND, 0);
+        // If its in the past, adjust to the future
+        // Push it to next day
+        if(currentDate.getTimeInMillis() > alarmTime.getTimeInMillis()) {
+            alarmTime.set(Calendar.DATE, currentDate.get(Calendar.DATE));
+            alarmTime.add(Calendar.DATE, 1);
+        }
+        System.out.println("Alarm Set @ => " + alarmTime.getTime());
+        System.out.println("CurrentDate Set @ => " + currentDate.getTime());
+        // Compare if alarm is in the past
+        //if(alarmTime.getTimeInMillis() < currentDate.getTimeInMillis()
+        // Set up Alarm Time
+        Intent intent = new Intent(this, AlarmReceiver.class);
+        // requestCode should be unique, so it will be based on size (from 1 to infinity)
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this,  0, intent, PendingIntent.FLAG_MUTABLE);
+
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        //alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, alarmTime.getTimeInMillis(), 1000 * 5, pendingIntent);
+        AlarmManager.AlarmClockInfo aci = new AlarmManager.AlarmClockInfo(alarmTime.getTimeInMillis(), pendingIntent);
+        alarmManager.setAlarmClock(aci, pendingIntent);
+        Date d = new Date(alarmManager.getNextAlarmClock().getTriggerTime());
+        Calendar a = Calendar.getInstance();
+        a.setTime(d);
+        System.out.println("Next Trigger Date => " + a.getTime());
         Toast.makeText(ScheduleActivity.this, "Reminder set!", Toast.LENGTH_SHORT).show();
     }
 
