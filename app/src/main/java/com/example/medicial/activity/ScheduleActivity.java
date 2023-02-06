@@ -8,6 +8,8 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Debug;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageButton;
@@ -161,15 +163,21 @@ public class ScheduleActivity extends AppCompatActivity {
                 if(t != null) {
                     calendarDate.setTime(t);
                     calendar.setTimeInMillis(System.currentTimeMillis());
-                    calendar.set(Calendar.HOUR_OF_DAY, calendarDate.get(Calendar.HOUR_OF_DAY));
+                    // Calendar.HOUR = 24 Hour system
+                    // HOUR_OF_DAY 12 Hour system, this lacks AM/PM, currently lacks such respect so its always 0 - 12 and will be delayed by 12 hours, depending on system calendar
+                    // needs a fix to support such system!!!
+                    calendar.set(Calendar.HOUR, calendarDate.get(Calendar.HOUR));
                     calendar.set(Calendar.MINUTE, calendarDate.get(Calendar.MINUTE));
                     calendar.set(Calendar.SECOND, 0);
+                    calendar.set(Calendar.MILLISECOND, 0);
                 }
+                // I've tested this without date thinking it might be problematic, by default, will take TODAY
+                // until this commented out
                 if(date != null) {
                     calendarDate.setTime(date);
-                    calendar.set(Calendar.DAY_OF_MONTH, calendarDate.get(Calendar.DAY_OF_MONTH));
-                    calendar.set(Calendar.MONTH, calendarDate.get(Calendar.MONTH));
-                    calendar.set(Calendar.YEAR, calendarDate.get(Calendar.YEAR));
+                    //calendar.set(Calendar.DAY_OF_MONTH, calendarDate.get(Calendar.DAY_OF_MONTH));
+                    //calendar.set(Calendar.MONTH, calendarDate.get(Calendar.MONTH));
+                    //calendar.set(Calendar.YEAR, calendarDate.get(Calendar.YEAR));
                 }
             } catch (ParseException e) {
                 throw new RuntimeException(e);
@@ -177,7 +185,10 @@ public class ScheduleActivity extends AppCompatActivity {
             Intent intent = new Intent(this, AlarmReceiver.class);
             PendingIntent pendingIntent = PendingIntent.getBroadcast(this, i, intent, PendingIntent.FLAG_MUTABLE);
             AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-            alarmManager.setAlarmClock(new AlarmManager.AlarmClockInfo(calendar.getTimeInMillis(), pendingIntent), pendingIntent);
+            System.out.println("Calendar time set @ => " + calendar.getTime() + "| Current time of system:" + Calendar.getInstance().getTime());
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+
+            //alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
         }
         Toast.makeText(ScheduleActivity.this, "Reminder set!", Toast.LENGTH_SHORT).show();
     }
