@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -19,10 +20,15 @@ import com.example.medicial.R;
 public class AlarmReceiver extends BroadcastReceiver {
     private static final String CHANNEL_ID = "channel_id_1"; // {Every channel need unique id}
     public static final String Title = "Take your medicine";
-    public static final String Message = "Hello, its time to take your medicine ";
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        // receiving the data sent from ScheduleActivity
+        Bundle bundle = intent.getExtras();
+        String _Med_Name = bundle.getString("key_medName");
+        String _User_Name = bundle.getString("key_userName");
+        String Message = "Hello " + _User_Name + ", its time to take your medicine " + _Med_Name;
+
         Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_baseline_notification)
