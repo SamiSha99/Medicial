@@ -150,6 +150,7 @@ public class ScheduleActivity extends AppCompatActivity {
     public void setAlarm() {
         ArrayList<Data> _Data = dbHelper.getReminderData();
         ArrayList<User> _User = dbHelper.getUserData();
+
         // to get user name and pass it.
         User user = null;
         for (int j = 0; j < _User.size(); j++) {
@@ -157,14 +158,20 @@ public class ScheduleActivity extends AppCompatActivity {
         }
 
         Calendar calendar = Calendar.getInstance(), calendarDate = Calendar.getInstance();
-        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+//        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
         SimpleDateFormat tf = new SimpleDateFormat("HH:mm");
-        Date date, time;
+        Date time;
+        String date;
+        int requestCode = 0;
         for (int i = 0; i < _Data.size(); i++) {
             Data data = _Data.get(i);
+            requestCode = _Data.get(i).get_Med_Id();
+
             try {
-                date = df.parse(data.get_Date());
+//                date = df.parse(data.get_Date());
+                date = data.get_Date();
                 time = tf.parse(data.get_Time());
+
                 if (time != null) {
                     calendarDate.setTime(time);
                     calendar.setTimeInMillis(System.currentTimeMillis());
@@ -179,29 +186,34 @@ public class ScheduleActivity extends AppCompatActivity {
                 // I've tested this without date thinking it might be problematic, by default, will take TODAY
                 // until this commented out
                 if (date != null) {
-                    calendarDate.setTime(date);
-                    //calendar.set(Calendar.DAY_OF_MONTH, calendarDate.get(Calendar.DAY_OF_MONTH));
-                    //calendar.set(Calendar.MONTH, calendarDate.get(Calendar.MONTH));
-                    //calendar.set(Calendar.YEAR, calendarDate.get(Calendar.YEAR));
+                    String[] dateArray = date.split("-");
+                    calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(dateArray[0]));
+                    calendar.set(Calendar.MONTH, Integer.parseInt(dateArray[1]) - 1); // month Jan is represented by the value "0", month Feb --> 1 { dateArray[1] = 2 - 1 }
+                    calendar.set(Calendar.YEAR, Integer.parseInt(dateArray[2]));
+
+//                    calendarDate.setTime(date);
+//                    calendar.set(Calendar.DAY_OF_MONTH, calendarDate.get(Calendar.DAY_OF_MONTH));
+//                    calendar.set(Calendar.MONTH, calendarDate.get(Calendar.MONTH));
+//                    calendar.set(Calendar.YEAR, calendarDate.get(Calendar.YEAR));
                 }
             } catch (ParseException e) {
                 throw new RuntimeException(e);
             }
-            // to get medicine name and pass it.
-            Bundle bundle = getIntent().getExtras();
-            String receive_medName = bundle.getString("key_medName");
-
-            Intent intent = new Intent(this, AlarmReceiver.class);
-            intent.putExtra("key_medName", receive_medName);
-            intent.putExtra("key_userName", user.getUsername());
-
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_MUTABLE);
-            AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-            System.out.println("Calendar time set @ => " + calendar.getTime() + "| Current time of system:" + Calendar.getInstance().getTime());
-            alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-
-            //alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
         }
+        // to get medicine name and pass it.
+        Bundle bundle = getIntent().getExtras();
+        String receive_medName = bundle.getString("key_medName");
+
+        Intent intent = new Intent(this, AlarmReceiver.class);
+        intent.putExtra("key_medName", receive_medName);
+        if (user != null) {
+            intent.putExtra("key_userName", user.getUsername());
+        }
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, requestCode, intent, PendingIntent.FLAG_MUTABLE);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+//        System.out.println("Calendar time set @ => " + calendar.getTime() + "| Current time of system:" + Calendar.getInstance().getTime());
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
         Toast.makeText(ScheduleActivity.this, "Reminder set!", Toast.LENGTH_SHORT).show();
     }
 
