@@ -89,7 +89,7 @@
                 android:value="android.support.PARENT_ACTIVITY" />
         </activity>
         <activity
-            android:name=".database.UpdateActivity"
+            android:name=".database.UpdateDataActivity"
             android:exported="false"
             android:parentActivityName=".activity.HomeActivity"
             android:screenOrientation="portrait">
@@ -101,15 +101,6 @@
             android:name=".activity.ScheduleActivity"
             android:exported="false"
             android:parentActivityName=".activity.ImageActivity"
-            android:screenOrientation="portrait">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="android.support.PARENT_ACTIVITY" />
-        </activity>
-        <activity
-            android:name=".navigationDrawer.SettingActivity"
-            android:exported="false"
-            android:parentActivityName=".activity.HomeActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.app.lib_name"

@@ -3,6 +3,7 @@ package com.example.medicial.adapter;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
@@ -17,10 +18,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.medicial.database.DBHelper;
-import com.example.medicial.database.UpdateActivity;
-import com.example.medicial.model.Data;
 import com.example.medicial.R;
+import com.example.medicial.database.DBHelper;
+import com.example.medicial.database.UpdateDataActivity;
+import com.example.medicial.model.Data;
 
 import java.util.ArrayList;
 
@@ -137,13 +138,23 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.MyView
                     return true;
 
                 } else if (menuItem.getItemId() == R.id.action_update) {
-                    Intent intent_update = new Intent(context, UpdateActivity.class);
-                    intent_update.putExtra("med_id", String.valueOf(med_id.getText()));
-                    intent_update.putExtra("med_name", med_name.getText().toString());
-                    intent_update.putExtra("med_amount", med_amount.getText().toString());
+                    Intent intent_update = new Intent(context, UpdateDataActivity.class);
+                    SharedPreferences sharedPreferences = context.getSharedPreferences("Update", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                    String _Id = String.valueOf(med_id.getText());
+                    String _User = med_name.getText().toString();
+                    String _Amount = med_amount.getText().toString();
+                    String _Desc = med_desc.getText().toString();
+
+                    editor.putString("key_id", _Id);
+                    editor.putString("key_user", _User);
+                    editor.putString("key_amount", _Amount);
+                    editor.putString("key_desc", _Desc);
+                    editor.apply();
+
                     context.startActivity(intent_update);
                     return true;
-
                 }
                 return false;
             });

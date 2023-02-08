@@ -47,6 +47,7 @@ public class ShowUsersActivity extends AppCompatActivity {
     }
 
     private void showUsers() {
+        @SuppressWarnings("rawtypes")
         TableView tableView = findViewById(R.id.table_data_view);
         String[] headers = {"ID", "User Name", "First Name", "Last Name", "Email", "Password"};
         tableView.setHeaderAdapter(new SimpleTableHeaderAdapter(this, headers));

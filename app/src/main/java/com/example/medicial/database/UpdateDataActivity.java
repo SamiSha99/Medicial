@@ -3,7 +3,9 @@ package com.example.medicial.database;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -24,8 +26,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import com.example.medicial.activity.ImageActivity;
 import com.example.medicial.R;
+import com.example.medicial.activity.HomeActivity;
 import com.google.android.gms.vision.Frame;
 import com.google.android.gms.vision.text.TextBlock;
 import com.google.android.gms.vision.text.TextRecognizer;
@@ -34,23 +36,21 @@ import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.io.IOException;
 
-public class UpdateActivity extends AppCompatActivity {
+public class UpdateDataActivity extends AppCompatActivity {
     Toolbar toolbar;
     ActionBar actionBar;
-    EditText med_name, med_amount;
+    EditText med_name, med_amount, med_desc;
     ImageView imageViewScanner;
-    // Permissions constants
     private static final int CAMERA_REQUEST_CODE = 100;
     private static final int STORAGE_REQUEST_CODE = 101;
-    // Image pick constants
     private static final int IMAGE_PICK_CAMERA_CODE = 102;
     private static final int IMAGE_PICK_GALLERY_CODE = 103;
-    // Arrays camera permissions
-    private String[] camera_permissions; // camera and storage
-    private String[] storage_permissions; // only storage
-    // Variables (will contain data to save)
+    private String[] camera_permissions;
+    private String[] storage_permissions;
     Bitmap bitmap;
     private Uri imageUri;
+    SharedPreferences sharedPreferences;
+    DBHelper dbHelper = new DBHelper(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,10 +76,24 @@ public class UpdateActivity extends AppCompatActivity {
         // {Hook Edittext filed}
         med_name = findViewById(R.id.edt_medName);
         med_amount = findViewById(R.id.edt_amount);
+        med_desc = findViewById(R.id.edt_desc);
 
         // init permissions arrays
         camera_permissions = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
         storage_permissions = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
+        receiveData();
+    }
+
+    private void receiveData() {
+        sharedPreferences = getSharedPreferences("Update", Context.MODE_PRIVATE);
+
+        String _User = sharedPreferences.getString("key_user", "");
+        String _Amount = sharedPreferences.getString("key_amount", "");
+        String _Desc = sharedPreferences.getString("key_desc", "");
+
+        med_name.setText(_User);
+        med_amount.setText(_Amount);
+        med_desc.setText(_Desc);
     }
 
     private void setImageViewScanner() {
@@ -87,9 +101,10 @@ public class UpdateActivity extends AppCompatActivity {
         imageViewScanner.setOnClickListener(view -> imagePickDialog());
     }
 
-    private void validateAndPassData() {
+    private void Update() {
         String _MedName = med_name.getText().toString();
         String _MedAmount = med_amount.getText().toString();
+        String _MedDesc = med_desc.getText().toString();
 
         if (_MedName.length() == 0) {
             med_name.requestFocus();
@@ -99,10 +114,17 @@ public class UpdateActivity extends AppCompatActivity {
             med_amount.requestFocus();
             med_amount.setError(getResources().getString(R.string.empty));
 
+        } else if (_MedDesc.length() == 0) {
+            med_desc.requestFocus();
+            med_desc.setError(getResources().getString(R.string.empty));
+
         } else {
-            Intent intent = new Intent(this, ImageActivity.class);
-            intent.putExtra("key_medName", _MedName);
-            intent.putExtra("key_medAmount", _MedAmount);
+            String _Id = sharedPreferences.getString("key_id", "");
+            int _IntId = Integer.parseInt(_Id);
+            int _IntMedAmount = Integer.parseInt(_MedAmount);
+            dbHelper.updateMedicineData(_IntId, _MedName, _IntMedAmount, _MedDesc);
+
+            Intent intent = new Intent(UpdateDataActivity.this, HomeActivity.class);
             startActivity(intent);
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         }
@@ -147,6 +169,7 @@ public class UpdateActivity extends AppCompatActivity {
         // Intent to open camera for image
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+        //noinspection deprecation
         startActivityForResult(cameraIntent, IMAGE_PICK_CAMERA_CODE);
     }
 
@@ -154,6 +177,7 @@ public class UpdateActivity extends AppCompatActivity {
         // Intent to pick image from gallery, the image will be return onActivityResult method
         Intent galleryIntent = new Intent(Intent.ACTION_PICK);
         galleryIntent.setType("image/*"); // we want only images
+        //noinspection deprecation
         startActivityForResult(galleryIntent, IMAGE_PICK_GALLERY_CODE);
     }
 
@@ -251,7 +275,7 @@ public class UpdateActivity extends AppCompatActivity {
                     TextRecognizer recognizer = new TextRecognizer.Builder(getApplicationContext()).build();
 
                     if (!recognizer.isOperational()) {
-                        Toast.makeText(UpdateActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(UpdateDataActivity.this, "Error", Toast.LENGTH_SHORT).show();
                     } else {
                         Frame frame = new Frame.Builder().setBitmap(bitmap).build();
                         SparseArray<TextBlock> items = recognizer.detect(frame);
@@ -285,14 +309,14 @@ public class UpdateActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.medicine_det_menu, menu);
+        getMenuInflater().inflate(R.menu.schedule_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.action_next) {
-            validateAndPassData();
+        if (item.getItemId() == R.id.action_save) {
+            Update();
         }
         return super.onOptionsItemSelected(item);
     }

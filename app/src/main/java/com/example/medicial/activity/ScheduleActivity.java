@@ -150,6 +150,12 @@ public class ScheduleActivity extends AppCompatActivity {
     public void setAlarm() {
         ArrayList<Data> _Data = dbHelper.getReminderData();
         ArrayList<User> _User = dbHelper.getUserData();
+        Calendar calendar = Calendar.getInstance(), calendarDate = Calendar.getInstance();
+        @SuppressLint("SimpleDateFormat")
+        SimpleDateFormat tf = new SimpleDateFormat("HH:mm");
+        Date time;
+        String date;
+        int requestCode = 0;
 
         // to get user name and pass it.
         User user = null;
@@ -157,44 +163,27 @@ public class ScheduleActivity extends AppCompatActivity {
             user = _User.get(j);
         }
 
-        Calendar calendar = Calendar.getInstance(), calendarDate = Calendar.getInstance();
-//        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-        SimpleDateFormat tf = new SimpleDateFormat("HH:mm");
-        Date time;
-        String date;
-        int requestCode = 0;
         for (int i = 0; i < _Data.size(); i++) {
             Data data = _Data.get(i);
             requestCode = _Data.get(i).get_Med_Id();
 
             try {
-//                date = df.parse(data.get_Date());
                 date = data.get_Date();
                 time = tf.parse(data.get_Time());
 
                 if (time != null) {
                     calendarDate.setTime(time);
                     calendar.setTimeInMillis(System.currentTimeMillis());
-                    // Calendar.HOUR = 24 Hour system
-                    // HOUR_OF_DAY 12 Hour system, this lacks AM/PM, currently lacks such respect so its always 0 - 12 and will be delayed by 12 hours, depending on system calendar
-                    // needs a fix to support such system!!!
                     calendar.set(Calendar.HOUR, calendarDate.get(Calendar.HOUR));
                     calendar.set(Calendar.MINUTE, calendarDate.get(Calendar.MINUTE));
                     calendar.set(Calendar.SECOND, 0);
                     calendar.set(Calendar.MILLISECOND, 0);
                 }
-                // I've tested this without date thinking it might be problematic, by default, will take TODAY
-                // until this commented out
                 if (date != null) {
                     String[] dateArray = date.split("-");
                     calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(dateArray[0]));
                     calendar.set(Calendar.MONTH, Integer.parseInt(dateArray[1]) - 1); // month Jan is represented by the value "0", month Feb --> 1 { dateArray[1] = 2 - 1 }
                     calendar.set(Calendar.YEAR, Integer.parseInt(dateArray[2]));
-
-//                    calendarDate.setTime(date);
-//                    calendar.set(Calendar.DAY_OF_MONTH, calendarDate.get(Calendar.DAY_OF_MONTH));
-//                    calendar.set(Calendar.MONTH, calendarDate.get(Calendar.MONTH));
-//                    calendar.set(Calendar.YEAR, calendarDate.get(Calendar.YEAR));
                 }
             } catch (ParseException e) {
                 throw new RuntimeException(e);
@@ -210,9 +199,9 @@ public class ScheduleActivity extends AppCompatActivity {
             intent.putExtra("key_userName", user.getUsername());
         }
 
+        @SuppressLint("InlinedApi")
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, requestCode, intent, PendingIntent.FLAG_MUTABLE);
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-//        System.out.println("Calendar time set @ => " + calendar.getTime() + "| Current time of system:" + Calendar.getInstance().getTime());
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
         Toast.makeText(ScheduleActivity.this, "Reminder set!", Toast.LENGTH_SHORT).show();
     }
@@ -231,7 +220,7 @@ public class ScheduleActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.date_schedule_menu, menu);
+        getMenuInflater().inflate(R.menu.schedule_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
 

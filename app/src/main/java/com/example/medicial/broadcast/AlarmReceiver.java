@@ -1,5 +1,6 @@
 package com.example.medicial.broadcast;
 
+import android.annotation.SuppressLint;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -16,10 +17,11 @@ import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 
 import com.example.medicial.R;
+import com.example.medicial.activity.HomeActivity;
 
 public class AlarmReceiver extends BroadcastReceiver {
     private static final String CHANNEL_ID = "channel_id_1"; // {Every channel need unique id}
-    public static final String Title = "Take your medicine";
+    private static final String Title = "Take your medicine";
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -28,21 +30,38 @@ public class AlarmReceiver extends BroadcastReceiver {
         String _Med_Name = bundle.getString("key_medName");
         String _User_Name = bundle.getString("key_userName");
         String Message = "Hello " + _User_Name + ", its time to take your medicine " + _Med_Name;
+        String groupKey = "group_key_notifications_" + _User_Name;
+        int notificationId = (int) (System.currentTimeMillis() & 0xfffffff) + _User_Name.hashCode();
+
+        Intent _TakeIntent = new Intent(context, HomeActivity.class);
+        _TakeIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        @SuppressLint("UnspecifiedImmutableFlag")
+        PendingIntent _TakePending = PendingIntent.getActivity(context, 0, _TakeIntent, 0);
 
         Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_baseline_notification)
                 .setContentTitle(Title)
                 .setContentText(Message)
+                .setGroup(groupKey)
                 .setWhen(System.currentTimeMillis())
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setColor(ContextCompat.getColor(context, android.R.color.transparent))
                 .setVibrate(new long[]{1000, 1000, 1000, 1000, 1000})
                 .setSound(alarmSound)
+                .addAction(0, "Take", _TakePending)
                 .setAutoCancel(true);
 
+        // To set the notification in groups
+        NotificationCompat.Builder summaryBuilder = new NotificationCompat.Builder(context, CHANNEL_ID)
+                .setSmallIcon(R.drawable.ic_baseline_notification)
+                .setGroup(groupKey)
+                .setGroupSummary(true)
+                .setWhen(System.currentTimeMillis());
+
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
-        notificationManager.notify(200, builder.build());
+        notificationManager.notify(notificationId, builder.build());
+        notificationManager.notify(0, summaryBuilder.build());
     }
 
     public void createNotificationChannel(Context context) {

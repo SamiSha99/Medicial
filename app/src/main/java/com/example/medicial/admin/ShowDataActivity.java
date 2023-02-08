@@ -47,6 +47,7 @@ public class ShowDataActivity extends AppCompatActivity {
     }
 
     private void showData() {
+        @SuppressWarnings("rawtypes")
         TableView tableView = findViewById(R.id.table_data_view);
         String[] headers = {"ID", "Name", "Amount", "Time", "Date", "Description"};
         tableView.setHeaderAdapter(new SimpleTableHeaderAdapter(this, headers));

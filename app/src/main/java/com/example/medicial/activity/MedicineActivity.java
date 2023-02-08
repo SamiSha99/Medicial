@@ -80,6 +80,7 @@ public class MedicineActivity extends AppCompatActivity {
         // init permissions arrays
         camera_permissions = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
         storage_permissions = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
+
     }
 
     private void setImageViewScanner() {
@@ -153,6 +154,7 @@ public class MedicineActivity extends AppCompatActivity {
         // Intent to open camera for image
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+        //noinspection deprecation
         startActivityForResult(cameraIntent, IMAGE_PICK_CAMERA_CODE);
     }
 
@@ -160,6 +162,7 @@ public class MedicineActivity extends AppCompatActivity {
         // Intent to pick image from gallery, the image will be return onActivityResult method
         Intent galleryIntent = new Intent(Intent.ACTION_PICK);
         galleryIntent.setType("image/*"); // we want only images
+        //noinspection deprecation
         startActivityForResult(galleryIntent, IMAGE_PICK_GALLERY_CODE);
     }
 
@@ -291,7 +294,7 @@ public class MedicineActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.medicine_det_menu, menu);
+        getMenuInflater().inflate(R.menu.medicine_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
 

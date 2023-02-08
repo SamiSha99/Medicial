@@ -272,12 +272,13 @@ public class DBHelper extends SQLiteOpenHelper {
         sql.close();
     }
 
-    public void updateMedicineData(int id, String medName, int amount, String image) {
+    public void updateMedicineData(int id, String medName, int amount, String description) {
         SQLiteDatabase sql = getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("medName", medName);
         values.put("amount", amount);
-        if (!image.isEmpty()) values.put("image", image); // don't replace image if its empty!
+        values.put("description", description);
+
         sql.update("Medicine", values, "id = ?", new String[]{String.valueOf(id)});
         sql.close();
     }

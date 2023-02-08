@@ -24,7 +24,6 @@ import com.example.medicial.database.DBHelper;
 import com.example.medicial.model.Data;
 import com.example.medicial.navigationDrawer.CalendarActivity;
 import com.example.medicial.navigationDrawer.ProfileActivity;
-import com.example.medicial.navigationDrawer.SettingActivity;
 import com.example.medicial.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
@@ -147,11 +146,6 @@ public class HomeActivity extends AppCompatActivity
         } else if (item.getItemId() == R.id.nav_calendar) {
             Intent intent_calendar = new Intent(HomeActivity.this, CalendarActivity.class);
             startActivity(intent_calendar);
-            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-
-        } else if (item.getItemId() == R.id.nav_settings) {
-            Intent intent_setting = new Intent(HomeActivity.this, SettingActivity.class);
-            startActivity(intent_setting);
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
         } else if (item.getItemId() == R.id.nav_profile) {

@@ -114,12 +114,14 @@ public class ImageActivity extends AppCompatActivity {
 
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+        //noinspection deprecation
         startActivityForResult(cameraIntent, IMAGE_PICK_CAMERA_CODE);
     }
 
     private void pickFromGallery() {
         Intent galleryIntent = new Intent(Intent.ACTION_PICK);
         galleryIntent.setType("image/*"); // we want only images
+        //noinspection deprecation
         startActivityForResult(galleryIntent, IMAGE_PICK_GALLERY_CODE);
     }
 
@@ -225,7 +227,7 @@ public class ImageActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.medicine_det_menu, menu);
+        getMenuInflater().inflate(R.menu.medicine_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
 

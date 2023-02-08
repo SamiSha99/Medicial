@@ -12,10 +12,6 @@
             android:icon="@drawable/ic_baseline_calendar"
             android:title="@string/cal" />
 
-        <item
-            android:id="@+id/nav_settings"
-            android:icon="@drawable/ic_baseline_settings"
-            android:title="@string/sett" />
     </group>
 
     <item
