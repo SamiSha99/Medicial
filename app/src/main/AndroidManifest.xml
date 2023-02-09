@@ -20,6 +20,9 @@
         android:theme="@style/Theme.Medicial"
         tools:targetApi="31">
         <activity
+            android:name=".activity.TakeActivity"
+            android:exported="false" />
+        <activity
             android:name=".admin.ShowDataActivity"
             android:exported="false"
             android:parentActivityName=".admin.AdminActivity">

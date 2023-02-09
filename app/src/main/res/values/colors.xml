@@ -13,5 +13,7 @@
     <color name="yellow_300">#fff176</color>
     <color name="green">#27B24A</color>
     <color name="gray">#848484</color>
+    <color name="grayLi">#F6F6F6</color>
+    <color name="orange">#FCC314</color>
 
 </resources>

@@ -17,11 +17,13 @@ import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 
 import com.example.medicial.R;
-import com.example.medicial.activity.HomeActivity;
+import com.example.medicial.activity.TakeActivity;
 
 public class AlarmReceiver extends BroadcastReceiver {
     private static final String CHANNEL_ID = "channel_id_1"; // {Every channel need unique id}
     private static final String Title = "Take your medicine";
+    public static int notificationId = 0;
+    public static int notificationSBId = 0;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -31,9 +33,9 @@ public class AlarmReceiver extends BroadcastReceiver {
         String _User_Name = bundle.getString("key_userName");
         String Message = "Hello " + _User_Name + ", its time to take your medicine " + _Med_Name;
         String groupKey = "group_key_notifications_" + _User_Name;
-        int notificationId = (int) (System.currentTimeMillis() & 0xfffffff) + _User_Name.hashCode();
+        notificationId = (int) (System.currentTimeMillis() & 0xfffffff) + _User_Name.hashCode();
 
-        Intent _TakeIntent = new Intent(context, HomeActivity.class);
+        Intent _TakeIntent = new Intent(context, TakeActivity.class);
         _TakeIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         @SuppressLint("UnspecifiedImmutableFlag")
         PendingIntent _TakePending = PendingIntent.getActivity(context, 0, _TakeIntent, 0);
@@ -61,7 +63,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
         notificationManager.notify(notificationId, builder.build());
-        notificationManager.notify(0, summaryBuilder.build());
+        notificationManager.notify(notificationSBId, summaryBuilder.build());
     }
 
     public void createNotificationChannel(Context context) {

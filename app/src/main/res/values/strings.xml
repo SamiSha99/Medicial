@@ -65,6 +65,9 @@
     <string name="user_id">user id</string>
     <string name="create_failed">Failed to create a new user</string>
     <string name="txtv_update">Enter the user ID you want to update</string>
+    <string name="txtv_waiting">I\'m waiting for you to take your medicine</string>
+    <string name="txtv_if_take">If you take your medication,\nclick below to confirm</string>
+    <string name="btn_confirm_take">Confirm take</string>
     <!-- item card -->
     <string name="med_id">0</string>
     <string name="med_day">18</string>

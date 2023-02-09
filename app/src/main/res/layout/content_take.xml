@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="10dp"
+    android:orientation="vertical"
+    tools:context=".activity.TakeActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:text="@string/txtv_waiting"
+        android:textAlignment="center"
+        android:textColor="@color/accent"
+        android:textSize="20sp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp">
+
+        <TextView
+            android:id="@+id/timer"
+            android:layout_width="240dp"
+            android:layout_height="240dp"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:textColor="@color/accent"
+            android:textSize="100sp"
+            tools:ignore="VisualLintOverlap" />
+
+        <me.tankery.lib.circularseekbar.CircularSeekBar
+            android:id="@+id/seekbar"
+            android:layout_width="240dp"
+            android:layout_height="240dp"
+            android:layout_centerHorizontal="true"
+            app:cs_circle_color="@color/grayLi"
+            app:cs_circle_progress_color="@color/accent"
+            app:cs_circle_stroke_width="20dp"
+            app:cs_circle_style="round"
+            app:cs_lock_enabled="false"
+            app:cs_maintain_equal_circle="true"
+            app:cs_max="20"
+            app:cs_move_outside_circle="true"
+            app:cs_negative_enabled="true"
+            app:cs_pointer_color="@color/orange"
+            app:cs_pointer_halo_color="@color/accent"
+            app:cs_pointer_stroke_width="35dp"
+            app:cs_progress="8"
+            app:cs_use_custom_radii="false" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/txtv_chk"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="@string/txtv_if_take"
+        android:textAlignment="center"
+        android:textColor="@color/accent"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/btn_take"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/accent"
+        android:text="@string/btn_confirm_take"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:cornerRadius="20dp"
+        tools:ignore="DuplicateSpeakableTextCheck,TextContrastCheck,TextContrastCheck,VisualLintButtonSize" />
+
+
+</LinearLayout>
+

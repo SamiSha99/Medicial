@@ -36,6 +36,7 @@ android {
 }
 
 dependencies {
+    implementation 'me.tankery.lib:circularSeekBar:1.4.1'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
     implementation 'de.codecrafters.tableview:tableview:2.8.0'
     implementation 'com.google.android.gms:play-services-vision:19.0.0'

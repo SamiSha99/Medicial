@@ -352,4 +352,13 @@ public class DBHelper extends SQLiteOpenHelper {
         }
         return chkID;
     }
+
+    public void reduceAmount(int id, int amount) {
+        SQLiteDatabase sql = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("amount", amount);
+
+        sql.update("Medicine", values, "id = ?", new String[]{String.valueOf(id)});
+        sql.close();
+    }
 }

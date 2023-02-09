@@ -7,6 +7,7 @@ import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -155,7 +156,7 @@ public class ScheduleActivity extends AppCompatActivity {
         SimpleDateFormat tf = new SimpleDateFormat("HH:mm");
         Date time;
         String date;
-        int requestCode = 0;
+        int requestCode = 0, amount = 0;
 
         // to get user name and pass it.
         User user = null;
@@ -166,6 +167,7 @@ public class ScheduleActivity extends AppCompatActivity {
         for (int i = 0; i < _Data.size(); i++) {
             Data data = _Data.get(i);
             requestCode = _Data.get(i).get_Med_Id();
+            amount = _Data.get(i).get_Med_Amount();
 
             try {
                 date = data.get_Date();
@@ -204,6 +206,13 @@ public class ScheduleActivity extends AppCompatActivity {
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
         Toast.makeText(ScheduleActivity.this, "Reminder set!", Toast.LENGTH_SHORT).show();
+
+        // Sends the current notification Med_Id and Med_Amount to TakeActivity
+        SharedPreferences sp = getSharedPreferences("ID", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putInt("requestCode", requestCode);
+        editor.putInt("amount", amount);
+        editor.apply();
     }
 
     @Override
