@@ -38,7 +38,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         Intent _TakeIntent = new Intent(context, TakeActivity.class);
         _TakeIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         @SuppressLint("UnspecifiedImmutableFlag")
-        PendingIntent _TakePending = PendingIntent.getActivity(context, 0, _TakeIntent, 0);
+        PendingIntent _TakePending = PendingIntent.getActivity(context, 0, _TakeIntent, PendingIntent.FLAG_MUTABLE);
 
         Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)

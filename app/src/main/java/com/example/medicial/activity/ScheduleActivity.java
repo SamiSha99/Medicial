@@ -187,10 +187,21 @@ public class ScheduleActivity extends AppCompatActivity {
                     calendar.set(Calendar.MILLISECOND, 0);
                 }
                 if (date != null) {
-                    String[] dateArray = date.split("-");
-                    calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(dateArray[0]));
-                    calendar.set(Calendar.MONTH, Integer.parseInt(dateArray[1]) - 1); // month Jan is represented by the value "0", month Feb --> 1 { dateArray[1] = 2 - 1 }
-                    calendar.set(Calendar.YEAR, Integer.parseInt(dateArray[2]));
+                    if(checkBox_Daily.isChecked()) {
+                        Calendar now = Calendar.getInstance();
+                        calendar.set(Calendar.DATE, now.get(Calendar.DATE));
+                        if(now.getTimeInMillis() > calendar.getTimeInMillis()) {
+                            // to avoid it triggering if in the past
+                            calendar.add(Calendar.DATE, 1);
+                        }
+                    }
+                    else
+                    {
+                        String[] dateArray = date.split("-");
+                        calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(dateArray[0]));
+                        calendar.set(Calendar.MONTH, Integer.parseInt(dateArray[1]) - 1); // month Jan is represented by the value "0", month Feb --> 1 { dateArray[1] = 2 - 1 }
+                        calendar.set(Calendar.YEAR, Integer.parseInt(dateArray[2]));
+                    }
                 }
             } catch (ParseException e) {
                 throw new RuntimeException(e);
@@ -215,7 +226,7 @@ public class ScheduleActivity extends AppCompatActivity {
             Toast.makeText(this, "Reminder is set for once time", Toast.LENGTH_SHORT).show();
 
         } else if (checkBox_Daily.isChecked()) {
-            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY * 7, pendingIntent);
+            alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
             Toast.makeText(this, "Reminder is set for daily time", Toast.LENGTH_SHORT).show();
 
         } else {
