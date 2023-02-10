@@ -11,9 +11,9 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -37,10 +37,12 @@ import java.util.Locale;
 public class ScheduleActivity extends AppCompatActivity {
     Toolbar toolbar;
     ActionBar actionBar;
-    TextView _Date, _Time, _Repeat;
+    TextView _Date, _Time;
     ImageButton imgBtnDate, imgBtnTime;
     DBHelper dbHelper = new DBHelper(this);
     private int _Year, _Month, _Day, _Hour, _Minute;
+
+    CheckBox checkBox_Once, checkBox_Daily;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +69,9 @@ public class ScheduleActivity extends AppCompatActivity {
         imgBtnTime = findViewById(R.id.img_btn_time);
         _Time = findViewById(R.id.txtv_set_time);
         _Date = findViewById(R.id.txtv_set_date);
-        _Repeat = findViewById(R.id.txtv_set_repeat);
+
+        checkBox_Once = findViewById(R.id.checkBox_once);
+        checkBox_Daily = findViewById(R.id.checkBox_daily);
 
         // {Call time picker & date picker}
         getTime();
@@ -204,8 +208,13 @@ public class ScheduleActivity extends AppCompatActivity {
         @SuppressLint("InlinedApi")
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, requestCode, intent, PendingIntent.FLAG_MUTABLE);
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-        Toast.makeText(ScheduleActivity.this, "Reminder set!", Toast.LENGTH_SHORT).show();
+
+        if (checkBox_Once.isChecked()) {
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+        }
+        if (checkBox_Daily.isChecked()) {
+            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+        }
 
         // Sends the current notification Med_Id and Med_Amount to TakeActivity
         SharedPreferences sp = getSharedPreferences("ID", Context.MODE_PRIVATE);

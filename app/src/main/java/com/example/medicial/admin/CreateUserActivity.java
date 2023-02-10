@@ -80,7 +80,7 @@ public class CreateUserActivity extends AppCompatActivity {
                 Toast.makeText(this, getResources().getString(R.string.create_failed), Toast.LENGTH_SHORT).show();
                 return;
             }
-            ShowSuccessDialog();
+            Toast.makeText(this, getResources().getString(R.string.create_success), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -153,19 +153,6 @@ public class CreateUserActivity extends AppCompatActivity {
         } else {
             return true;
         }
-    }
-
-    private void ShowSuccessDialog() {
-        dialog.setContentView(R.layout.dialog_success);
-        Button done = dialog.findViewById(R.id.btn_done);
-
-        done.setOnClickListener(view -> {
-            dialog.dismiss();
-            onBackPressed();
-        });
-
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.show();
     }
 
     @Override

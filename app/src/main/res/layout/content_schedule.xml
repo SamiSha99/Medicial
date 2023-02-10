@@ -163,30 +163,35 @@
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
-            <ImageButton
-                android:id="@+id/img_btn_repeat"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_below="@id/txtv_repeat_time"
-                android:background="@null"
-                android:contentDescription="@string/imgv_description"
-                android:src="@drawable/ic_baseline_event_repeat" />
-
-            <TextView
-                android:id="@+id/txtv_set_repeat"
+            <LinearLayout
+                android:id="@+id/radio_group"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:layout_below="@id/txtv_repeat_time"
-                android:paddingVertical="12dp"
-                android:textAlignment="center"
-                android:textColor="@color/accent"
-                android:textColorHint="@color/gray"
-                android:textSize="20sp" />
+                android:layout_marginTop="15dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/checkBox_once"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="50dp"
+                    android:text="@string/checkbox_once" />
+
+                <CheckBox
+                    android:id="@+id/checkBox_daily"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="30dp"
+                    android:text="@string/checkbox_daily" />
+
+            </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
-                android:layout_below="@id/txtv_set_repeat"
+                android:layout_below="@id/radio_group"
                 android:alpha="0.5"
                 android:background="@color/accent" />
 

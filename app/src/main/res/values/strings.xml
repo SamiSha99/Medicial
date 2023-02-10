@@ -45,13 +45,14 @@
     <string name="text_sel_sch">Select schedule</string>
     <string name="text_desc_sch">Schedule determines when notification will be pushed</string>
     <string name="text_date">Date</string>
-    <string name="hint_date">yyyy-mm-dd</string>
+    <string name="hint_date">dd-mm-yyyy</string>
     <string name="text_time">Time</string>
     <string name="hint_time">hh:mm aa</string>
     <string name="text_repeat">Repeat at</string>
     <string name="hint_repeat">repeat</string>
     <string name="dialog_text_reg">REGISTERED</string>
     <string name="dialog_text_suc">SUCCESSFULLY</string>
+    <string name="create_success">Successful creation</string>
     <string name="dialog_text_done">Done</string>
     <string name="text_acc_info">Account information</string>
     <string name="text_user_name">User name</string>
@@ -68,6 +69,8 @@
     <string name="txtv_waiting">I\'m waiting for you to take your medicine</string>
     <string name="txtv_if_take">If you take your medication,\nclick below to confirm</string>
     <string name="btn_confirm_take">Confirm take</string>
+    <string name="checkbox_once">Once</string>
+    <string name="checkbox_daily">Daily</string>
     <!-- item card -->
     <string name="med_id">0</string>
     <string name="med_day">18</string>
