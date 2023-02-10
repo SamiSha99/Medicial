@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -211,9 +212,15 @@ public class ScheduleActivity extends AppCompatActivity {
 
         if (checkBox_Once.isChecked()) {
             alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-        }
-        if (checkBox_Daily.isChecked()) {
-            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+            Toast.makeText(this, "Reminder is set for once time", Toast.LENGTH_SHORT).show();
+
+        } else if (checkBox_Daily.isChecked()) {
+            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY * 7, pendingIntent);
+            Toast.makeText(this, "Reminder is set for daily time", Toast.LENGTH_SHORT).show();
+
+        } else {
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+            Toast.makeText(this, "Reminder is set for once time", Toast.LENGTH_SHORT).show();
         }
 
         // Sends the current notification Med_Id and Med_Amount to TakeActivity
